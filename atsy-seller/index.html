@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Atsy - Seller Dashboard</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: 'Inter', sans-serif;
+        background: #f5f5f5;
+        color: #06070a;
+      }
+      .primary-color {
+        color: #ff6b35;
+      }
+      .bg-primary {
+        background: #ff6b35;
+      }
+      .card {
+        background: white;
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .dashboard {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+      }
+
+      .logo {
+        font-family: 'Poppins', sans-serif;
+        font-size: 24px;
+        font-weight: 700;
+        color: #ff6b35;
+      }
+
+      .greeting h1 {
+        font-size: 28px;
+        margin-bottom: 5px;
+      }
+      .greeting p {
+        color: #2c2c2b;
+      }
+
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        margin: 30px 0;
+      }
+
+      .stat-card {
+        background: white;
+        padding: 20px;
+        border-radius: 12px;
+        text-align: center;
+      }
+
+      .stat-number {
+        font-size: 32px;
+        font-weight: 700;
+        color: #ff6b35;
+      }
+      .stat-label {
+        color: #2c2c2b;
+        margin-top: 5px;
+      }
+
+      .actions {
+        display: flex;
+        gap: 15px;
+        margin: 30px 0;
+      }
+
+      .btn {
+        padding: 12px 24px;
+        border-radius: 8px;
+        border: none;
+        font-weight: 500;
+        cursor: pointer;
+      }
+
+      .btn-primary {
+        background: #ff6b35;
+        color: white;
+      }
+      .btn-secondary {
+        background: #06070a;
+        color: white;
+      }
+
+      .ai-suggestions {
+        background: white;
+        padding: 20px;
+        border-radius: 12px;
+        margin: 30px 0;
+      }
+
+      .suggestion-item {
+        padding: 10px 0;
+        border-bottom: 1px solid #eee;
+      }
+
+      .impact-badge {
+        background: #ff6b35;
+        color: white;
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-size: 12px;
+        margin-left: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="dashboard">
+      <div class="header">
+        <div class="logo">Atsy</div>
+        <div class="profile-icon">👤 Amara</div>
+      </div>
+
+      <div class="greeting">
+        <h1>Good morning, Amara</h1>
+        <p>Lagos, Nigeria | Master Weaver</p>
+      </div>
+
+      <div class="stats-grid" id="stats">
+        <!-- Will be filled by JavaScript -->
+      </div>
+
+      <div class="actions">
+        <button class="btn btn-primary" onclick="location.href='upload.html'">
+          Upload Product
+        </button>
+        <button class="btn btn-secondary" onclick="location.href='orders.html'">
+          View Orders
+        </button>
+      </div>
+
+      <div class="ai-suggestions">
+        <h3>AI-Powered Suggestions</h3>
+        <div id="suggestions">
+          <!-- Will be filled by JavaScript -->
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Recent Orders</h3>
+        <div id="recent-orders">
+          <!-- Will be filled by JavaScript -->
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const API_BASE = 'https://xoqyywycygofgbgazrpu.supabase.co/rest/v1';
+      const API_KEY = 'sb_publishable_O-6kGt2-CDzg7uR8hQoK_w_ZD5M1aUo';
+
+      async function loadDashboard() {
+        // Fetch dashboard data
+        const response = await fetch(
+          `${API_BASE}/rpc/get_dashboard_summary?artisan_id_param=1`,
+          { headers: { apikey: API_KEY } }
+        );
+        const data = await response.json();
+
+        // Update stats
+        document.getElementById('stats').innerHTML = `
+                <div class="stat-card">
+                    <div class="stat-number">${data.artisan.views || 1234}</div>
+                    <div class="stat-label">Views</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${data.artisan.orders || 23}</div>
+                    <div class="stat-label">Orders</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">8</div>
+                    <div class="stat-label">Messages</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">$${
+                      data.artisan.earnings || 2450
+                    }</div>
+                    <div class="stat-label">Earnings</div>
+                </div>
+            `;
+
+        // Update recent orders
+        if (data.recent_orders && data.recent_orders.length > 0) {
+          document.getElementById('recent-orders').innerHTML =
+            data.recent_orders
+              .map(
+                (order) => `
+                    <div style="padding: 10px; border-bottom: 1px solid #eee;">
+                        <strong>${order.product_title}</strong> - $${
+                  order.amount
+                }
+                        <span style="float: right; color: ${
+                          order.status === 'Processing' ? '#FF6B35' : '#2C2C2B'
+                        }">
+                            ${order.status}
+                        </span>
+                        <div style="color: #2C2C2B; font-size: 14px;">Buyer: ${
+                          order.buyer
+                        }</div>
+                    </div>
+                `
+              )
+              .join('');
+        }
+
+        // Sample AI suggestions (from design)
+        document.getElementById('suggestions').innerHTML = `
+                <div class="suggestion-item">
+                    Improve listing: Woven Basket Set
+                    <span class="impact-badge">High Impact</span>
+                </div>
+                <div class="suggestion-item">
+                    Price recommendation: Your beaded necklaces are 15% below market
+                    <span class="impact-badge">Medium Impact</span>
+                </div>
+                <div class="suggestion-item">
+                    Trending: Kente Cloth patterns (+45% this week)
+                    <span class="impact-badge">High Impact</span>
+                </div>
+            `;
+      }
+
+      loadDashboard();
+    </script>
+  </body>
+</html>

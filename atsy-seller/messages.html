@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Atsy - Messages</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <nav class="nav">
+      <div class="nav-container">
+        <a href="index.html" class="logo">Atsy</a>
+        <div class="mobile-menu-btn" onclick="toggleMenu()">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <div class="nav-links" id="navLinks">
+          <a href="index.html">Dashboard</a>
+          <a href="upload.html">Upload</a>
+          <a href="orders.html">Orders</a>
+          <a href="messages.html" class="active">Messages</a>
+          <a href="insights.html">Insights</a>
+          <div class="profile-icon">A</div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container" style="height: calc(100vh - 100px)">
+      <div
+        style="
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 20px;
+        "
+      >
+        <h1>Messages</h1>
+        <div style="display: flex; gap: 10px">
+          <button
+            class="btn btn-outline btn-small"
+            onclick="switchTab('buyers')"
+            id="tab-buyers"
+          >
+            Buyers
+          </button>
+          <button
+            class="btn btn-primary btn-small"
+            onclick="switchTab('artisans')"
+            id="tab-artisans"
+          >
+            Artisans
+          </button>
+        </div>
+      </div>
+
+      <div class="messages-container">
+        <!-- Conversations List -->
+        <div class="conversations-list" id="conversations-list">
+          <!-- Loaded by JavaScript -->
+        </div>
+
+        <!-- Chat Area -->
+        <div class="chat-area">
+          <div class="chat-header" id="chat-header">
+            <div class="conversation-avatar">SM</div>
+            <div>
+              <h4>Sarah Mitchell</h4>
+              <p style="color: var(--success); font-size: 12px">Online</p>
+            </div>
+          </div>
+
+          <div class="chat-messages" id="chat-messages">
+            <!-- Loaded by JavaScript -->
+          </div>
+
+          <div class="quick-replies" id="quick-replies">
+            <span class="quick-reply">Thank you for your interest! ❤️</span>
+            <span class="quick-reply">I'll ship within 2-3 business days</span>
+            <span class="quick-reply">Yes, I can customize that for you</span>
+          </div>
+
+          <div class="chat-input">
+            <input
+              type="text"
+              placeholder="Type your message..."
+              id="messageInput"
+            />
+            <button class="btn btn-primary" onclick="sendMessage()">
+              Send
+            </button>
+          </div>
+          <div
+            style="padding: 0 20px 10px; font-size: 12px; color: var(--neutral)"
+          >
+            🎤 Voice notes available for quick communication
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+      let currentTab = 'buyers';
+      let activeConversation = null;
+
+      function switchTab(tab) {
+        currentTab = tab;
+
+        // Update button styles
+        document.getElementById('tab-buyers').className =
+          tab === 'buyers'
+            ? 'btn btn-primary btn-small'
+            : 'btn btn-outline btn-small';
+        document.getElementById('tab-artisans').className =
+          tab === 'artisans'
+            ? 'btn btn-primary btn-small'
+            : 'btn btn-outline btn-small';
+
+        loadConversations();
+      }
+
+      function loadConversations() {
+        const demoConversations = {
+          buyers: [
+            {
+              id: 1,
+              name: 'Sarah Mitchell',
+              avatar: 'SM',
+              lastMessage: 'Thanks! When will it ship?',
+              time: '2m ago',
+              unread: true,
+              online: true,
+            },
+            {
+              id: 2,
+              name: 'John Davidson',
+              avatar: 'JD',
+              lastMessage: 'Do you have this in blue?',
+              time: '1h ago',
+              unread: false,
+              online: false,
+            },
+            {
+              id: 3,
+              name: 'Maria Lopez',
+              avatar: 'ML',
+              lastMessage: "Received! It's beautiful ❤️",
+              time: '3h ago',
+              unread: false,
+              online: true,
+            },
+          ],
+          artisans: [
+            {
+              id: 4,
+              name: "Amara's Artisans Group",
+              avatar: '👥',
+              lastMessage: 'New beadwork techniques shared',
+              time: '30m ago',
+              unread: true,
+              online: null,
+            },
+            {
+              id: 5,
+              name: 'Weavers Collective',
+              avatar: '🪡',
+              lastMessage: 'Natural dye workshop next week',
+              time: '1d ago',
+              unread: false,
+              online: null,
+            },
+          ],
+        };
+
+        const conversations =
+          currentTab === 'buyers'
+            ? demoConversations.buyers
+            : demoConversations.artisans;
+
+        document.getElementById('conversations-list').innerHTML = conversations
+          .map(
+            (conv) => `
+                <div class="conversation-item ${
+                  activeConversation === conv.id ? 'active' : ''
+                }" onclick="selectConversation(${conv.id})">
+                    <div class="conversation-avatar" style="background: ${
+                      conv.online ? 'var(--success)' : 'var(--primary)'
+                    }">
+                        ${conv.avatar}
+                    </div>
+                    <div class="conversation-info">
+                        <div style="display: flex; justify-content: space-between;">
+                            <span class="conversation-name">${conv.name}</span>
+                            <span class="conversation-time">${conv.time}</span>
+                        </div>
+                        <div class="conversation-preview">${
+                          conv.lastMessage
+                        }</div>
+                    </div>
+                    ${
+                      conv.unread
+                        ? '<div style="width: 8px; height: 8px; background: var(--primary); border-radius: 50%;"></div>'
+                        : ''
+                    }
+                </div>
+            `
+          )
+          .join('');
+
+        // Select first conversation by default
+        if (!activeConversation && conversations.length > 0) {
+          selectConversation(conversations[0].id);
+        }
+      }
+
+      function selectConversation(id) {
+        activeConversation = id;
+        loadConversations(); // Refresh to show active state
+
+        // Load chat messages
+        document.getElementById('chat-messages').innerHTML = `
+                <div class="message received">
+                    <div class="conversation-avatar" style="width: 40px; height: 40px;">SM</div>
+                    <div class="message-content">
+                        <div class="message-bubble">
+                            Hi! I'm interested in your hand-woven basket set. Can you tell me more about the materials?
+                        </div>
+                        <div class="message-time">10:23 AM</div>
+                    </div>
+                </div>
+                <div class="message sent">
+                    <div class="message-content">
+                        <div class="message-bubble" style="background: var(--primary); color: white;">
+                            Hello Sarah! Thank you for your interest. The baskets are woven from natural palm fibers sourced from local communities. Each piece takes about 3-4 days to complete.
+                        </div>
+                        <div class="message-time">10:25 AM</div>
+                    </div>
+                </div>
+                <div class="message received">
+                    <div class="conversation-avatar" style="width: 40px; height: 40px;">SM</div>
+                    <div class="message-content">
+                        <div class="message-bubble">
+                            That's wonderful! I love supporting sustainable craftsmanship. I'd like to order the set.
+                        </div>
+                        <div class="message-time">10:28 AM</div>
+                    </div>
+                </div>
+                <div class="message sent">
+                    <div class="message-content">
+                        <div class="message-bubble" style="background: var(--primary); color: white;">
+                            That's great! I'll prepare your order today. You should receive a confirmation email shortly.
+                        </div>
+                        <div class="message-time">10:30 AM</div>
+                    </div>
+                </div>
+            `;
+
+        // Scroll to bottom
+        setTimeout(() => {
+          const chatMessages = document.getElementById('chat-messages');
+          chatMessages.scrollTop = chatMessages.scrollHeight;
+        }, 100);
+      }
+
+      function sendMessage() {
+        const input = document.getElementById('messageInput');
+        const message = input.value.trim();
+
+        if (message) {
+          // Add message to chat
+          const chatMessages = document.getElementById('chat-messages');
+          chatMessages.innerHTML += `
+                    <div class="message sent">
+                        <div class="message-content">
+                            <div class="message-bubble" style="background: var(--primary); color: white;">
+                                ${message}
+                            </div>
+                            <div class="message-time">Just now</div>
+                        </div>
+                    </div>
+                `;
+          input.value = '';
+
+          // Scroll to bottom
+          chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+      }
+
+      // Initialize
+      loadConversations();
+    </script>
+  </body>
+</html>
