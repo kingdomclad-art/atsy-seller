@@ -1,17 +1,17 @@
 /* style.css - Complete Atsy Seller Dashboard Styles */
 
 :root {
-  --primary: #ff6b35;
-  --secondary: #06070a;
-  --neutral: #2c2c2b;
-  --bg-light: #f5f5f5;
-  --white: #ffffff;
-  --success: #10b981;
-  --warning: #f59e0b;
-  --danger: #ef4444;
-  --gray-100: #f3f4f6;
-  --gray-200: #e5e7eb;
-  --gray-300: #d1d5db;
+  --primary: #FF6B35;
+  --secondary: #06070A;
+  --neutral: #2C2C2B;
+  --bg-light: #F5F5F5;
+  --white: #FFFFFF;
+  --success: #10B981;
+  --warning: #F59E0B;
+  --danger: #EF4444;
+  --gray-100: #F3F4F6;
+  --gray-200: #E5E7EB;
+  --gray-300: #D1D5DB;
 }
 
 * {
@@ -27,12 +27,7 @@ body {
   line-height: 1.5;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+h1, h2, h3, h4, h5, h6 {
   font-family: 'Poppins', sans-serif;
   font-weight: 600;
 }
@@ -47,7 +42,7 @@ h6 {
 .nav {
   background: var(--white);
   padding: 15px 20px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
   position: sticky;
   top: 0;
   z-index: 100;
@@ -120,23 +115,23 @@ h6 {
 
 @media (max-width: 768px) {
   .nav-links {
-    display: none;
-    position: absolute;
-    top: 70px;
-    left: 0;
-    right: 0;
-    background: var(--white);
-    flex-direction: column;
-    padding: 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      display: none;
+      position: absolute;
+      top: 70px;
+      left: 0;
+      right: 0;
+      background: var(--white);
+      flex-direction: column;
+      padding: 20px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
   }
-
+  
   .nav-links.active {
-    display: flex;
+      display: flex;
   }
-
+  
   .mobile-menu-btn {
-    display: flex;
+      display: flex;
   }
 }
 
@@ -153,7 +148,7 @@ h6 {
 
 .btn:hover {
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
 .btn:active {
@@ -186,7 +181,7 @@ h6 {
   background: var(--white);
   border-radius: 12px;
   padding: 20px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 /* Stats Grid */
@@ -207,7 +202,7 @@ h6 {
 
 .stat-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 .stat-number {
@@ -365,7 +360,7 @@ h6 {
 
 /* AI Suggestion Badge */
 .ai-badge {
-  background: linear-gradient(135deg, var(--primary), #ff8c5a);
+  background: linear-gradient(135deg, var(--primary), #FF8C5A);
   color: var(--white);
   padding: 2px 8px;
   border-radius: 4px;
@@ -426,7 +421,7 @@ h6 {
   display: flex;
   align-items: center;
   gap: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
 .order-image {
@@ -737,33 +732,15 @@ h6 {
 }
 
 @keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
+  to { transform: rotate(360deg); }
 }
 
 /* Utilities */
-.text-primary {
-  color: var(--primary);
-}
-.text-success {
-  color: var(--success);
-}
-.text-warning {
-  color: var(--warning);
-}
-.text-danger {
-  color: var(--danger);
-}
-.text-center {
-  text-align: center;
-}
-.mt-20 {
-  margin-top: 20px;
-}
-.mb-20 {
-  margin-bottom: 20px;
-}
-.hidden {
-  display: none;
-}
+.text-primary { color: var(--primary); }
+.text-success { color: var(--success); }
+.text-warning { color: var(--warning); }
+.text-danger { color: var(--danger); }
+.text-center { text-align: center; }
+.mt-20 { margin-top: 20px; }
+.mb-20 { margin-bottom: 20px; }
+.hidden { display: none; }
