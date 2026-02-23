@@ -178,5 +178,138 @@
     </div>
 
     <script>
-        const API_BASE = 'https://xoqyywycygof
+        const API_BASE = 'https://xoqyywycygofgbgazrpu.supabase.co/rest/v1';
+        const API_KEY = 'sb_publishable_O-6kGt2-CDzg7uR8hQoK_w_ZD5M1aUo';
+
+        // Step navigation
+        let currentStep = 1;
+
+        function nextStep(step) {
+            // Hide current step
+            document.getElementById(`step${currentStep}-content`).style.display = 'none';
+            document.getElementById(`step${currentStep}`).classList.remove('active');
+            
+            // Show next step
+            document.getElementById(`step${step}-content`).style.display = 'block';
+            document.getElementById(`step${step}`).classList.add('active');
+            
+            // Mark previous step as completed
+            document.getElementById(`step${currentStep}`).classList.add('completed');
+            
+            currentStep = step;
+            
+            // Update preview if moving to step 4
+            if (step === 4) {
+                updatePreview();
+            }
+        }
+
+        function prevStep(step) {
+            // Hide current step
+            document.getElementById(`step${currentStep}-content`).style.display = 'none';
+            document.getElementById(`step${currentStep}`).classList.remove('active');
+            
+            // Show previous step
+            document.getElementById(`step${step}-content`).style.display = 'block';
+            document.getElementById(`step${step}`).classList.add('active');
+            
+            currentStep = step;
+        }
+
+        function updatePreview() {
+            // Update preview with entered values
+            document.getElementById('previewTitle').textContent = 
+                document.getElementById('productTitle').value || 'Hand-woven Basket Set';
+            document.getElementById('previewCategory').textContent = 
+                document.getElementById('productCategory').value || 'Basketry';
+            document.getElementById('previewPrice').textContent = 
+                '$' + (document.getElementById('productPrice').value || '85');
+            document.getElementById('previewDescription').textContent = 
+                document.getElementById('productDescription').value || 'Beautiful natural fiber baskets woven by hand...';
+        }
+
+        // Handle image upload
+        async function handleImageUpload(event) {
+            const files = event.target.files;
+            const previewGrid = document.getElementById('imagePreview');
+            const uploadStatus = document.getElementById('uploadStatus');
+            
+            if (files.length === 0) return;
+            
+            // Show loading state
+            uploadStatus.innerHTML = 'Uploading... 📸';
+            uploadStatus.style.color = 'var(--primary)';
+            
+            // Simulate upload (in production, upload to server)
+            setTimeout(() => {
+                // Clear previous previews
+                previewGrid.innerHTML = '';
+                
+                // Show preview for each image
+                for (let i = 0; i < Math.min(files.length, 3); i++) {
+                    const file = files[i];
+                    const reader = new FileReader();
+                    
+                    reader.onload = function(e) {
+                        const img = document.createElement('img');
+                        img.src = e.target.result;
+                        img.className = 'preview-image';
+                        img.alt = 'Preview';
+                        previewGrid.appendChild(img);
+                    };
+                    
+                    reader.readAsDataURL(file);
+                }
+                
+                // Show success message
+                uploadStatus.innerHTML = `✅ ${files.length} image(s) uploaded successfully!`;
+                uploadStatus.style.color = 'green';
+                
+                if (files.length > 3) {
+                    uploadStatus.innerHTML += ' (Only first 3 shown)';
+                }
+            }, 1500);
+        }
+
+        // Publish product
+        async function publishProduct() {
+            const productData = {
+                artisan_id: 1,
+                title: document.getElementById('productTitle').value || 'Hand-woven Basket Set',
+                category: document.getElementById('productCategory').value || 'Basketry',
+                price: parseFloat(document.getElementById('productPrice').value) || 85,
+                description: document.getElementById('productDescription').value || 'Beautiful handcrafted product',
+                quantity: document.querySelector('#step3-content input[type="number"]').value || 10,
+                processing_time: document.querySelector('#step3-content select').value || '3-5 business days'
+            };
+            
+            // Show loading
+            const publishBtn = event.target;
+            publishBtn.textContent = 'Publishing...';
+            publishBtn.disabled = true;
+            
+            try {
+                // In production, you'd call your API here
+                // const response = await fetchAPI('/products', { method: 'POST', body: JSON.stringify(productData) });
+                
+                // For demo, simulate success
+                setTimeout(() => {
+                    alert('✅ Product published successfully!');
+                    window.location.href = 'index.html';
+                }, 1500);
+                
+            } catch (error) {
+                alert('Error publishing product. Please try again.');
+                publishBtn.textContent = 'Publish Product';
+                publishBtn.disabled = false;
+            }
+        }
+
+        // Toggle mobile menu
+        function toggleMenu() {
+            document.getElementById('navLinks').classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
         

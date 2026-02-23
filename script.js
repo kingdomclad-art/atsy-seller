@@ -210,7 +210,7 @@ async function handleImageUpload(event) {
       }
       
       // Show success message
-      uploadStatus.innerHTML = '✅ Upload successful!';
+      uploadStatus.innerHTML = '✅ ${files.length} image(s) uploaded successfully!';
       uploadStatus.style.color = 'green';
   }, 1500);
 }
