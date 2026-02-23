@@ -69,11 +69,11 @@ function showLoading(elementId) {
   const element = document.getElementById(elementId);
   if (element) {
     element.innerHTML = `
-            <div class="loading">
-                <div class="loading-spinner"></div>
-                <p>Loading...</p>
-            </div>
-        `;
+      <div class="loading">
+        <div class="loading-spinner"></div>
+        <p>Loading...</p>
+      </div>
+    `;
   }
 }
 
@@ -82,23 +82,22 @@ function showError(elementId, message) {
   const element = document.getElementById(elementId);
   if (element) {
     element.innerHTML = `
-            <div class="card" style="text-align: center; padding: 40px;">
-                <div style="font-size: 48px; margin-bottom: 20px;">😕</div>
-                <h3>Oops! Something went wrong</h3>
-                <p style="color: var(--neutral); margin: 10px 0;">${
-                  message || 'Please try again later.'
-                }</p>
-                <button class="btn btn-primary" onclick="location.reload()" style="margin-top: 20px;">
-                    Try Again
-                </button>
-            </div>
-        `;
+      <div class="card" style="text-align: center; padding: 40px;">
+        <div style="font-size: 48px; margin-bottom: 20px;">😕</div>
+        <h3>Oops! Something went wrong</h3>
+        <p style="color: var(--neutral); margin: 10px 0;">${
+          message || 'Please try again later.'
+        }</p>
+        <button class="btn btn-primary" onclick="location.reload()" style="margin-top: 20px;">
+          Try Again
+        </button>
+      </div>
+    `;
   }
 }
 
 // Show success message
 function showSuccess(message) {
-  // You can implement a toast notification here
   alert(message); // Simple for now
 }
 
@@ -138,8 +137,8 @@ async function uploadProduct(productData) {
   });
 }
 
-// Update order status
-async function updateOrderStatus(orderId, status) {
+// Update order status (API call)
+async function updateOrderStatusAPI(orderId, status) {
   return await fetchAPI(`/orders?id=eq.${orderId}`, {
     method: 'PATCH',
     body: JSON.stringify({ status }),
@@ -178,7 +177,7 @@ async function getReviews(productId = null) {
   return await fetchAPI(endpoint);
 }
 
-//Replace the handleImageUpload function
+// Handle image upload
 async function handleImageUpload(event) {
   const files = event.target.files;
   const previewGrid = document.getElementById('imagePreview');
@@ -188,31 +187,85 @@ async function handleImageUpload(event) {
   
   // Show loading state
   uploadStatus.innerHTML = 'Uploading... 📸';
+  uploadStatus.style.color = 'var(--primary)';
   
-  // For demo, we'll simulate upload success
-  // In production, you'd upload to Supabase Storage
+  // For demo, simulate upload success
   setTimeout(() => {
-      // Show preview
-      previewGrid.innerHTML = '';
-      for (let i = 0; i < Math.min(files.length, 3); i++) {
-          const file = files[i];
-          const reader = new FileReader();
-          
-          reader.onload = function(e) {
-              const img = document.createElement('img');
-              img.src = e.target.result;
-              img.className = 'preview-image';
-              img.alt = 'Preview';
-              previewGrid.appendChild(img);
-          };
-          
-          reader.readAsDataURL(file);
-      }
+    // Show preview
+    previewGrid.innerHTML = '';
+    for (let i = 0; i < Math.min(files.length, 3); i++) {
+      const file = files[i];
+      const reader = new FileReader();
       
-      // Show success message
-      uploadStatus.innerHTML = '✅ ${files.length} image(s) uploaded successfully!';
-      uploadStatus.style.color = 'green';
+      reader.onload = function(e) {
+        const img = document.createElement('img');
+        img.src = e.target.result;
+        img.className = 'preview-image';
+        img.alt = 'Preview';
+        previewGrid.appendChild(img);
+      };
+      
+      reader.readAsDataURL(file);
+    }
+    
+    // Show success message
+    uploadStatus.innerHTML = `✅ ${files.length} image(s) uploaded successfully!`;
+    uploadStatus.style.color = 'green';
+    
+    if (files.length > 3) {
+      uploadStatus.innerHTML += ' (Only first 3 shown)';
+    }
   }, 1500);
+}
+
+// Show toast notification (used across pages)
+function showToast(message, type = 'success') {
+  // Remove existing toast if any
+  const existingToast = document.getElementById('toast');
+  if (existingToast) {
+    existingToast.remove();
+  }
+  
+  // Create toast element
+  const toast = document.createElement('div');
+  toast.id = 'toast';
+  toast.style.cssText = `
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: ${type === 'success' ? 'var(--success)' : 'var(--primary)'};
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 2000;
+    font-weight: 500;
+    animation: slideIn 0.3s ease;
+  `;
+  
+  // Add animation if not exists
+  if (!document.getElementById('toast-animation')) {
+    const style = document.createElement('style');
+    style.id = 'toast-animation';
+    style.textContent = `
+      @keyframes slideIn {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+      }
+    `;
+    document.head.appendChild(style);
+  }
+  
+  toast.textContent = message;
+  document.body.appendChild(toast);
+  
+  // Hide after 3 seconds
+  setTimeout(() => {
+    toast.style.animation = 'slideOut 0.3s ease';
+    toast.style.transform = 'translateX(100%)';
+    toast.style.opacity = '0';
+    setTimeout(() => toast.remove(), 300);
+  }, 3000);
 }
 
 // Initialize page

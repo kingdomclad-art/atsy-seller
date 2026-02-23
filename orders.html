@@ -127,40 +127,47 @@
                 return;
             }
 
-            container.innerHTML = orders.map(order => `
-                <div class="order-card">
-                    <img src="${order.product_image || 'https://via.placeholder.com/80x80/FF6B35/FFFFFF?text=Product'}" 
-                         alt="${order.product_title}" 
-                         class="order-image"
-                         onerror="this.src='https://via.placeholder.com/80x80/FF6B35/FFFFFF?text=Product'">
-                    <div class="order-details">
-                        <div class="order-title">${order.product_title || 'Handcrafted Item'}</div>
-                        <div class="order-meta">
-                            <span>Order #${order.order_number}</span>
-                            <span>${formatDate(order.created_at)}</span>
-                            <span>Qty: ${order.quantity || 1}</span>
+            container.innerHTML = orders.map(order => {
+                // Determine action button based on status
+                let actionButton = '';
+                if (order.status === 'Processing') {
+                    actionButton = '<button class="btn btn-small btn-primary" onclick="updateOrderStatus(\'' + order.order_number + '\', \'accept\')">Accept Order</button>';
+                } else if (order.status === 'Shipped') {
+                    actionButton = '<button class="btn btn-small btn-success" onclick="updateOrderStatus(\'' + order.order_number + '\', \'delivered\')">Confirm Delivery</button>';
+                }
+                
+                return `
+                    <div class="order-card">
+                        <img src="${order.product_image || 'https://via.placeholder.com/80x80/FF6B35/FFFFFF?text=' + (order.product_title?.substring(0,3) || 'PROD')}" 
+                             alt="${order.product_title}" 
+                             class="order-image"
+                             onerror="this.src='https://via.placeholder.com/80x80/FF6B35/FFFFFF?text=PROD'">
+                        <div class="order-details">
+                            <div class="order-title">${order.product_title || 'Handcrafted Item'}</div>
+                            <div class="order-meta">
+                                <span>Order #${order.order_number}</span>
+                                <span>${formatDate(order.created_at)}</span>
+                                <span>Qty: ${order.quantity || 1}</span>
+                            </div>
+                            <div style="margin-top: 8px;">
+                                <strong>Buyer:</strong> ${order.buyer_name}
+                            </div>
                         </div>
-                        <div style="margin-top: 8px;">
-                            <strong>Buyer:</strong> ${order.buyer_name}
+                        <div style="text-align: right; min-width: 120px;">
+                            <div style="font-size: 20px; font-weight: 600; color: var(--primary); margin-bottom: 10px;">
+                                $${order.total_amount}
+                            </div>
+                            <span class="order-status status-${order.status.toLowerCase()}">${order.status}</span>
+                            
+                            <!-- Action buttons -->
+                            <div style="margin-top: 10px; display: flex; gap: 5px; justify-content: flex-end;">
+                                ${actionButton}
+                                <button class="btn btn-small btn-outline" onclick="viewOrderDetails('${order.order_number}')">View Details</button>
+                            </div>
                         </div>
                     </div>
-                    <div style="text-align: right; min-width: 120px;">
-                        <div style="font-size: 20px; font-weight: 600; color: var(--primary); margin-bottom: 10px;">
-                            $${order.total_amount}
-                        </div>
-                        <span class="order-status status-${order.status.toLowerCase()}">${order.status}</span>
-                        
-                        <!-- Action buttons based on status -->
-                        <div style="margin-top: 10px; display: flex; gap: 5px; justify-content: flex-end;">
-                            ${order.status === 'Processing' ? 
-                                '<button class="btn btn-small btn-primary" onclick="updateOrderStatus(\'' + order.order_number + '\', \'accept\')">Accept</button>' : ''}
-                            ${order.status === 'Shipped' ? 
-                                '<button class="btn btn-small btn-success" onclick="updateOrderStatus(\'' + order.order_number + '\', \'delivered\')">Confirm</button>' : ''}
-                            <button class="btn btn-small btn-outline" onclick="viewOrderDetails(\'' + order.order_number + '\')">View</button>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
+                `;
+            }).join('');
         }
 
         function filterOrders(status) {
@@ -182,13 +189,99 @@
         }
 
         function updateOrderStatus(orderNumber, action) {
-            alert(`Order ${orderNumber} ${action === 'accept' ? 'accepted' : 'updated'}! (Demo)`);
-            // In production, call API here
+            // Find the button that was clicked
+            const btn = event.target;
+            const originalText = btn.textContent;
+            
+            // Show loading state
+            btn.textContent = 'Updating...';
+            btn.disabled = true;
+            
+            // Determine new status
+            let newStatus = '';
+            let successMessage = '';
+            
+            if (action === 'accept') {
+                newStatus = 'Processing';
+                successMessage = `✅ Order ${orderNumber} accepted!`;
+            } else if (action === 'delivered') {
+                newStatus = 'Completed';
+                successMessage = `✅ Order ${orderNumber} marked as delivered!`;
+            }
+            
+            // Update in local array
+            const orderIndex = allOrders.findIndex(o => o.order_number === orderNumber);
+            if (orderIndex !== -1) {
+                allOrders[orderIndex].status = newStatus;
+            }
+            
+            // Simulate API call delay
+            setTimeout(() => {
+                // Refresh the display
+                displayOrders(allOrders);
+                
+                // Show success toast
+                showToast(successMessage);
+                
+                // Note: button is now gone from DOM because displayOrders rerendered
+            }, 800);
         }
 
         function viewOrderDetails(orderNumber) {
-            alert(`Viewing details for order ${orderNumber} (Demo)`);
-            // In production, navigate to order details page
+            const order = allOrders.find(o => o.order_number === orderNumber);
+            if (!order) return;
+            
+            // Create modal HTML
+            const modalHtml = `
+                <div style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 2000;" onclick="this.remove()">
+                    <div style="background: white; padding: 30px; border-radius: 12px; max-width: 500px; width: 90%; max-height: 80vh; overflow-y: auto;" onclick="event.stopPropagation()">
+                        <h2 style="margin-bottom: 20px; color: var(--primary);">Order Details</h2>
+                        
+                        <div style="display: flex; gap: 20px; margin-bottom: 20px;">
+                            <img src="${order.product_image || 'https://via.placeholder.com/100x100/FF6B35/FFFFFF?text=' + (order.product_title?.substring(0,3) || 'PROD')}" 
+                                 style="width: 100px; height: 100px; border-radius: 8px; object-fit: cover;">
+                            <div>
+                                <p style="font-size: 18px; font-weight: 600; margin-bottom: 5px;">${order.product_title}</p>
+                                <p style="color: var(--neutral);">Order #${order.order_number}</p>
+                                <p style="color: var(--neutral);">Buyer: ${order.buyer_name}</p>
+                            </div>
+                        </div>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; background: var(--gray-100); padding: 15px; border-radius: 8px;">
+                            <div>
+                                <p style="color: var(--neutral); font-size: 12px; margin-bottom: 5px;">QUANTITY</p>
+                                <p style="font-weight: 600; font-size: 16px;">${order.quantity || 1}</p>
+                            </div>
+                            <div>
+                                <p style="color: var(--neutral); font-size: 12px; margin-bottom: 5px;">AMOUNT</p>
+                                <p style="font-weight: 600; font-size: 16px; color: var(--primary);">$${order.total_amount}</p>
+                            </div>
+                            <div>
+                                <p style="color: var(--neutral); font-size: 12px; margin-bottom: 5px;">STATUS</p>
+                                <p><span class="order-status status-${order.status.toLowerCase()}">${order.status}</span></p>
+                            </div>
+                            <div>
+                                <p style="color: var(--neutral); font-size: 12px; margin-bottom: 5px;">DATE</p>
+                                <p>${new Date(order.created_at).toLocaleDateString()}</p>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-bottom: 20px;">
+                            <p style="color: var(--neutral); font-size: 12px; margin-bottom: 5px;">SHIPPING ADDRESS</p>
+                            <p style="background: var(--gray-100); padding: 10px; border-radius: 8px;">123 Main Street, Lagos, Nigeria</p>
+                        </div>
+                        
+                        <div style="margin-bottom: 20px;">
+                            <p style="color: var(--neutral); font-size: 12px; margin-bottom: 5px;">ORDER NOTES</p>
+                            <p style="background: var(--gray-100); padding: 10px; border-radius: 8px;">Please handle with care. This is a gift.</p>
+                        </div>
+                        
+                        <button class="btn btn-primary" style="width: 100%;" onclick="this.closest('div[style*="background"]').remove()">Close</button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.insertAdjacentHTML('beforeend', modalHtml);
         }
 
         function formatDate(dateString) {
