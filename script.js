@@ -178,37 +178,41 @@ async function getReviews(productId = null) {
   return await fetchAPI(endpoint);
 }
 
-// Handle image upload preview
-function handleImageUpload(event) {
+//Replace the handleImageUpload function
+async function handleImageUpload(event) {
   const files = event.target.files;
   const previewGrid = document.getElementById('imagePreview');
-
-  if (previewGrid) {
-    previewGrid.innerHTML = '';
-
-    for (let i = 0; i < Math.min(files.length, 3); i++) {
-      const file = files[i];
-      const reader = new FileReader();
-
-      reader.onload = function (e) {
-        const img = document.createElement('img');
-        img.src = e.target.result;
-        img.className = 'preview-image';
-        img.alt = 'Preview';
-        previewGrid.appendChild(img);
-      };
-
-      reader.readAsDataURL(file);
-    }
-
-    if (files.length > 3) {
-      const note = document.createElement('p');
-      note.textContent = `+${files.length - 3} more images`;
-      note.style.marginTop = '10px';
-      note.style.color = 'var(--neutral)';
-      previewGrid.appendChild(note);
-    }
-  }
+  const uploadStatus = document.getElementById('uploadStatus');
+  
+  if (files.length === 0) return;
+  
+  // Show loading state
+  uploadStatus.innerHTML = 'Uploading... 📸';
+  
+  // For demo, we'll simulate upload success
+  // In production, you'd upload to Supabase Storage
+  setTimeout(() => {
+      // Show preview
+      previewGrid.innerHTML = '';
+      for (let i = 0; i < Math.min(files.length, 3); i++) {
+          const file = files[i];
+          const reader = new FileReader();
+          
+          reader.onload = function(e) {
+              const img = document.createElement('img');
+              img.src = e.target.result;
+              img.className = 'preview-image';
+              img.alt = 'Preview';
+              previewGrid.appendChild(img);
+          };
+          
+          reader.readAsDataURL(file);
+      }
+      
+      // Show success message
+      uploadStatus.innerHTML = '✅ Upload successful!';
+      uploadStatus.style.color = 'green';
+  }, 1500);
 }
 
 // Initialize page
