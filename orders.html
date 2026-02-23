@@ -239,21 +239,19 @@
     
     // Get proper initials for image
     let initials = 'PR';
-    if (order.product_title && order.product_title !== 'Handcrafted Item') {
-        const words = order.product_title.split(' ');
-        if (words.length > 1) {
-            // Take first letter of first two words
-            initials = (words[0][0] + words[1][0]).toUpperCase();
-        } else {
-            // Take first two letters of single word
-            initials = order.product_title.substring(0, 2).toUpperCase();
-        }
+if (order.product_title) {
+    const words = order.product_title.split(' ');
+    if (words.length > 1) {
+        initials = (words[0][0] + words[1][0]).toUpperCase();
     } else {
-        // Fallback based on order number if title is generic
-        if (order.order_number === 'ORD-1234') initials = 'HA';
-        else if (order.order_number === 'ORD-1233') initials = 'TR';
-        else if (order.order_number === 'ORD-1232') initials = 'CE';
+        initials = order.product_title.substring(0, 2).toUpperCase();
     }
+} else {
+    // Fallback based on order number
+    if (order.order_number === 'ORD-1234') initials = 'HA';
+    else if (order.order_number === 'ORD-1233') initials = 'TR';
+    else if (order.order_number === 'ORD-1232') initials = 'CE';
+}
     
     // Format date nicely
     const orderDate = new Date(order.created_at).toLocaleDateString('en-US', {
