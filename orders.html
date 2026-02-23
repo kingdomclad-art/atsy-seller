@@ -78,105 +78,112 @@
         }
 
         function loadDemoOrders() {
-            allOrders = [
-                {
-                    order_number: 'ORD-1234',
-                    product_title: 'Hand-woven Basket Set',
-                    buyer_name: 'Sarah Mitchell',
-                    quantity: 2,
-                    total_amount: 170,
-                    status: 'Processing',
-                    created_at: '2026-02-18'
-                },
-                {
-                    order_number: 'ORD-1233',
-                    product_title: 'Traditional Beaded Necklace',
-                    buyer_name: 'John Davidson',
-                    quantity: 1,
-                    total_amount: 45,
-                    status: 'Shipped',
-                    created_at: '2026-02-17'
-                },
-                {
-                    order_number: 'ORD-1232',
-                    product_title: 'Handcrafted Ceramic Bowl',
-                    buyer_name: 'Maria Lopez',
-                    quantity: 1,
-                    total_amount: 120,
-                    status: 'Completed',
-                    created_at: '2026-02-15'
-                }
-            ];
-            displayOrders(allOrders);
+    allOrders = [
+        {
+            order_number: 'ORD-1234',
+            product_title: 'Hand-woven Basket Set',  // This gives "HA"
+            buyer_name: 'Sarah Mitchell',
+            quantity: 2,
+            total_amount: 170,
+            status: 'Processing',
+            created_at: '2026-02-18'
+        },
+        {
+            order_number: 'ORD-1233',
+            product_title: 'Traditional Beaded Necklace',  // This gives "TR" 
+            buyer_name: 'John Davidson',
+            quantity: 1,
+            total_amount: 45,
+            status: 'Shipped',
+            created_at: '2026-02-17'
+        },
+        {
+            order_number: 'ORD-1232',
+            product_title: 'Handcrafted Ceramic Bowl',  // This gives "CE"
+            buyer_name: 'Maria Lopez',
+            quantity: 1,
+            total_amount: 120,
+            status: 'Completed',
+            created_at: '2026-02-15'
         }
+    ];
+    displayOrders(allOrders);
+}
 
         function displayOrders(orders) {
-            const container = document.getElementById('orders-list');
-            
-            if (orders.length === 0) {
-                container.innerHTML = `
-                    <div class="card" style="text-align: center; padding: 60px;">
-                        <div style="font-size: 48px; margin-bottom: 20px;">📦</div>
-                        <h3>No orders found</h3>
-                        <p style="color: var(--neutral); margin: 10px 0;">When you receive orders, they'll appear here</p>
-                    </div>
-                `;
-                return;
-            }
+    const container = document.getElementById('orders-list');
+    
+    if (orders.length === 0) {
+        container.innerHTML = `
+            <div class="card" style="text-align: center; padding: 60px;">
+                <div style="font-size: 48px; margin-bottom: 20px;">📦</div>
+                <h3>No orders found</h3>
+                <p style="color: var(--neutral); margin: 10px 0;">When you receive orders, they'll appear here</p>
+            </div>
+        `;
+        return;
+    }
 
-            container.innerHTML = orders.map(order => {
-                // Get first two letters of product for image
-                let initials = 'PR';
-                if (order.product_title) {
-                    const words = order.product_title.split(' ');
-                    if (words.length > 1) {
-                        initials = (words[0][0] + words[1][0]).toUpperCase();
-                    } else {
-                        initials = order.product_title.substring(0, 2).toUpperCase();
-                    }
-                }
-                
-                // Determine action button based on status
-                let actionButton = '';
-                if (order.status === 'Processing') {
-                    actionButton = `<button class="btn btn-small btn-primary" onclick="updateOrderStatus('${order.order_number}', 'accept')">Accept Order</button>`;
-                } else if (order.status === 'Shipped') {
-                    actionButton = `<button class="btn btn-small btn-success" onclick="updateOrderStatus('${order.order_number}', 'delivered')">Confirm Delivery</button>`;
-                }
-                
-                return `
-                    <div class="order-card">
-                        <img src="https://ui-avatars.com/api/?name=${initials}&size=80&background=FF6B35&color=fff&length=2&bold=true&font-size=0.40" 
-                             alt="${order.product_title}" 
-                             class="order-image"
-                             onerror="this.src='https://ui-avatars.com/api/?name=PR&size=80&background=FF6B35&color=fff'">
-                        <div class="order-details">
-                            <div class="order-title">${order.product_title || 'Handcrafted Item'}</div>
-                            <div class="order-meta">
-                                <span>Order #${order.order_number}</span>
-                                <span>${formatDate(order.created_at)}</span>
-                                <span>Qty: ${order.quantity || 1}</span>
-                            </div>
-                            <div style="margin-top: 8px;">
-                                <strong>Buyer:</strong> ${order.buyer_name}
-                            </div>
-                        </div>
-                        <div style="text-align: right; min-width: 120px;">
-                            <div style="font-size: 20px; font-weight: 600; color: var(--primary); margin-bottom: 10px;">
-                                $${order.total_amount}
-                            </div>
-                            <span class="order-status status-${order.status.toLowerCase()}">${order.status}</span>
-                            
-                            <!-- Action buttons -->
-                            <div style="margin-top: 10px; display: flex; gap: 5px; justify-content: flex-end;">
-                                ${actionButton}
-                                <button class="btn btn-small btn-outline" onclick="viewOrderDetails('${order.order_number}')">View Details</button>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }).join('');
+    container.innerHTML = orders.map(order => {
+        // Get proper initials for image based on product title
+        let initials = 'PR';
+        if (order.product_title && order.product_title !== 'Handcrafted Item') {
+            const words = order.product_title.split(' ');
+            if (words.length > 1) {
+                // Take first letter of first two words
+                initials = (words[0][0] + words[1][0]).toUpperCase();
+            } else {
+                // Take first two letters of single word
+                initials = order.product_title.substring(0, 2).toUpperCase();
+            }
+        } else {
+            // Fallback based on order number
+            if (order.order_number === 'ORD-1234') initials = 'HA';
+            else if (order.order_number === 'ORD-1233') initials = 'TR';
+            else if (order.order_number === 'ORD-1232') initials = 'CE';
         }
+        
+        // Determine action button based on status
+        let actionButton = '';
+        if (order.status === 'Processing') {
+            actionButton = `<button class="btn btn-small btn-primary" onclick="updateOrderStatus('${order.order_number}', 'accept')">Accept Order</button>`;
+        } else if (order.status === 'Shipped') {
+            actionButton = `<button class="btn btn-small btn-success" onclick="updateOrderStatus('${order.order_number}', 'delivered')">Confirm Delivery</button>`;
+        }
+        
+        return `
+            <div class="order-card">
+                <img src="https://ui-avatars.com/api/?name=${initials}&size=80&background=FF6B35&color=fff&length=2&bold=true&font-size=0.40" 
+                     alt="${order.product_title}" 
+                     class="order-image"
+                     onerror="this.src='https://ui-avatars.com/api/?name=PR&size=80&background=FF6B35&color=fff'">
+                <div class="order-details">
+                    <div class="order-title">${order.product_title || 'Handcrafted Item'}</div>
+                    <div class="order-meta">
+                        <span>Order #${order.order_number}</span>
+                        <span>${formatDate(order.created_at)}</span>
+                        <span>Qty: ${order.quantity || 1}</span>
+                    </div>
+                    <div style="margin-top: 8px;">
+                        <strong>Buyer:</strong> ${order.buyer_name}
+                    </div>
+                </div>
+                <div style="text-align: right; min-width: 120px;">
+                    <div style="font-size: 20px; font-weight: 600; color: var(--primary); margin-bottom: 10px;">
+                        $${order.total_amount}
+                    </div>
+                    <span class="order-status status-${order.status.toLowerCase()}">${order.status}</span>
+                    
+                    <!-- Action buttons -->
+                    <div style="margin-top: 10px; display: flex; gap: 5px; justify-content: flex-end;">
+                        ${actionButton}
+                        <button class="btn btn-small btn-outline" onclick="viewOrderDetails('${order.order_number}')">View Details</button>
+                    </div>
+                </div>
+            </div>
+        `;
+    }).join('');
+}
 
         function filterOrders(status) {
             // Update active button
