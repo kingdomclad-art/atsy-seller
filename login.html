@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atsy - Sign In</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: white;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .top-nav {
+            background: white;
+            padding: 20px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: #FF6B35;
+            text-decoration: none;
+        }
+        
+        .nav-center {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+        }
+        
+        .nav-center a {
+            color: #06070A;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .login-container {
+            max-width: 400px;
+            margin: 60px auto;
+            padding: 40px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        
+        .login-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .login-header h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 28px;
+            margin-bottom: 10px;
+            color: #06070A;
+        }
+        
+        .login-header p {
+            color: #2C2C2B;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #06070A;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.2s;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #FF6B35;
+        }
+        
+        .forgot-password {
+            text-align: right;
+            margin-bottom: 20px;
+        }
+        
+        .forgot-password a {
+            color: #FF6B35;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        .login-btn {
+            width: 100%;
+            padding: 14px;
+            background: #FF6B35;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .login-btn:hover {
+            background: #e55a2b;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+        }
+        
+        .divider {
+            text-align: center;
+            margin: 20px 0;
+            position: relative;
+        }
+        
+        .divider::before,
+        .divider::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 45%;
+            height: 1px;
+            background: #e5e7eb;
+        }
+        
+        .divider::before {
+            left: 0;
+        }
+        
+        .divider::after {
+            right: 0;
+        }
+        
+        .divider span {
+            background: white;
+            padding: 0 10px;
+            color: #2C2C2B;
+            font-size: 14px;
+        }
+        
+        .social-btn {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 10px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            background: white;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .social-btn:hover {
+            background: #f9f9f9;
+        }
+        
+        .signup-link {
+            text-align: center;
+            margin-top: 20px;
+            color: #2C2C2B;
+        }
+        
+        .signup-link a {
+            color: #FF6B35;
+            text-decoration: none;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-nav">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Atsy</a>
+            <div class="nav-center">
+                <a href="shop.html">Collections</a>
+                <a href="artisans.html">Artisans</a>
+                <a href="about.html">About</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="login-container">
+        <div class="login-header">
+            <h1>Welcome Back</h1>
+            <p>Sign in to continue to Artsy</p>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-input" placeholder="you@example.com">
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Password</label>
+            <input type="password" class="form-input" placeholder="Enter your password">
+        </div>
+
+        <div class="forgot-password">
+            <a href="#">Forgot password?</a>
+        </div>
+
+        <button class="login-btn" onclick="location.href='buyer-dashboard.html'">Sign In</button>
+
+        <div class="divider">
+            <span>or continue with</span>
+        </div>
+
+        <button class="social-btn">G Google</button>
+        <button class="social-btn">f Facebook</button>
+
+        <div class="signup-link">
+            Don't have an account? <a href="signup-role.html">Sign up</a>
+        </div>
+    </div>
+</body>
+</html>
