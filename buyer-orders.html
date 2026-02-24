@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artsy - My Orders</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* Copy navigation styles from buyer-dashboard */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: #f5f5f5;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .top-nav {
+            background: white;
+            padding: 20px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: #FF6B35;
+            text-decoration: none;
+        }
+        
+        .nav-center {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+        }
+        
+        .nav-center a {
+            color: #06070A;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+            font-size: 24px;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #FF6B35;
+            color: white;
+            font-size: 12px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .profile-icon {
+            width: 40px;
+            height: 40px;
+            background: #FF6B35;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 30px;
+        }
+        
+        .dashboard-sidebar {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            height: fit-content;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        
+        .sidebar-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #06070A;
+        }
+        
+        .sidebar-menu {
+            list-style: none;
+        }
+        
+        .sidebar-menu li {
+            margin-bottom: 10px;
+        }
+        
+        .sidebar-menu a {
+            display: block;
+            padding: 12px 15px;
+            color: #2C2C2B;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+        
+        .sidebar-menu a:hover,
+        .sidebar-menu a.active {
+            background: #FF6B35;
+            color: white;
+        }
+        
+        .dashboard-main {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        
+        .page-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 24px;
+            margin-bottom: 30px;
+            color: #06070A;
+        }
+        
+        .order-card {
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .order-number {
+            font-weight: 600;
+            color: #06070A;
+        }
+        
+        .order-date {
+            color: #2C2C2B;
+            font-size: 14px;
+        }
+        
+        .order-status {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .status-delivered {
+            background: #10B981;
+            color: white;
+        }
+        
+        .status-shipped {
+            background: #F59E0B;
+            color: white;
+        }
+        
+        .status-processing {
+            background: #6B7280;
+            color: white;
+        }
+        
+        .order-items {
+            margin-bottom: 15px;
+        }
+        
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            color: #2C2C2B;
+        }
+        
+        .order-total {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 15px;
+            border-top: 1px solid #e5e7eb;
+            font-weight: 600;
+            color: #06070A;
+        }
+        
+        .order-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .order-btn {
+            padding: 8px 16px;
+            border: 1px solid #FF6B35;
+            border-radius: 4px;
+            color: #FF6B35;
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+        
+        .order-btn:hover {
+            background: #FF6B35;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-nav">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Artsy</a>
+            <div class="nav-center">
+                <a href="shop.html">Collections</a>
+                <a href="artisans.html">Artisans</a>
+                <a href="about.html">About</a>
+            </div>
+            <div class="nav-right">
+                <div class="cart-icon" onclick="location.href='cart.html'">
+                    🛒
+                    <span class="cart-count">2</span>
+                </div>
+                <div class="profile-icon" onclick="location.href='buyer-dashboard.html'">SJ</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div class="dashboard-sidebar">
+            <h3 class="sidebar-title">My Dashboard</h3>
+            <ul class="sidebar-menu">
+                <li><a href="buyer-dashboard.html">📊 Overview</a></li>
+                <li><a href="buyer-orders.html" class="active">📦 Orders</a></li>
+                <li><a href="saved-items.html">❤️ Saved Items</a></li>
+                <li><a href="buyer-messages.html">💬 Messages</a></li>
+                <li><a href="notifications.html">🔔 Notifications</a></li>
+                <li><a href="buyer-profile.html">👤 My Profile</a></li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="dashboard-main">
+            <h1 class="page-title">My Orders</h1>
+
+            <!-- Order 1 -->
+            <div class="order-card">
+                <div class="order-header">
+                    <div>
+                        <span class="order-number">#ORD-2024-001</span>
+                        <span class="order-date"> • Feb 15, 2026</span>
+                    </div>
+                    <span class="order-status status-delivered">Delivered</span>
+                </div>
+                
+                <div class="order-items">
+                    <div class="order-item">
+                        <span>Handwoven Storage Basket x1</span>
+                        <span>$145.00</span>
+                    </div>
+                    <div class="order-item">
+                        <span>Beaded Necklace x1</span>
+                        <span>$89.00</span>
+                    </div>
+                </div>
+                
+                <div class="order-total">
+                    <span>Total</span>
+                    <span>$234.00</span>
+                </div>
+                
+                <div class="order-actions">
+                    <a href="#" class="order-btn">Track Order</a>
+                    <a href="#" class="order-btn">View Details</a>
+                    <a href="#" class="order-btn">Buy Again</a>
+                </div>
+            </div>
+
+            <!-- Order 2 -->
+            <div class="order-card">
+                <div class="order-header">
+                    <div>
+                        <span class="order-number">#ORD-2024-002</span>
+                        <span class="order-date"> • Feb 10, 2026</span>
+                    </div>
+                    <span class="order-status status-shipped">In Transit</span>
+                </div>
+                
+                <div class="order-items">
+                    <div class="order-item">
+                        <span>Traditional Kente Cloth x1</span>
+                        <span>$425.00</span>
+                    </div>
+                </div>
+                
+                <div class="order-total">
+                    <span>Total</span>
+                    <span>$425.00</span>
+                </div>
+                
+                <div class="order-actions">
+                    <a href="#" class="order-btn">Track Order</a>
+                    <a href="#" class="order-btn">View Details</a>
+                </div>
+            </div>
+
+            <!-- Order 3 -->
+            <div class="order-card">
+                <div class="order-header">
+                    <div>
+                        <span class="order-number">#ORD-2024-003</span>
+                        <span class="order-date"> • Feb 5, 2026</span>
+                    </div>
+                    <span class="order-status status-processing">Processing</span>
+                </div>
+                
+                <div class="order-items">
+                    <div class="order-item">
+                        <span>Zulu Beadwork Bracelet x2</span>
+                        <span>$130.00</span>
+                    </div>
+                    <div class="order-item">
+                        <span>Maasai Necklace x1</span>
+                        <span>$120.00</span>
+                    </div>
+                    <div class="order-item">
+                        <span>Wooden Mask x1</span>
+                        <span>$275.00</span>
+                    </div>
+                </div>
+                
+                <div class="order-total">
+                    <span>Total</span>
+                    <span>$525.00</span>
+                </div>
+                
+                <div class="order-actions">
+                    <a href="#" class="order-btn">Track Order</a>
+                    <a href="#" class="order-btn">View Details</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
