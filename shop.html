@@ -387,7 +387,7 @@
             document.getElementById('productCount').textContent = `${filtered.length} products`;
             
             document.getElementById('productsGrid').innerHTML = filtered.map(p => `
-                <div class="product-card" onclick="location.href='artisan-profile.html?id=${p.artisan.toLowerCase().split(' ')[0]}'">
+                <div class="product-card" onclick="location.href='product.html?id=${p.id}'">
                     <img src="https://ui-avatars.com/api/?name=${p.title.substring(0,3)}&size=200&background=FF6B35&color=fff" class="product-image">
                     <div class="product-info">
                         <h3 class="product-title">${p.title}</h3>
