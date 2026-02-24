@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artsy - About Us</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: #f5f5f5;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .top-nav {
+            background: white;
+            padding: 20px 0;
+            border-bottom: 1px solid #e5e7eb;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: #FF6B35;
+            text-decoration: none;
+        }
+        
+        .nav-center {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+        }
+        
+        .nav-center a {
+            color: #06070A;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        
+        .nav-center a:hover,
+        .nav-center a.active {
+            color: #FF6B35;
+        }
+        
+        .nav-right {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+            font-size: 24px;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #FF6B35;
+            color: white;
+            font-size: 12px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .profile-icon {
+            width: 40px;
+            height: 40px;
+            background: #FF6B35;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        .page-header {
+            background: linear-gradient(135deg, #FF6B35, #FF8C5A);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+        }
+        
+        .page-header h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .page-header p {
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+        
+        .mission-section {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .mission-section h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 32px;
+            color: #06070A;
+            margin-bottom: 20px;
+        }
+        
+        .mission-section p {
+            color: #2C2C2B;
+            line-height: 1.8;
+            font-size: 18px;
+        }
+        
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        .value-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+        }
+        
+        .value-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .value-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .value-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #06070A;
+        }
+        
+        .value-description {
+            color: #2C2C2B;
+            line-height: 1.6;
+        }
+        
+        .story-section {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            margin-bottom: 60px;
+        }
+        
+        .story-section h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 28px;
+            color: #06070A;
+            margin-bottom: 20px;
+        }
+        
+        .story-section p {
+            color: #2C2C2B;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 36px;
+            font-weight: 700;
+            color: #FF6B35;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            color: #2C2C2B;
+            font-size: 14px;
+        }
+        
+        .team-section {
+            margin-bottom: 60px;
+        }
+        
+        .team-section h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 32px;
+            color: #06070A;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        
+        .team-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        
+        .team-avatar {
+            width: 100px;
+            height: 100px;
+            background: #FF6B35;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            margin: 0 auto 20px;
+        }
+        
+        .team-name {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #06070A;
+        }
+        
+        .team-role {
+            color: #FF6B35;
+            margin-bottom: 10px;
+        }
+        
+        .team-country {
+            color: #2C2C2B;
+            font-size: 14px;
+        }
+        
+        @media (max-width: 768px) {
+            .values-grid,
+            .stats-grid,
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .page-header h1 {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="top-nav">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Artsy</a>
+            <div class="nav-center">
+                <a href="shop.html">Collections</a>
+                <a href="artisans.html">Artisans</a>
+                <a href="about.html" class="active">About</a>
+            </div>
+            <div class="nav-right">
+                <div class="cart-icon" onclick="location.href='cart.html'">
+                    🛒
+                    <span class="cart-count">2</span>
+                </div>
+                <div class="profile-icon" onclick="location.href='buyer-dashboard.html'">SJ</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-header">
+        <h1>Our Story</h1>
+        <p>Connecting African artisans with the world, one handcrafted piece at a time</p>
+    </div>
+
+    <div class="container">
+        <!-- Mission Section -->
+        <div class="mission-section">
+            <h2>Our Mission</h2>
+            <p>To empower African artisans by providing a digital marketplace that celebrates cultural heritage, ensures fair compensation, and connects authentic craftsmanship with global audiences.</p>
+        </div>
+
+        <!-- Values Grid -->
+        <div class="values-grid">
+            <div class="value-card">
+                <div class="value-icon">🤝</div>
+                <h3 class="value-title">Fair Trade</h3>
+                <p class="value-description">Ensuring artisans receive 85% of the sale price, keeping profits within local communities.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">🌍</div>
+                <h3 class="value-title">Cultural Preservation</h3>
+                <p class="value-description">Documenting and preserving traditional crafting techniques for future generations.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">👩🏾‍🎨</div>
+                <h3 class="value-title">Women Empowerment</h3>
+                <p class="value-description">Over 70% of our artisans are women, creating economic independence and leadership opportunities.</p>
+            </div>
+        </div>
+
+        <!-- Story Section -->
+        <div class="story-section">
+            <h2>How Artsy Began</h2>
+            <p>Artsy was born from a simple observation: across Africa, millions of skilled artisans create extraordinary handmade pieces, yet struggle to reach customers beyond their local markets. Meanwhile, collectors worldwide seek authentic, culturally significant crafts but have no trusted platform to find them.</p>
+            <p>In 2024, a team of women from Nigeria, Kenya, Botswana, Uganda, Algeria, and South Africa came together during the Women Techsters Fellowship to solve this problem. What started as a capstone project quickly grew into a mission-driven platform that now connects over 2,400 artisans with buyers in 120+ countries.</p>
+            <p>Every piece sold on Artsy tells a story – of heritage, of skill, of cultural pride. And every purchase directly supports the artisan who made it, their family, and their community.</p>
+        </div>
+
+        <!-- Stats Section -->
+        <div class="stats-grid">
+            <div>
+                <div class="stat-number">2,400+</div>
+                <div class="stat-label">Artisans</div>
+            </div>
+            <div>
+                <div class="stat-number">120+</div>
+                <div class="stat-label">Countries</div>
+            </div>
+            <div>
+                <div class="stat-number">15K+</div>
+                <div class="stat-label">Products</div>
+            </div>
+            <div>
+                <div class="stat-number">85%</div>
+                <div class="stat-label">Goes to Artisans</div>
+            </div>
+        </div>
+
+        <!-- Team Section -->
+        <div class="team-section">
+            <h2>Meet Our Founders</h2>
+            <div class="team-grid">
+                <div class="team-card">
+                    <div class="team-avatar">🇳🇬</div>
+                    <h3 class="team-name">Amara Okonkwo</h3>
+                    <div class="team-role">Textile Artist & Co-Founder</div>
+                    <div class="team-country">Lagos, Nigeria</div>
+                </div>
+                <div class="team-card">
+                    <div class="team-avatar">🇲🇦</div>
+                    <h3 class="team-name">Fatima Hassan</h3>
+                    <div class="team-role">Jewelry Designer & Co-Founder</div>
+                    <div class="team-country">Marrakech, Morocco</div>
+                </div>
+                <div class="team-card">
+                    <div class="team-avatar">🇿🇦</div>
+                    <h3 class="team-name">Thabo Ndlovu</h3>
+                    <div class="team-role">Beadwork Artist & Co-Founder</div>
+                    <div class="team-country">Cape Town, South Africa</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
