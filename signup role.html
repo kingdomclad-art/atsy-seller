@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atsy - Join Our Community</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://kingdomclad-art.github.io/atsy-seller/styles.css">
+    <style>
+        .role-container {
+            max-width: 1000px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+        
+        .role-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .role-header h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+        
+        .role-header p {
+            color: var(--neutral);
+        }
+        
+        .role-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        
+        .role-card {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .role-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .role-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .role-card h2 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .role-description {
+            color: var(--neutral);
+            margin-bottom: 25px;
+        }
+        
+        .feature-list {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+        
+        .feature-list li {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .feature-list li:before {
+            content: "✓";
+            color: var(--primary);
+            font-weight: bold;
+        }
+        
+        .role-btn {
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+        }
+        
+        .signin-link {
+            text-align: center;
+            margin-top: 30px;
+            color: var(--neutral);
+        }
+        
+        .signin-link a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        @media (max-width: 768px) {
+            .role-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Atsy</a>
+            <div class="mobile-menu-btn" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="nav-links" id="navLinks">
+                <a href="shop.html">Collections</a>
+                <a href="artisans.html">Artisans</a>
+                <a href="about.html">About</a>
+                <a href="login.html">Sign In</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="role-container">
+        <div class="role-header">
+            <h1>Welcome to Artsy</h1>
+            <p>Choose how you'd like to join our community</p>
+        </div>
+
+        <div class="role-grid">
+            <!-- Buyer Card -->
+            <div class="role-card">
+                <div class="role-icon">🛍️</div>
+                <h2>I'm a Buyer</h2>
+                <p class="role-description">Discover and purchase unique handcrafted pieces from African artisans</p>
+                <ul class="feature-list">
+                    <li>Browse curated collections</li>
+                    <li>Connect with verified artisans</li>
+                    <li>Secure global shipping</li>
+                    <li>Authentic craftsmanship guarantee</li>
+                </ul>
+                <a href="signup-buyer.html" class="btn btn-primary role-btn">Continue as Buyer →</a>
+            </div>
+
+            <!-- Artisan Card -->
+            <div class="role-card">
+                <div class="role-icon">🎨</div>
+                <h2>I'm an Artisan</h2>
+                <p class="role-description">Showcase your craft and reach global customers with our premium platform</p>
+                <ul class="feature-list">
+                    <li>Create your artisan profile</li>
+                    <li>Manage products & orders</li>
+                    <li>AI-powered insights</li>
+                    <li>Connect with buyers worldwide</li>
+                </ul>
+                <a href="signup-artisan.html" class="btn btn-primary role-btn">Continue as Artisan →</a>
+            </div>
+        </div>
+
+        <div class="signin-link">
+            Already have an account? <a href="login.html">Sign in</a>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

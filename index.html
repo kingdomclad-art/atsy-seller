@@ -3,240 +3,564 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Atsy - Seller Dashboard</title>
+    <title>Atsy - Discover African Artisan Treasures</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://kingdomclad-art.github.io/atsy-seller/styles.css">
+    <style>
+        /* Homepage-specific styles */
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            padding: 60px 0;
+        }
+        
+        .hero-content h1 {
+            font-size: 48px;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            color: var(--secondary);
+        }
+        
+        .hero-content p {
+            font-size: 18px;
+            color: var(--neutral);
+            margin-bottom: 30px;
+        }
+        
+        .hero-actions {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .map-container {
+            position: relative;
+            height: 400px;
+            background: url('https://svgshare.com/i/16T.svg') no-repeat center;
+            background-size: contain;
+        }
+        
+        .artisan-pin {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 3px solid var(--primary);
+            background: white;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        .artisan-pin:hover {
+            transform: scale(1.1);
+            z-index: 10;
+        }
+        
+        .artisan-pin img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .pin-label {
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            white-space: nowrap;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin: 60px 0;
+        }
+        
+        .feature-card {
+            text-align: center;
+        }
+        
+        .feature-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+        
+        .artisan-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .artisan-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+        
+        .artisan-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+        
+        .artisan-card:hover .artisan-name {
+            color: var(--primary);
+        }
+        
+        .artisan-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+        
+        .artisan-info {
+            padding: 20px;
+        }
+        
+        .artisan-name {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            transition: color 0.3s;
+        }
+        
+        .artisan-title {
+            color: var(--primary);
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+        
+        .artisan-location {
+            color: var(--neutral);
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        
+        .artisan-badge {
+            display: inline-block;
+            background: var(--gray-100);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-bottom: 15px;
+        }
+        
+        .view-profile-btn {
+            width: 100%;
+            padding: 10px;
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .view-profile-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .view-profile-btn:hover .arrow-icon {
+            transform: translateX(5px);
+        }
+        
+        .arrow-icon {
+            transition: transform 0.3s;
+        }
+        
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .review-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .review-rating {
+            color: #FFB800;
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .review-text {
+            font-style: italic;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .reviewer {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .reviewer-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 18px;
+        }
+        
+        .reviewer-info h4 {
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+        
+        .reviewer-info p {
+            color: var(--neutral);
+            font-size: 12px;
+        }
+        
+        .stats-bar {
+            display: flex;
+            justify-content: space-between;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin: 40px 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .stat-label {
+            color: var(--neutral);
+            font-size: 14px;
+        }
+        
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary), #FF8C5A);
+            color: white;
+            padding: 60px;
+            border-radius: 12px;
+            text-align: center;
+            margin: 60px 0;
+        }
+        
+        .cta-section h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        
+        .cta-section p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        .footer {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            padding: 60px 0;
+            border-top: 1px solid var(--gray-200);
+        }
+        
+        @media (max-width: 768px) {
+            .hero {
+                grid-template-columns: 1fr;
+            }
+            
+            .features-grid,
+            .artisan-grid,
+            .reviews-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-bar {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .footer {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- Navigation Sidebar -->
     <nav class="nav">
         <div class="nav-container">
-            <a href="/atsy-seller/index.html" class="logo">Atsy</a>
+            <a href="index.html" class="logo">Atsy</a>
             <div class="mobile-menu-btn" onclick="toggleMenu()">
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
             <div class="nav-links" id="navLinks">
-                <a href="/atsy-seller/index.html" class="active">Dashboard</a>
-                <a href="/atsy-seller/upload.html">Upload</a>
-                <a href="/atsy-seller/orders.html">Orders</a>
-                <a href="/atsy-seller/messages.html">Messages</a>
-                <a href="/atsy-seller/insights.html">Insights</a>
-                <div class="profile-icon">A</div>
+                <a href="shop.html">Collections</a>
+                <a href="artisans.html">Artisans</a>
+                <a href="about.html">About</a>
+                <a href="login.html" class="btn-outline" style="padding: 8px 16px;">Sign In</a>
+                <a href="signup-role.html" class="btn-primary" style="padding: 8px 16px;">Get Started</a>
             </div>
         </div>
     </nav>
 
     <div class="container">
-        <!-- Greeting -->
-        <div class="greeting">
-            <h1>Good morning, Amara</h1>
-            <p>Lagos, Nigeria • Master Weaver</p>
-        </div>
-
-        <!-- Stats Grid -->
-        <div class="stats-grid" id="stats">
-            <!-- Loaded by JavaScript -->
-        </div>
-
-        <!-- Quick Actions -->
-        <div class="actions" style="display: flex; gap: 15px; margin: 30px 0;">
-            <button class="btn btn-primary" onclick="location.href='/atsy-seller/upload.html'">Upload Product</button>
-            <button class="btn btn-secondary" onclick="location.href='/atsy-seller/orders.html'">View Orders</button>
-            <button class="btn btn-outline" onclick="location.href='/atsy-seller/insights.html'">Insights</button>
-        </div>
-
-        <!-- AI Suggestions -->
-        <div class="card" style="margin-bottom: 30px;">
-            <h3 style="margin-bottom: 20px; display: flex; align-items: center;">
-                🤖 AI-Powered Suggestions
-                <span class="ai-badge" style="margin-left: 10px;">AI</span>
-            </h3>
-            <div id="ai-suggestions">
-                <!-- Loaded by JavaScript -->
+        <!-- Hero Section -->
+        <div class="hero">
+            <div class="hero-content">
+                <h1>Discover African Artisan Treasures</h1>
+                <p>Connect directly with master craftspeople creating authentic, handmade pieces that carry the soul of Africa's rich artistic heritage.</p>
+                <div class="hero-actions">
+                    <a href="shop.html" class="btn btn-primary">Explore Collections</a>
+                    <a href="signup-role.html?role=artisan" class="btn btn-outline">Join as Artisan</a>
+                </div>
+            </div>
+            <div class="map-container">
+                <!-- North Africa Pin -->
+                <div class="artisan-pin" style="top: 15%; left: 45%;" onclick="location.href='artisan-profile.html?id=fatima'">
+                    <img src="https://ui-avatars.com/api/?name=Fatima+Hassan&size=60&background=FF6B35&color=fff" alt="Fatima Hassan">
+                    <span class="pin-label">Fatima Hassan</span>
+                </div>
+                <!-- West Africa Pin -->
+                <div class="artisan-pin" style="top: 35%; left: 35%;" onclick="location.href='artisan-profile.html?id=amara'">
+                    <img src="https://ui-avatars.com/api/?name=Amara+Okonkwo&size=60&background=FF6B35&color=fff" alt="Amara Okonkwo">
+                    <span class="pin-label">Amara Okonkwo</span>
+                </div>
+                <!-- East Africa Pin -->
+                <div class="artisan-pin" style="top: 40%; left: 60%;" onclick="location.href='artisan-profile.html?id=amani'">
+                    <img src="https://ui-avatars.com/api/?name=Amani+Kibwe&size=60&background=FF6B35&color=fff" alt="Amani Kibwe">
+                    <span class="pin-label">Amani Kibwe</span>
+                </div>
+                <!-- Central Africa Pin -->
+                <div class="artisan-pin" style="top: 50%; left: 48%;" onclick="location.href='artisan-profile.html?id=jean'">
+                    <img src="https://ui-avatars.com/api/?name=Jean+Mokonzi&size=60&background=FF6B35&color=fff" alt="Jean Mokonzi">
+                    <span class="pin-label">Jean Mokonzi</span>
+                </div>
+                <!-- Southern Africa Pin -->
+                <div class="artisan-pin" style="top: 75%; left: 52%;" onclick="location.href='artisan-profile.html?id=thabo'">
+                    <img src="https://ui-avatars.com/api/?name=Thabo+Ndlovu&size=60&background=FF6B35&color=fff" alt="Thabo Ndlovu">
+                    <span class="pin-label">Thabo Ndlovu</span>
+                </div>
             </div>
         </div>
 
-        <!-- Recent Orders -->
-        <div class="card">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                <h3>Recent Orders</h3>
-                <a href="/atsy-seller/orders.html" style="color: var(--primary); text-decoration: none;">View all →</a>
+        <!-- Why Choose Artsy -->
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">✓</div>
+                <h3>Authentic</h3>
+                <p>Verified Artisans</p>
             </div>
-            <div id="recent-orders">
-                <!-- Loaded by JavaScript -->
+            <div class="feature-card">
+                <div class="feature-icon">🌍</div>
+                <h3>Global Reach</h3>
+                <p>Supporting artisans across Africa with worldwide shipping</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎨</div>
+                <h3>Curated Collections</h3>
+                <p>Gallery-quality pieces selected for their uniqueness and beauty</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📖</div>
+                <h3>Craftsmanship</h3>
+                <p>Every piece tells a story of heritage, skill, and cultural authenticity</p>
+            </div>
+        </div>
+
+        <!-- Popular Artisans -->
+        <h2 style="font-size: 32px; margin-bottom: 10px;">Popular Artisans</h2>
+        <p style="color: var(--neutral); margin-bottom: 30px;">Meet the talented craftspeople creating extraordinary handmade pieces</p>
+
+        <div class="artisan-grid">
+            <!-- Artisan 1: Amara Okonkwo -->
+            <div class="artisan-card" onclick="location.href='artisan-profile.html?id=amara'">
+                <img src="https://ui-avatars.com/api/?name=Amara+Okonkwo&size=250&background=FF6B35&color=fff" alt="Amara Okonkwo" class="artisan-image">
+                <div class="artisan-info">
+                    <h3 class="artisan-name">Amara Okonkwo</h3>
+                    <p class="artisan-title">Textile Artist</p>
+                    <p class="artisan-location">Lagos, Nigeria • West Africa</p>
+                    <span class="artisan-badge">Kente weaving & traditional fabrics</span>
+                    <button class="view-profile-btn" onclick="event.stopPropagation(); location.href='artisan-profile.html?id=amara'">
+                        View Profile <span class="arrow-icon">→</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Artisan 2: Fatima Hassan -->
+            <div class="artisan-card" onclick="location.href='artisan-profile.html?id=fatima'">
+                <img src="https://ui-avatars.com/api/?name=Fatima+Hassan&size=250&background=FF6B35&color=fff" alt="Fatima Hassan" class="artisan-image">
+                <div class="artisan-info">
+                    <h3 class="artisan-name">Fatima Hassan</h3>
+                    <p class="artisan-title">Jewelry Designer</p>
+                    <p class="artisan-location">Marrakech, Morocco • North Africa</p>
+                    <span class="artisan-badge">Silver metalwork & precious stones</span>
+                    <button class="view-profile-btn" onclick="event.stopPropagation(); location.href='artisan-profile.html?id=fatima'">
+                        View Profile <span class="arrow-icon">→</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Artisan 3: Thabo Ndlovu -->
+            <div class="artisan-card" onclick="location.href='artisan-profile.html?id=thabo'">
+                <img src="https://ui-avatars.com/api/?name=Thabo+Ndlovu&size=250&background=FF6B35&color=fff" alt="Thabo Ndlovu" class="artisan-image">
+                <div class="artisan-info">
+                    <h3 class="artisan-name">Thabo Ndlovu</h3>
+                    <p class="artisan-title">Beadwork Artist</p>
+                    <p class="artisan-location">Cape Town, South Africa • Southern Africa</p>
+                    <span class="artisan-badge">Traditional Zulu beading patterns</span>
+                    <button class="view-profile-btn" onclick="event.stopPropagation(); location.href='artisan-profile.html?id=thabo'">
+                        View Profile <span class="arrow-icon">→</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Customer Reviews -->
+        <h2 style="font-size: 32px; margin-bottom: 10px;">What Our Customers Say</h2>
+        <p style="color: var(--neutral); margin-bottom: 30px;">Join thousands of happy collectors celebrating African artistry</p>
+
+        <div class="reviews-grid">
+            <!-- Review 1 -->
+            <div class="review-card">
+                <div class="review-rating">★★★★★</div>
+                <p class="review-text">"I purchased a beautiful handwoven basket from Amara and the craftsmanship is outstanding. The story behind each piece makes it even more special. This platform truly connects you with the heart of Africa."</p>
+                <div class="reviewer">
+                    <div class="reviewer-avatar">SK</div>
+                    <div class="reviewer-info">
+                        <h4>Sarah Kofi</h4>
+                        <p>New York, USA</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Review 2 -->
+            <div class="review-card">
+                <div class="review-rating">★★★★★</div>
+                <p class="review-text">"The jewelry I received from Fatima exceeded all expectations. Authentic Moroccan silver work with incredible detail. Fast shipping and amazing customer service. I'll definitely be ordering more!"</p>
+                <div class="reviewer">
+                    <div class="reviewer-avatar">JM</div>
+                    <div class="reviewer-info">
+                        <h4>James Mitchell</h4>
+                        <p>London, UK</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Review 3 -->
+            <div class="review-card">
+                <div class="review-rating">★★★★★</div>
+                <p class="review-text">"As someone who values cultural authenticity, this marketplace is a treasure. The AI translations in my native Swahili helped my grandmother choose a gift. Supporting artisans directly feels meaningful."</p>
+                <div class="reviewer">
+                    <div class="reviewer-avatar">AM</div>
+                    <div class="reviewer-info">
+                        <h4>Amina Mwangi</h4>
+                        <p>Nairobi, Kenya</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Bar -->
+        <div class="stats-bar">
+            <div class="stat-item">
+                <div class="stat-number">4.9/5</div>
+                <div class="stat-label">Average Rating</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">8,500+</div>
+                <div class="stat-label">Happy Customers</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">98%</div>
+                <div class="stat-label">Satisfaction Rate</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">120+</div>
+                <div class="stat-label">Countries Served</div>
+            </div>
+        </div>
+
+        <!-- CTA Section -->
+        <div class="cta-section">
+            <h2>Start Your Collection Today</h2>
+            <p>Own pieces that tell stories, support livelihoods, and celebrate African artistry</p>
+            <a href="shop.html" class="btn" style="background: white; color: var(--primary); padding: 15px 40px; font-size: 18px;">Browse Collections</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="container">
+        <div class="footer">
+            <div>
+                <h3 class="logo" style="margin-bottom: 20px;">Atsy</h3>
+                <p style="color: var(--neutral);">Connecting African artisans with the world</p>
+            </div>
+            <div>
+                <h4 style="margin-bottom: 15px;">Shop</h4>
+                <ul style="list-style: none;">
+                    <li style="margin-bottom: 10px;"><a href="shop.html" style="color: var(--neutral); text-decoration: none;">Collections</a></li>
+                    <li style="margin-bottom: 10px;"><a href="artisans.html" style="color: var(--neutral); text-decoration: none;">Artisans</a></li>
+                    <li style="margin-bottom: 10px;"><a href="new-arrivals.html" style="color: var(--neutral); text-decoration: none;">New Arrivals</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 style="margin-bottom: 15px;">Support</h4>
+                <ul style="list-style: none;">
+                    <li style="margin-bottom: 10px;"><a href="help.html" style="color: var(--neutral); text-decoration: none;">Help Center</a></li>
+                    <li style="margin-bottom: 10px;"><a href="shipping.html" style="color: var(--neutral); text-decoration: none;">Shipping</a></li>
+                    <li style="margin-bottom: 10px;"><a href="returns.html" style="color: var(--neutral); text-decoration: none;">Returns</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 style="margin-bottom: 15px;">Company</h4>
+                <ul style="list-style: none;">
+                    <li style="margin-bottom: 10px;"><a href="about.html" style="color: var(--neutral); text-decoration: none;">About Us</a></li>
+                    <li style="margin-bottom: 10px;"><a href="careers.html" style="color: var(--neutral); text-decoration: none;">Careers</a></li>
+                    <li style="margin-bottom: 10px;"><a href="contact.html" style="color: var(--neutral); text-decoration: none;">Contact</a></li>
+                </ul>
             </div>
         </div>
     </div>
 
+    <script src="script.js"></script>
     <script>
-        const API_BASE = 'https://xoqyywycygofgbgazrpu.supabase.co/rest/v1';
-        const API_KEY = 'sb_publishable_O-6kGt2-CDzg7uR8hQoK_w_ZD5M1aUo';
-
-        function toggleMenu() {
-            document.getElementById('navLinks').classList.toggle('active');
-        }
-
-        async function loadDashboard() {
-            try {
-                // Fetch dashboard data
-                const response = await fetch(
-                    `${API_BASE}/rpc/get_dashboard_summary?artisan_id_param=1`,
-                    { headers: { 'apikey': API_KEY } }
-                );
-                const data = await response.json();
-                
-                // Update stats
-                document.getElementById('stats').innerHTML = `
-                    <div class="stat-card">
-                        <div class="stat-number">${data.artisan?.views || 1234}</div>
-                        <div class="stat-label">Views</div>
-                        <div class="stat-change">+12%</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">${data.artisan?.orders || 23}</div>
-                        <div class="stat-label">Orders</div>
-                        <div class="stat-change">+5</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">8</div>
-                        <div class="stat-label">Messages</div>
-                        <div class="stat-change">3 new</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">$${data.artisan?.earnings || 2450}</div>
-                        <div class="stat-label">Earnings</div>
-                        <div class="stat-change">+18%</div>
-                    </div>
-                `;
-
-                // AI Suggestions
-                document.getElementById('ai-suggestions').innerHTML = `
-                    <div class="ai-suggestion">
-                        <strong>Improve listing: Woven Basket Set</strong>
-                        <span class="impact-badge">High Impact</span>
-                        <p style="margin-top: 8px; color: var(--neutral);">Add more cultural context to increase buyer interest</p>
-                    </div>
-                    <div class="ai-suggestion">
-                        <strong>Price recommendation</strong>
-                        <span class="impact-badge" style="background: var(--warning);">Medium Impact</span>
-                        <p style="margin-top: 8px; color: var(--neutral);">Your beaded necklaces are 15% below market average</p>
-                    </div>
-                    <div class="ai-suggestion">
-                        <strong>Trending: Kente Cloth patterns</strong>
-                        <span class="impact-badge">High Impact</span>
-                        <p style="margin-top: 8px; color: var(--neutral);">Demand increased 45% this week in your category</p>
-                    </div>
-                `;
-
-                // Recent Orders
-                if (data.recent_orders && data.recent_orders.length > 0) {
-                    document.getElementById('recent-orders').innerHTML = data.recent_orders.map(order => `
-                        <div class="order-card" style="margin-bottom: 10px; padding: 15px;">
-                            <div style="display: flex; align-items: center; width: 100%;">
-                                <div style="flex: 1;">
-                                    <strong>${order.product_title}</strong>
-                                    <div style="color: var(--neutral); font-size: 14px;">Buyer: ${order.buyer}</div>
-                                </div>
-                                <div style="text-align: right; margin-right: 20px;">
-                                    <div style="font-weight: 600; color: var(--primary);">$${order.amount}</div>
-                                    <div style="font-size: 12px; color: var(--neutral);">${order.order_number}</div>
-                                </div>
-                                <span class="order-status status-${order.status.toLowerCase()}">${order.status}</span>
-                            </div>
-                        </div>
-                    `).join('');
-                } else {
-                    // Demo orders if API returns none
-                    document.getElementById('recent-orders').innerHTML = `
-                        <div class="order-card" style="margin-bottom: 10px; padding: 15px;">
-                            <div style="display: flex; align-items: center; width: 100%;">
-                                <div style="flex: 1;">
-                                    <strong>Hand-woven Basket Set</strong>
-                                    <div style="color: var(--neutral); font-size: 14px;">Buyer: Sarah M.</div>
-                                </div>
-                                <div style="text-align: right; margin-right: 20px;">
-                                    <div style="font-weight: 600; color: var(--primary);">$170</div>
-                                    <div style="font-size: 12px; color: var(--neutral);">ORD-1234</div>
-                                </div>
-                                <span class="order-status status-processing">Processing</span>
-                            </div>
-                        </div>
-                        <div class="order-card" style="padding: 15px;">
-                            <div style="display: flex; align-items: center; width: 100%;">
-                                <div style="flex: 1;">
-                                    <strong>Traditional Beaded Necklace</strong>
-                                    <div style="color: var(--neutral); font-size: 14px;">Buyer: John D.</div>
-                                </div>
-                                <div style="text-align: right; margin-right: 20px;">
-                                    <div style="font-weight: 600; color: var(--primary);">$45</div>
-                                    <div style="font-size: 12px; color: var(--neutral);">ORD-1233</div>
-                                </div>
-                                <span class="order-status status-shipped">Shipped</span>
-                            </div>
-                        </div>
-                    `;
-                }
-            } catch (error) {
-                console.error('Error loading dashboard:', error);
-                // Fallback to demo data
-                document.getElementById('stats').innerHTML = `
-                    <div class="stat-card">
-                        <div class="stat-number">1,234</div>
-                        <div class="stat-label">Views</div>
-                        <div class="stat-change">+12%</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">23</div>
-                        <div class="stat-label">Orders</div>
-                        <div class="stat-change">+5</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">8</div>
-                        <div class="stat-label">Messages</div>
-                        <div class="stat-change">3 new</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">$2,450</div>
-                        <div class="stat-label">Earnings</div>
-                        <div class="stat-change">+18%</div>
-                    </div>
-                `;
-                
-                document.getElementById('recent-orders').innerHTML = `
-                    <div class="order-card" style="margin-bottom: 10px; padding: 15px;">
-                        <div style="display: flex; align-items: center; width: 100%;">
-                            <div style="flex: 1;">
-                                <strong>Hand-woven Basket Set</strong>
-                                <div style="color: var(--neutral); font-size: 14px;">Buyer: Sarah M.</div>
-                            </div>
-                            <div style="text-align: right; margin-right: 20px;">
-                                <div style="font-weight: 600; color: var(--primary);">$170</div>
-                                <div style="font-size: 12px; color: var(--neutral);">ORD-1234</div>
-                            </div>
-                            <span class="order-status status-processing">Processing</span>
-                        </div>
-                    </div>
-                    <div class="order-card" style="padding: 15px;">
-                        <div style="display: flex; align-items: center; width: 100%;">
-                            <div style="flex: 1;">
-                                <strong>Traditional Beaded Necklace</strong>
-                                <div style="color: var(--neutral); font-size: 14px;">Buyer: John D.</div>
-                            </div>
-                            <div style="text-align: right; margin-right: 20px;">
-                                <div style="font-weight: 600; color: var(--primary);">$45</div>
-                                <div style="font-size: 12px; color: var(--neutral);">ORD-1233</div>
-                            </div>
-                            <span class="order-status status-shipped">Shipped</span>
-                        </div>
-                    </div>
-                `;
-            }
-        }
-
-        // Load dashboard when page loads
-        loadDashboard();
+        // Check if user is logged in
+        document.addEventListener('DOMContentLoaded', function() {
+            // You can add logic here to check if user is logged in
+            // and update nav accordingly
+        });
     </script>
 </body>
 </html>
