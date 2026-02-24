@@ -8,12 +8,67 @@
     <link rel="stylesheet" href="https://kingdomclad-art.github.io/atsy-seller/styles.css">
     <style>
         /* Homepage-specific styles */
+        body {
+            background: white;
+        }
+        
+        /* Navigation - Horizontal bar */
+        .nav {
+            background: white;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 15px 0;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+        
+        .nav-links a {
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        
         .hero {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 40px;
             align-items: center;
-            padding: 60px 0;
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
         
         .hero-content h1 {
@@ -27,6 +82,7 @@
             font-size: 18px;
             color: var(--neutral);
             margin-bottom: 30px;
+            line-height: 1.6;
         }
         
         .hero-actions {
@@ -41,82 +97,81 @@
             background-size: contain;
         }
         
-        .artisan-pin {
-            position: absolute;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            border: 3px solid var(--primary);
-            background: white;
-            overflow: hidden;
-            cursor: pointer;
-            transition: transform 0.3s;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        .section-title {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 10px;
         }
         
-        .artisan-pin:hover {
-            transform: scale(1.1);
-            z-index: 10;
+        .section-subtitle {
+            text-align: center;
+            color: var(--neutral);
+            margin-bottom: 40px;
+            font-size: 18px;
         }
         
-        .artisan-pin img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        .pin-label {
-            position: absolute;
-            bottom: -25px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--primary);
-            color: white;
-            padding: 2px 8px;
-            border-radius: 12px;
-            font-size: 12px;
-            white-space: nowrap;
-        }
-        
+        /* Why Choose Artsy - Card Grid */
         .features-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 30px;
-            margin: 60px 0;
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
         }
         
         .feature-card {
+            background: white;
+            padding: 30px 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
             text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
         }
         
         .feature-icon {
             font-size: 40px;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
         
+        .feature-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .feature-description {
+            color: var(--neutral);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        /* Popular Artisans Grid */
         .artisan-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 30px;
-            margin: 40px 0;
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
         }
         
         .artisan-card {
             background: white;
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
             cursor: pointer;
         }
         
         .artisan-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-        }
-        
-        .artisan-card:hover .artisan-name {
-            color: var(--primary);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
         }
         
         .artisan-image {
@@ -133,7 +188,6 @@
             font-size: 20px;
             font-weight: 600;
             margin-bottom: 5px;
-            transition: color 0.3s;
         }
         
         .artisan-title {
@@ -145,16 +199,14 @@
         .artisan-location {
             color: var(--neutral);
             font-size: 14px;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
         
-        .artisan-badge {
-            display: inline-block;
-            background: var(--gray-100);
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 12px;
+        .artisan-specialty {
+            font-size: 13px;
+            color: var(--neutral);
             margin-bottom: 15px;
+            font-style: italic;
         }
         
         .view-profile-btn {
@@ -167,10 +219,6 @@
             font-weight: 500;
             cursor: pointer;
             transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
         }
         
         .view-profile-btn:hover {
@@ -178,26 +226,21 @@
             color: white;
         }
         
-        .view-profile-btn:hover .arrow-icon {
-            transform: translateX(5px);
-        }
-        
-        .arrow-icon {
-            transition: transform 0.3s;
-        }
-        
+        /* Reviews Grid */
         .reviews-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 30px;
-            margin: 40px 0;
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
         }
         
         .review-card {
             background: white;
             padding: 25px;
             border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
         }
         
         .review-rating {
@@ -210,6 +253,7 @@
             font-style: italic;
             margin-bottom: 20px;
             line-height: 1.6;
+            color: var(--secondary);
         }
         
         .reviewer {
@@ -241,14 +285,17 @@
             font-size: 12px;
         }
         
+        /* Stats Bar */
         .stats-bar {
-            display: flex;
-            justify-content: space-between;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 40px;
             background: white;
-            padding: 30px;
             border-radius: 12px;
-            margin: 40px 0;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
         }
         
         .stat-item {
@@ -256,9 +303,10 @@
         }
         
         .stat-number {
-            font-size: 32px;
+            font-size: 36px;
             font-weight: 700;
             color: var(--primary);
+            margin-bottom: 5px;
         }
         
         .stat-label {
@@ -266,13 +314,15 @@
             font-size: 14px;
         }
         
+        /* CTA Section */
         .cta-section {
             background: linear-gradient(135deg, var(--primary), #FF8C5A);
             color: white;
             padding: 60px;
             border-radius: 12px;
             text-align: center;
-            margin: 60px 0;
+            max-width: 1200px;
+            margin: 60px auto;
         }
         
         .cta-section h2 {
@@ -286,12 +336,85 @@
             opacity: 0.9;
         }
         
+        .cta-section .btn {
+            background: white;
+            color: var(--primary);
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s;
+            display: inline-block;
+        }
+        
+        .cta-section .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        
+        /* Footer */
         .footer {
+            background: var(--secondary);
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .footer-grid {
             display: grid;
             grid-template-columns: 2fr 1fr 1fr 1fr;
             gap: 40px;
-            padding: 60px 0;
-            border-top: 1px solid var(--gray-200);
+            margin-bottom: 40px;
+        }
+        
+        .footer-logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .footer-description {
+            color: #999;
+            line-height: 1.6;
+        }
+        
+        .footer-heading {
+            font-weight: 600;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: #999;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #333;
+            color: #666;
+            font-size: 14px;
         }
         
         @media (max-width: 768px) {
@@ -301,266 +424,295 @@
             
             .features-grid,
             .artisan-grid,
-            .reviews-grid {
+            .reviews-grid,
+            .stats-bar,
+            .footer-grid {
                 grid-template-columns: 1fr;
             }
             
-            .stats-bar {
+            .nav-container {
                 flex-direction: column;
-                gap: 20px;
+                gap: 15px;
             }
             
-            .footer {
-                grid-template-columns: 1fr;
+            .nav-links {
+                flex-direction: column;
+                gap: 15px;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Navigation - Horizontal Bar -->
     <nav class="nav">
         <div class="nav-container">
             <a href="index.html" class="logo">Atsy</a>
+            <div class="nav-links">
+                <a href="shop.html">Collections</a>
+                <a href="artisans.html">Artisans</a>
+                <a href="about.html">About</a>
+                <div class="nav-buttons">
+                    <a href="login.html" class="btn-outline" style="padding: 8px 16px;">Sign In</a>
+                    <a href="signup-role.html" class="btn-primary" style="padding: 8px 16px;">Get Started</a>
+                </div>
+            </div>
             <div class="mobile-menu-btn" onclick="toggleMenu()">
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
-            <div class="nav-links" id="navLinks">
-                <a href="shop.html">Collections</a>
-                <a href="artisans.html">Artisans</a>
-                <a href="about.html">About</a>
-                <a href="login.html" class="btn-outline" style="padding: 8px 16px;">Sign In</a>
-                <a href="signup-role.html" class="btn-primary" style="padding: 8px 16px;">Get Started</a>
-            </div>
         </div>
     </nav>
 
-    <div class="container">
-        <!-- Hero Section -->
-        <div class="hero">
-            <div class="hero-content">
-                <h1>Discover African Artisan Treasures</h1>
-                <p>Connect directly with master craftspeople creating authentic, handmade pieces that carry the soul of Africa's rich artistic heritage.</p>
-                <div class="hero-actions">
-                    <a href="shop.html" class="btn btn-primary">Explore Collections</a>
-                    <a href="signup-role.html?role=artisan" class="btn btn-outline">Join as Artisan</a>
-                </div>
+    <!-- Hero Section -->
+    <div class="hero">
+        <div class="hero-content">
+            <h1>Discover African Artisan Treasures</h1>
+            <p>Connect directly with master craftspeople creating authentic, handmade pieces that carry the soul of Africa's rich artistic heritage.</p>
+            <div class="hero-actions">
+                <a href="shop.html" class="btn btn-primary">Explore Collections</a>
+                <a href="signup-role.html?role=artisan" class="btn btn-outline">Join as Artisan</a>
             </div>
-            <div class="map-container">
-                <!-- North Africa Pin -->
-                <div class="artisan-pin" style="top: 15%; left: 45%;" onclick="location.href='artisan-profile.html?id=fatima'">
-                    <img src="https://ui-avatars.com/api/?name=Fatima+Hassan&size=60&background=FF6B35&color=fff" alt="Fatima Hassan">
-                    <span class="pin-label">Fatima Hassan</span>
-                </div>
-                <!-- West Africa Pin -->
-                <div class="artisan-pin" style="top: 35%; left: 35%;" onclick="location.href='artisan-profile.html?id=amara'">
-                    <img src="https://ui-avatars.com/api/?name=Amara+Okonkwo&size=60&background=FF6B35&color=fff" alt="Amara Okonkwo">
-                    <span class="pin-label">Amara Okonkwo</span>
-                </div>
-                <!-- East Africa Pin -->
-                <div class="artisan-pin" style="top: 40%; left: 60%;" onclick="location.href='artisan-profile.html?id=amani'">
-                    <img src="https://ui-avatars.com/api/?name=Amani+Kibwe&size=60&background=FF6B35&color=fff" alt="Amani Kibwe">
-                    <span class="pin-label">Amani Kibwe</span>
-                </div>
-                <!-- Central Africa Pin -->
-                <div class="artisan-pin" style="top: 50%; left: 48%;" onclick="location.href='artisan-profile.html?id=jean'">
-                    <img src="https://ui-avatars.com/api/?name=Jean+Mokonzi&size=60&background=FF6B35&color=fff" alt="Jean Mokonzi">
-                    <span class="pin-label">Jean Mokonzi</span>
-                </div>
-                <!-- Southern Africa Pin -->
-                <div class="artisan-pin" style="top: 75%; left: 52%;" onclick="location.href='artisan-profile.html?id=thabo'">
-                    <img src="https://ui-avatars.com/api/?name=Thabo+Ndlovu&size=60&background=FF6B35&color=fff" alt="Thabo Ndlovu">
-                    <span class="pin-label">Thabo Ndlovu</span>
-                </div>
+        </div>
+        <div class="map-container">
+            <!-- Map pins as per design -->
+        </div>
+    </div>
+
+    <!-- Why Choose Artsy Section -->
+    <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+        <h2 class="section-title">Why Choose Artsy</h2>
+        <p class="section-subtitle">A marketplace built on authenticity, trust, and cultural celebration</p>
+    </div>
+
+    <div class="features-grid">
+        <div class="feature-card">
+            <div class="feature-icon">✓</div>
+            <h3 class="feature-title">Authentic</h3>
+            <p class="feature-description">Verified Artisans</p>
+            <p style="color: var(--neutral); font-size: 13px; margin-top: 5px;">Direct connection with verified creators ensures authenticity</p>
+        </div>
+        
+        <div class="feature-card">
+            <div class="feature-icon">🌍</div>
+            <h3 class="feature-title">Global Reach</h3>
+            <p class="feature-description">Supporting artisans across Africa with worldwide shipping</p>
+        </div>
+        
+        <div class="feature-card">
+            <div class="feature-icon">🎨</div>
+            <h3 class="feature-title">Curated Collections</h3>
+            <p class="feature-description">Gallery-quality pieces selected for their uniqueness and beauty</p>
+        </div>
+        
+        <div class="feature-card">
+            <div class="feature-icon">📖</div>
+            <h3 class="feature-title">Craftsmanship</h3>
+            <p class="feature-description">Every piece tells a story of heritage, skill, and cultural authenticity</p>
+        </div>
+    </div>
+
+    <!-- Popular Artisans Section -->
+    <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+        <h2 class="section-title">Popular Artisans</h2>
+        <p class="section-subtitle">Meet the talented craftspeople creating extraordinary handmade pieces</p>
+    </div>
+
+    <div class="artisan-grid">
+        <!-- Amara Okonkwo -->
+        <div class="artisan-card" onclick="location.href='artisan-profile.html?id=amara'">
+            <img src="https://ui-avatars.com/api/?name=Amara+Okonkwo&size=250&background=FF6B35&color=fff" alt="Amara Okonkwo" class="artisan-image">
+            <div class="artisan-info">
+                <h3 class="artisan-name">Amara Okonkwo</h3>
+                <p class="artisan-title">Textile Artist</p>
+                <p class="artisan-location">Lagos, Nigeria • West Africa</p>
+                <p class="artisan-specialty">Kente weaving & traditional fabrics</p>
+                <button class="view-profile-btn" onclick="event.stopPropagation(); location.href='artisan-profile.html?id=amara'">View Profile</button>
             </div>
         </div>
 
-        <!-- Why Choose Artsy -->
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon">✓</div>
-                <h3>Authentic</h3>
-                <p>Verified Artisans</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🌍</div>
-                <h3>Global Reach</h3>
-                <p>Supporting artisans across Africa with worldwide shipping</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🎨</div>
-                <h3>Curated Collections</h3>
-                <p>Gallery-quality pieces selected for their uniqueness and beauty</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">📖</div>
-                <h3>Craftsmanship</h3>
-                <p>Every piece tells a story of heritage, skill, and cultural authenticity</p>
+        <!-- Fatima Hassan -->
+        <div class="artisan-card" onclick="location.href='artisan-profile.html?id=fatima'">
+            <img src="https://ui-avatars.com/api/?name=Fatima+Hassan&size=250&background=FF6B35&color=fff" alt="Fatima Hassan" class="artisan-image">
+            <div class="artisan-info">
+                <h3 class="artisan-name">Fatima Hassan</h3>
+                <p class="artisan-title">Jewelry Designer</p>
+                <p class="artisan-location">Marrakech, Morocco • North Africa</p>
+                <p class="artisan-specialty">Silver metalwork & precious stones</p>
+                <button class="view-profile-btn" onclick="event.stopPropagation(); location.href='artisan-profile.html?id=fatima'">View Profile</button>
             </div>
         </div>
 
-        <!-- Popular Artisans -->
-        <h2 style="font-size: 32px; margin-bottom: 10px;">Popular Artisans</h2>
-        <p style="color: var(--neutral); margin-bottom: 30px;">Meet the talented craftspeople creating extraordinary handmade pieces</p>
-
-        <div class="artisan-grid">
-            <!-- Artisan 1: Amara Okonkwo -->
-            <div class="artisan-card" onclick="location.href='artisan-profile.html?id=amara'">
-                <img src="https://ui-avatars.com/api/?name=Amara+Okonkwo&size=250&background=FF6B35&color=fff" alt="Amara Okonkwo" class="artisan-image">
-                <div class="artisan-info">
-                    <h3 class="artisan-name">Amara Okonkwo</h3>
-                    <p class="artisan-title">Textile Artist</p>
-                    <p class="artisan-location">Lagos, Nigeria • West Africa</p>
-                    <span class="artisan-badge">Kente weaving & traditional fabrics</span>
-                    <button class="view-profile-btn" onclick="event.stopPropagation(); location.href='artisan-profile.html?id=amara'">
-                        View Profile <span class="arrow-icon">→</span>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Artisan 2: Fatima Hassan -->
-            <div class="artisan-card" onclick="location.href='artisan-profile.html?id=fatima'">
-                <img src="https://ui-avatars.com/api/?name=Fatima+Hassan&size=250&background=FF6B35&color=fff" alt="Fatima Hassan" class="artisan-image">
-                <div class="artisan-info">
-                    <h3 class="artisan-name">Fatima Hassan</h3>
-                    <p class="artisan-title">Jewelry Designer</p>
-                    <p class="artisan-location">Marrakech, Morocco • North Africa</p>
-                    <span class="artisan-badge">Silver metalwork & precious stones</span>
-                    <button class="view-profile-btn" onclick="event.stopPropagation(); location.href='artisan-profile.html?id=fatima'">
-                        View Profile <span class="arrow-icon">→</span>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Artisan 3: Thabo Ndlovu -->
-            <div class="artisan-card" onclick="location.href='artisan-profile.html?id=thabo'">
-                <img src="https://ui-avatars.com/api/?name=Thabo+Ndlovu&size=250&background=FF6B35&color=fff" alt="Thabo Ndlovu" class="artisan-image">
-                <div class="artisan-info">
-                    <h3 class="artisan-name">Thabo Ndlovu</h3>
-                    <p class="artisan-title">Beadwork Artist</p>
-                    <p class="artisan-location">Cape Town, South Africa • Southern Africa</p>
-                    <span class="artisan-badge">Traditional Zulu beading patterns</span>
-                    <button class="view-profile-btn" onclick="event.stopPropagation(); location.href='artisan-profile.html?id=thabo'">
-                        View Profile <span class="arrow-icon">→</span>
-                    </button>
-                </div>
+        <!-- Thabo Ndlovu -->
+        <div class="artisan-card" onclick="location.href='artisan-profile.html?id=thabo'">
+            <img src="https://ui-avatars.com/api/?name=Thabo+Ndlovu&size=250&background=FF6B35&color=fff" alt="Thabo Ndlovu" class="artisan-image">
+            <div class="artisan-info">
+                <h3 class="artisan-name">Thabo Ndlovu</h3>
+                <p class="artisan-title">Beadwork Artist</p>
+                <p class="artisan-location">Cape Town, South Africa • Southern Africa</p>
+                <p class="artisan-specialty">Traditional Zulu beading patterns</p>
+                <button class="view-profile-btn" onclick="event.stopPropagation(); location.href='artisan-profile.html?id=thabo'">View Profile</button>
             </div>
         </div>
+    </div>
 
-        <!-- Customer Reviews -->
-        <h2 style="font-size: 32px; margin-bottom: 10px;">What Our Customers Say</h2>
-        <p style="color: var(--neutral); margin-bottom: 30px;">Join thousands of happy collectors celebrating African artistry</p>
+    <!-- Customer Reviews Section -->
+    <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+        <h2 class="section-title">What Our Customers Say</h2>
+        <p class="section-subtitle">Join thousands of happy collectors celebrating African artistry</p>
+    </div>
 
-        <div class="reviews-grid">
-            <!-- Review 1 -->
-            <div class="review-card">
-                <div class="review-rating">★★★★★</div>
-                <p class="review-text">"I purchased a beautiful handwoven basket from Amara and the craftsmanship is outstanding. The story behind each piece makes it even more special. This platform truly connects you with the heart of Africa."</p>
-                <div class="reviewer">
-                    <div class="reviewer-avatar">SK</div>
-                    <div class="reviewer-info">
-                        <h4>Sarah Kofi</h4>
-                        <p>New York, USA</p>
-                    </div>
-                </div>
-            </div>
+    <div class="reviews-grid" id="reviewsGrid">
+        <!-- Reviews loaded by JavaScript -->
+    </div>
 
-            <!-- Review 2 -->
-            <div class="review-card">
-                <div class="review-rating">★★★★★</div>
-                <p class="review-text">"The jewelry I received from Fatima exceeded all expectations. Authentic Moroccan silver work with incredible detail. Fast shipping and amazing customer service. I'll definitely be ordering more!"</p>
-                <div class="reviewer">
-                    <div class="reviewer-avatar">JM</div>
-                    <div class="reviewer-info">
-                        <h4>James Mitchell</h4>
-                        <p>London, UK</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Review 3 -->
-            <div class="review-card">
-                <div class="review-rating">★★★★★</div>
-                <p class="review-text">"As someone who values cultural authenticity, this marketplace is a treasure. The AI translations in my native Swahili helped my grandmother choose a gift. Supporting artisans directly feels meaningful."</p>
-                <div class="reviewer">
-                    <div class="reviewer-avatar">AM</div>
-                    <div class="reviewer-info">
-                        <h4>Amina Mwangi</h4>
-                        <p>Nairobi, Kenya</p>
-                    </div>
-                </div>
-            </div>
+    <!-- Stats Bar -->
+    <div class="stats-bar">
+        <div class="stat-item">
+            <div class="stat-number">4.9/5</div>
+            <div class="stat-label">Average Rating</div>
         </div>
-
-        <!-- Stats Bar -->
-        <div class="stats-bar">
-            <div class="stat-item">
-                <div class="stat-number">4.9/5</div>
-                <div class="stat-label">Average Rating</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">8,500+</div>
-                <div class="stat-label">Happy Customers</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">98%</div>
-                <div class="stat-label">Satisfaction Rate</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">120+</div>
-                <div class="stat-label">Countries Served</div>
-            </div>
+        <div class="stat-item">
+            <div class="stat-number">8,500+</div>
+            <div class="stat-label">Happy Customers</div>
         </div>
-
-        <!-- CTA Section -->
-        <div class="cta-section">
-            <h2>Start Your Collection Today</h2>
-            <p>Own pieces that tell stories, support livelihoods, and celebrate African artistry</p>
-            <a href="shop.html" class="btn" style="background: white; color: var(--primary); padding: 15px 40px; font-size: 18px;">Browse Collections</a>
+        <div class="stat-item">
+            <div class="stat-number">98%</div>
+            <div class="stat-label">Satisfaction Rate</div>
         </div>
+        <div class="stat-item">
+            <div class="stat-number">120+</div>
+            <div class="stat-label">Countries Served</div>
+        </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div class="cta-section">
+        <h2>Start Your Collection Today</h2>
+        <p>Own pieces that tell stories, support livelihoods, and celebrate African artistry</p>
+        <a href="shop.html" class="btn">Browse Collections</a>
     </div>
 
     <!-- Footer -->
-    <div class="container">
-        <div class="footer">
-            <div>
-                <h3 class="logo" style="margin-bottom: 20px;">Atsy</h3>
-                <p style="color: var(--neutral);">Connecting African artisans with the world</p>
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-logo">Atsy</div>
+                    <p class="footer-description">Connecting African artisans with the world</p>
+                </div>
+                
+                <div>
+                    <h4 class="footer-heading">Shop</h4>
+                    <ul class="footer-links">
+                        <li><a href="shop.html">Collections</a></li>
+                        <li><a href="artisans.html">Artisans</a></li>
+                        <li><a href="new-arrivals.html">New Arrivals</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="footer-heading">Support</h4>
+                    <ul class="footer-links">
+                        <li><a href="help.html">Help Center</a></li>
+                        <li><a href="shipping.html">Shipping</a></li>
+                        <li><a href="returns.html">Returns</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="footer-heading">Company</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="careers.html">Careers</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
             </div>
-            <div>
-                <h4 style="margin-bottom: 15px;">Shop</h4>
-                <ul style="list-style: none;">
-                    <li style="margin-bottom: 10px;"><a href="shop.html" style="color: var(--neutral); text-decoration: none;">Collections</a></li>
-                    <li style="margin-bottom: 10px;"><a href="artisans.html" style="color: var(--neutral); text-decoration: none;">Artisans</a></li>
-                    <li style="margin-bottom: 10px;"><a href="new-arrivals.html" style="color: var(--neutral); text-decoration: none;">New Arrivals</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4 style="margin-bottom: 15px;">Support</h4>
-                <ul style="list-style: none;">
-                    <li style="margin-bottom: 10px;"><a href="help.html" style="color: var(--neutral); text-decoration: none;">Help Center</a></li>
-                    <li style="margin-bottom: 10px;"><a href="shipping.html" style="color: var(--neutral); text-decoration: none;">Shipping</a></li>
-                    <li style="margin-bottom: 10px;"><a href="returns.html" style="color: var(--neutral); text-decoration: none;">Returns</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4 style="margin-bottom: 15px;">Company</h4>
-                <ul style="list-style: none;">
-                    <li style="margin-bottom: 10px;"><a href="about.html" style="color: var(--neutral); text-decoration: none;">About Us</a></li>
-                    <li style="margin-bottom: 10px;"><a href="careers.html" style="color: var(--neutral); text-decoration: none;">Careers</a></li>
-                    <li style="margin-bottom: 10px;"><a href="contact.html" style="color: var(--neutral); text-decoration: none;">Contact</a></li>
-                </ul>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 Atsy. All rights reserved.</p>
             </div>
         </div>
-    </div>
+    </footer>
 
     <script src="script.js"></script>
     <script>
-        // Check if user is logged in
-        document.addEventListener('DOMContentLoaded', function() {
-            // You can add logic here to check if user is logged in
-            // and update nav accordingly
-        });
+        const API_BASE = 'https://xoqyywycygofgbgazrpu.supabase.co/rest/v1';
+        const API_KEY = 'sb_publishable_O-6kGt2-CDzg7uR8hQoK_w_ZD5M1aUo';
+
+        // Load reviews from database
+        async function loadReviews() {
+            try {
+                const response = await fetch(
+                    `${API_BASE}/reviews?select=*,buyer_id(*)&limit=6`,
+                    { headers: { 'apikey': API_KEY } }
+                );
+                const reviews = await response.json();
+                
+                if (reviews.length > 0) {
+                    displayReviews(reviews);
+                } else {
+                    loadDemoReviews();
+                }
+            } catch (error) {
+                console.error('Error loading reviews:', error);
+                loadDemoReviews();
+            }
+        }
+
+        function loadDemoReviews() {
+            const demoReviews = [
+                {
+                    rating: 5,
+                    comment: "I purchased a beautiful handwoven basket from Amara and the craftsmanship is outstanding. The story behind each piece makes it even more special. This platform truly connects you with the heart of Africa.",
+                    buyer: { full_name: "Sarah Kofi", location_city: "New York", location_country: "USA" }
+                },
+                {
+                    rating: 5,
+                    comment: "The jewelry I received from Fatima exceeded all expectations. Authentic Moroccan silver work with incredible detail. Fast shipping and amazing customer service. I'll definitely be ordering more!",
+                    buyer: { full_name: "James Mitchell", location_city: "London", location_country: "UK" }
+                },
+                {
+                    rating: 5,
+                    comment: "As someone who values cultural authenticity, this marketplace is a treasure. The AI translations in my native Swahili helped my grandmother choose a gift. Supporting artisans directly feels meaningful.",
+                    buyer: { full_name: "Amina Mwangi", location_city: "Nairobi", location_country: "Kenya" }
+                }
+            ];
+            displayReviews(demoReviews);
+        }
+
+        function displayReviews(reviews) {
+            const grid = document.getElementById('reviewsGrid');
+            
+            grid.innerHTML = reviews.map(review => {
+                const initials = review.buyer?.full_name?.split(' ').map(n => n[0]).join('') || 'GU';
+                const location = review.buyer?.location_city && review.buyer?.location_country 
+                    ? `${review.buyer.location_city}, ${review.buyer.location_country}`
+                    : 'Happy Customer';
+                
+                return `
+                    <div class="review-card">
+                        <div class="review-rating">${'★'.repeat(review.rating || 5)}</div>
+                        <p class="review-text">"${review.comment}"</p>
+                        <div class="reviewer">
+                            <div class="reviewer-avatar">${initials}</div>
+                            <div class="reviewer-info">
+                                <h4>${review.buyer?.full_name || 'Customer'}</h4>
+                                <p>${location}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function toggleMenu() {
+            document.getElementById('navLinks').classList.toggle('active');
+        }
+
+        // Load reviews on page load
+        loadReviews();
     </script>
 </body>
 </html>
