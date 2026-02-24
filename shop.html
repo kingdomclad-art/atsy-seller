@@ -5,19 +5,135 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Atsy - Discover Authentic African Artistry</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://kingdomclad-art.github.io/atsy-seller/styles.css">
     <style>
+        /* Copy the same navigation styles from index.html */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: white;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .top-nav {
+            background: white;
+            padding: 20px 0;
+            border-bottom: 1px solid #e5e7eb;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: #FF6B35;
+            text-decoration: none;
+        }
+        
+        .nav-center {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+        }
+        
+        .nav-center a {
+            color: #06070A;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        
+        .nav-center a:hover,
+        .nav-center a.active {
+            color: #FF6B35;
+        }
+        
+        .nav-right {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        
+        .btn-outline {
+            padding: 8px 20px;
+            border: 2px solid #FF6B35;
+            border-radius: 8px;
+            color: #FF6B35;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        
+        .btn-outline:hover {
+            background: #FF6B35;
+            color: white;
+        }
+        
+        .btn-primary {
+            padding: 8px 20px;
+            background: #FF6B35;
+            border-radius: 8px;
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        
+        .btn-primary:hover {
+            background: #e55a2b;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+        }
+        
+        /* Page Header */
+        .page-header {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        
+        .page-header h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 36px;
+            margin-bottom: 10px;
+            color: #06070A;
+        }
+        
+        .page-header p {
+            color: #2C2C2B;
+            font-size: 18px;
+        }
+        
+        /* Shop Container */
         .shop-container {
+            max-width: 1200px;
+            margin: 0 auto 60px;
+            padding: 0 20px;
             display: grid;
             grid-template-columns: 280px 1fr;
             gap: 30px;
-            margin-top: 30px;
         }
         
+        /* Filters Sidebar */
         .filters-sidebar {
             background: white;
             padding: 20px;
             border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
             height: fit-content;
             position: sticky;
             top: 100px;
@@ -31,7 +147,8 @@
             font-weight: 600;
             margin-bottom: 15px;
             padding-bottom: 10px;
-            border-bottom: 1px solid var(--gray-200);
+            border-bottom: 1px solid #e5e7eb;
+            color: #06070A;
         }
         
         .category-list {
@@ -42,11 +159,12 @@
             padding: 8px 0;
             cursor: pointer;
             transition: color 0.2s;
+            color: #2C2C2B;
         }
         
         .category-item:hover,
         .category-item.active {
-            color: var(--primary);
+            color: #FF6B35;
             font-weight: 500;
         }
         
@@ -54,20 +172,22 @@
             display: inline-block;
             padding: 6px 12px;
             margin: 0 5px 5px 0;
-            border: 1px solid var(--gray-200);
+            border: 1px solid #e5e7eb;
             border-radius: 20px;
             font-size: 13px;
             cursor: pointer;
             transition: all 0.2s;
+            color: #2C2C2B;
         }
         
         .region-badge:hover,
         .region-badge.active {
-            background: var(--secondary);
+            background: #06070A;
             color: white;
-            border-color: var(--secondary);
+            border-color: #06070A;
         }
         
+        /* Products Header */
         .products-header {
             display: flex;
             justify-content: space-between;
@@ -76,16 +196,18 @@
         }
         
         .product-count {
-            color: var(--neutral);
+            color: #2C2C2B;
         }
         
         .sort-select {
             padding: 8px 16px;
-            border: 1px solid var(--gray-200);
+            border: 1px solid #e5e7eb;
             border-radius: 8px;
             background: white;
+            color: #06070A;
         }
         
+        /* Products Grid */
         .products-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -96,14 +218,14 @@
             background: white;
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
             transition: transform 0.3s;
             cursor: pointer;
         }
         
         .product-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
         }
         
         .product-image {
@@ -119,10 +241,11 @@
         .product-title {
             font-weight: 600;
             margin-bottom: 5px;
+            color: #06070A;
         }
         
         .product-artisan {
-            color: var(--neutral);
+            color: #2C2C2B;
             font-size: 14px;
             margin-bottom: 8px;
         }
@@ -138,40 +261,14 @@
         .product-price {
             font-size: 18px;
             font-weight: 700;
-            color: var(--primary);
+            color: #FF6B35;
         }
         
         .region-indicator {
             display: inline-block;
             font-size: 12px;
-            color: var(--neutral);
+            color: #2C2C2B;
             margin-left: 5px;
-        }
-        
-        .loading {
-            text-align: center;
-            padding: 60px;
-            color: var(--neutral);
-        }
-        
-        .loading-spinner {
-            border: 3px solid var(--gray-200);
-            border-top-color: var(--primary);
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 15px;
-        }
-        
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        
-        @media (max-width: 1024px) {
-            .products-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
         }
         
         @media (max-width: 768px) {
@@ -179,251 +276,123 @@
                 grid-template-columns: 1fr;
             }
             
-            .filters-sidebar {
-                position: static;
-                margin-bottom: 20px;
-            }
-            
             .products-grid {
                 grid-template-columns: 1fr;
+            }
+            
+            .filters-sidebar {
+                position: static;
             }
         }
     </style>
 </head>
 <body>
-    <nav class="nav">
+    <!-- Top Navigation Bar -->
+    <div class="top-nav">
         <div class="nav-container">
             <a href="index.html" class="logo">Atsy</a>
-            <div class="mobile-menu-btn" onclick="toggleMenu()">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-            <div class="nav-links" id="navLinks">
+            <div class="nav-center">
                 <a href="shop.html" class="active">Collections</a>
                 <a href="artisans.html">Artisans</a>
                 <a href="about.html">About</a>
-                <a href="login.html" class="btn-outline" style="padding: 8px 16px;">Sign In</a>
-                <a href="signup-role.html" class="btn-primary" style="padding: 8px 16px;">Get Started</a>
             </div>
-        </div>
-    </nav>
-
-    <div class="container">
-        <h1 style="font-size: 36px; margin-bottom: 10px;">Discover Authentic African Artistry</h1>
-        <p style="color: var(--neutral); margin-bottom: 30px;">Every piece tells a story. Support artisans and own unique handcrafted treasures.</p>
-
-        <div class="shop-container">
-            <!-- Filters Sidebar -->
-            <div class="filters-sidebar">
-                <div class="filter-section">
-                    <h3 class="filter-title">Categories</h3>
-                    <ul class="category-list" id="categoryList">
-                        <li class="category-item active" data-category="all">All</li>
-                        <!-- Categories loaded by JavaScript -->
-                    </ul>
-                </div>
-
-                <div class="filter-section">
-                    <h3 class="filter-title">Filter by Region</h3>
-                    <div id="regionFilters">
-                        <span class="region-badge active" data-region="all">All Regions</span>
-                        <span class="region-badge" data-region="north">🌍 North Africa</span>
-                        <span class="region-badge" data-region="west">🌍 West Africa</span>
-                        <span class="region-badge" data-region="east">🌍 East Africa</span>
-                        <span class="region-badge" data-region="southern">🌍 Southern Africa</span>
-                        <span class="region-badge" data-region="central">🌍 Central Africa</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Products Grid -->
-            <div>
-                <div class="products-header">
-                    <span class="product-count" id="productCount">Loading...</span>
-                    <select class="sort-select" id="sortSelect">
-                        <option value="featured">Featured</option>
-                        <option value="price-low">Price: Low to High</option>
-                        <option value="price-high">Price: High to Low</option>
-                        <option value="rating">Highest Rated</option>
-                    </select>
-                </div>
-
-                <div class="products-grid" id="productsGrid">
-                    <div class="loading">
-                        <div class="loading-spinner"></div>
-                        <p>Loading products...</p>
-                    </div>
-                </div>
+            <div class="nav-right">
+                <a href="login.html" class="btn-outline">Sign In</a>
+                <a href="signup-role.html" class="btn-primary">Get Started</a>
             </div>
         </div>
     </div>
 
-    <script src="script.js"></script>
-    <script>
-        const API_BASE = 'https://xoqyywycygofgbgazrpu.supabase.co/rest/v1';
-        const API_KEY = 'sb_publishable_O-6kGt2-CDzg7uR8hQoK_w_ZD5M1aUo';
+    <!-- Page Header -->
+    <div class="page-header">
+        <h1>Discover Authentic African Artistry</h1>
+        <p>Every piece tells a story. Support artisans and own unique handcrafted treasures.</p>
+    </div>
 
-        let allProducts = [];
-        let filteredProducts = [];
+    <!-- Shop Container -->
+    <div class="shop-container">
+        <!-- Filters Sidebar -->
+        <div class="filters-sidebar">
+            <div class="filter-section">
+                <h3 class="filter-title">Categories</h3>
+                <ul class="category-list">
+                    <li class="category-item active" onclick="filterByCategory('all')">All</li>
+                    <li class="category-item" onclick="filterByCategory('Baskets')">Baskets</li>
+                    <li class="category-item" onclick="filterByCategory('Pottery')">Pottery</li>
+                    <li class="category-item" onclick="filterByCategory('Jewelry')">Jewelry</li>
+                    <li class="category-item" onclick="filterByCategory('Textiles')">Textiles</li>
+                    <li class="category-item" onclick="filterByCategory('Beadwork')">Beadwork</li>
+                    <li class="category-item" onclick="filterByCategory('Woodcarving')">Woodcarving</li>
+                </ul>
+            </div>
+
+            <div class="filter-section">
+                <h3 class="filter-title">Filter by Region</h3>
+                <div>
+                    <span class="region-badge active" onclick="filterByRegion('all')">All Regions</span>
+                    <span class="region-badge" onclick="filterByRegion('north')">North Africa</span>
+                    <span class="region-badge" onclick="filterByRegion('west')">West Africa</span>
+                    <span class="region-badge" onclick="filterByRegion('east')">East Africa</span>
+                    <span class="region-badge" onclick="filterByRegion('southern')">Southern Africa</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Products Grid -->
+        <div>
+            <div class="products-header">
+                <span class="product-count" id="productCount">9 products</span>
+                <select class="sort-select" id="sortSelect">
+                    <option value="featured">Featured</option>
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="price-high">Price: High to Low</option>
+                </select>
+            </div>
+
+            <div class="products-grid" id="productsGrid">
+                <!-- Products will be loaded by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Product data
+        const products = [
+            { id: 1, title: 'Handwoven Storage Basket', artisan: 'Amara Okonkwo', region: 'west', country: 'Nigeria', category: 'Baskets', rating: 4.9, reviews: 127, price: 145 },
+            { id: 2, title: 'Beaded Statement Necklace', artisan: 'Fatima Hassan', region: 'north', country: 'Morocco', category: 'Jewelry', rating: 4.8, reviews: 203, price: 89 },
+            { id: 3, title: 'Zulu Beadwork Bracelet', artisan: 'Thabo Ndlovu', region: 'southern', country: 'South Africa', category: 'Beadwork', rating: 4.9, reviews: 234, price: 65 },
+            { id: 4, title: 'Traditional Kente Cloth', artisan: 'Esi Adade', region: 'west', country: 'Ghana', category: 'Textiles', rating: 5.0, reviews: 92, price: 425 },
+            { id: 5, title: 'Hand-Carved Wooden Mask', artisan: 'Kofi Asamoah', region: 'west', country: 'Ghana', category: 'Woodcarving', rating: 4.9, reviews: 156, price: 275 },
+            { id: 6, title: 'Maasai Beaded Necklace', artisan: 'Nashega Kilel', region: 'east', country: 'Kenya', category: 'Beadwork', rating: 4.8, reviews: 199, price: 120 }
+        ];
+
         let currentCategory = 'all';
         let currentRegion = 'all';
         let currentSort = 'featured';
-        let categories = [];
-
-        async function loadProducts() {
-            try {
-                const response = await fetch(
-                    `${API_BASE}/products?select=*`,
-                    { headers: { 'apikey': API_KEY } }
-                );
-                const products = await response.json();
-                
-                if (products.length > 0) {
-                    allProducts = products;
-                } else {
-                    // Fallback demo data if no products
-                    allProducts = [
-                        {
-                            id: 1,
-                            title: 'Handwoven Storage Basket',
-                            artisan_name: 'Amara Okonkwo',
-                            region: 'west',
-                            country: 'Nigeria',
-                            category: 'Baskets',
-                            rating: 4.9,
-                            review_count: 127,
-                            price: 145,
-                            image_urls: ['https://ui-avatars.com/api/?name=HSB&size=400&background=FF6B35&color=fff']
-                        },
-                        {
-                            id: 2,
-                            title: 'Beaded Statement Necklace',
-                            artisan_name: 'Fatima Hassan',
-                            region: 'north',
-                            country: 'Morocco',
-                            category: 'Jewelry',
-                            rating: 4.8,
-                            review_count: 203,
-                            price: 89,
-                            image_urls: ['https://ui-avatars.com/api/?name=BSN&size=400&background=FF6B35&color=fff']
-                        },
-                        {
-                            id: 3,
-                            title: 'Zulu Beadwork Bracelet',
-                            artisan_name: 'Thabo Ndlovu',
-                            region: 'southern',
-                            country: 'South Africa',
-                            category: 'Beadwork',
-                            rating: 4.9,
-                            review_count: 234,
-                            price: 65,
-                            image_urls: ['https://ui-avatars.com/api/?name=ZBB&size=400&background=FF6B35&color=fff']
-                        },
-                        {
-                            id: 4,
-                            title: 'Traditional Kente Cloth',
-                            artisan_name: 'Esi Adade',
-                            region: 'west',
-                            country: 'Ghana',
-                            category: 'Textiles',
-                            rating: 5.0,
-                            review_count: 92,
-                            price: 425,
-                            image_urls: ['https://ui-avatars.com/api/?name=TKC&size=400&background=FF6B35&color=fff']
-                        },
-                        {
-                            id: 5,
-                            title: 'Berber Tapestry',
-                            artisan_name: 'Amira El-Fassi',
-                            region: 'north',
-                            country: 'Morocco',
-                            category: 'Tapestry',
-                            rating: 5.0,
-                            review_count: 167,
-                            price: 380,
-                            image_urls: ['https://ui-avatars.com/api/?name=BTP&size=400&background=FF6B35&color=fff']
-                        },
-                        {
-                            id: 6,
-                            title: 'Maasai Beaded Necklace',
-                            artisan_name: 'Nashega Kilel',
-                            region: 'east',
-                            country: 'Kenya',
-                            category: 'Beadwork',
-                            rating: 4.8,
-                            review_count: 199,
-                            price: 120,
-                            image_urls: ['https://ui-avatars.com/api/?name=MBN&size=400&background=FF6B35&color=fff']
-                        }
-                    ];
-                }
-                
-                extractCategories();
-                displayProducts();
-                
-            } catch (error) {
-                console.error('Error loading products:', error);
-                showError('productsGrid', 'Failed to load products');
-            }
-        }
-
-        function extractCategories() {
-            categories = ['all', ...new Set(allProducts.map(p => p.category))];
-            
-            const categoryList = document.getElementById('categoryList');
-            categoryList.innerHTML = categories.map(cat => `
-                <li class="category-item ${cat === 'all' ? 'active' : ''}" data-category="${cat}" onclick="filterByCategory('${cat}')">
-                    ${cat === 'all' ? 'All' : cat}
-                </li>
-            `).join('');
-        }
 
         function displayProducts() {
-            // Apply filters
-            filteredProducts = allProducts.filter(p => {
+            let filtered = products.filter(p => {
                 const categoryMatch = currentCategory === 'all' || p.category === currentCategory;
                 const regionMatch = currentRegion === 'all' || p.region === currentRegion;
                 return categoryMatch && regionMatch;
             });
-            
-            // Apply sorting
+
+            // Sort
             if (currentSort === 'price-low') {
-                filteredProducts.sort((a, b) => a.price - b.price);
+                filtered.sort((a, b) => a.price - b.price);
             } else if (currentSort === 'price-high') {
-                filteredProducts.sort((a, b) => b.price - a.price);
-            } else if (currentSort === 'rating') {
-                filteredProducts.sort((a, b) => b.rating - a.rating);
+                filtered.sort((a, b) => b.price - a.price);
             }
+
+            document.getElementById('productCount').textContent = `${filtered.length} products`;
             
-            // Update count
-            document.getElementById('productCount').textContent = 
-                `${filteredProducts.length} product${filteredProducts.length !== 1 ? 's' : ''}`;
-            
-            // Generate HTML
-            const grid = document.getElementById('productsGrid');
-            
-            if (filteredProducts.length === 0) {
-                grid.innerHTML = `
-                    <div style="grid-column: 1/-1; text-align: center; padding: 60px;">
-                        <p style="color: var(--neutral);">No products match your filters</p>
-                    </div>
-                `;
-                return;
-            }
-            
-            grid.innerHTML = filteredProducts.map(p => `
-                <div class="product-card" onclick="location.href='product.html?id=${p.id}'">
-                    <img src="${p.image_urls?.[0] || 'https://ui-avatars.com/api/?name=' + p.title.substring(0,3) + '&size=400&background=FF6B35&color=fff'}" 
-                         alt="${p.title}" 
-                         class="product-image"
-                         onerror="this.src='https://ui-avatars.com/api/?name=' + this.alt.substring(0,3) + '&size=400&background=FF6B35&color=fff'">
+            document.getElementById('productsGrid').innerHTML = filtered.map(p => `
+                <div class="product-card" onclick="location.href='artisan-profile.html?id=${p.artisan.toLowerCase().split(' ')[0]}'">
+                    <img src="https://ui-avatars.com/api/?name=${p.title.substring(0,3)}&size=200&background=FF6B35&color=fff" class="product-image">
                     <div class="product-info">
                         <h3 class="product-title">${p.title}</h3>
-                        <p class="product-artisan">by ${p.artisan_name || 'Artisan'} <span class="region-indicator">• ${p.country || ''}</span></p>
-                        <div class="product-rating">
-                            ${'★'.repeat(Math.floor(p.rating || 4.5))}${(p.rating || 4.5) % 1 ? '½' : ''} (${p.review_count || 0})
-                        </div>
+                        <p class="product-artisan">by ${p.artisan} • ${p.country}</p>
+                        <div class="product-rating">★★★★½ (${p.reviews})</div>
                         <div class="product-price">$${p.price}</div>
                     </div>
                 </div>
@@ -432,42 +401,24 @@
 
         function filterByCategory(category) {
             currentCategory = category;
-            
-            // Update active class
-            document.querySelectorAll('.category-item').forEach(el => {
-                el.classList.remove('active');
-            });
-            document.querySelector(`.category-item[data-category="${category}"]`).classList.add('active');
-            
+            document.querySelectorAll('.category-item').forEach(el => el.classList.remove('active'));
+            event.target.classList.add('active');
             displayProducts();
         }
 
         function filterByRegion(region) {
             currentRegion = region;
-            
-            // Update active class
-            document.querySelectorAll('.region-badge').forEach(el => {
-                el.classList.remove('active');
-            });
-            document.querySelector(`.region-badge[data-region="${region}"]`).classList.add('active');
-            
+            document.querySelectorAll('.region-badge').forEach(el => el.classList.remove('active'));
+            event.target.classList.add('active');
             displayProducts();
         }
 
-        // Set up event listeners
-        document.getElementById('sortSelect').addEventListener('change', function(e) {
+        document.getElementById('sortSelect').addEventListener('change', (e) => {
             currentSort = e.target.value;
             displayProducts();
         });
 
-        document.querySelectorAll('.region-badge').forEach(badge => {
-            badge.addEventListener('click', function() {
-                filterByRegion(this.dataset.region);
-            });
-        });
-
-        // Initialize
-        loadProducts();
+        displayProducts();
     </script>
 </body>
 </html>
