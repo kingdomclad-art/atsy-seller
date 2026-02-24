@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artsy - Artisan Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: white;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .top-nav {
+            background: white;
+            padding: 20px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: #FF6B35;
+            text-decoration: none;
+        }
+        
+        .welcome-container {
+            max-width: 800px;
+            margin: 60px auto;
+            padding: 40px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+        
+        .welcome-container h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #06070A;
+        }
+        
+        .welcome-container p {
+            color: #2C2C2B;
+            font-size: 18px;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        
+        .dashboard-link {
+            display: inline-block;
+            padding: 15px 40px;
+            background: #FF6B35;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        
+        .dashboard-link:hover {
+            background: #e55a2b;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="top-nav">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Artsy</a>
+            <div class="nav-center">
+                <a href="shop.html">Collections</a>
+                <a href="artisans.html">Artisans</a>
+                <a href="about.html">About</a>
+            </div>
+            <div class="nav-right">
+                <a href="login.html" style="padding: 8px 20px; border: 2px solid #FF6B35; border-radius: 8px; color: #FF6B35; text-decoration: none;">Sign In</a>
+                <a href="signup-role.html" style="padding: 8px 20px; background: #FF6B35; border-radius: 8px; color: white; text-decoration: none;">Get Started</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="welcome-container">
+        <h1>Welcome to the Artisan Portal! 🎨</h1>
+        <p>You've successfully signed up as an artisan. This is where you'll manage your products, track orders, and connect with buyers.</p>
+        <p>The full artisan dashboard is coming soon. For now, explore the site as a buyer or return to the homepage.</p>
+        <a href="index.html" class="dashboard-link">Return to Homepage</a>
+    </div>
+</body>
+</html>
