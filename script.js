@@ -1,4 +1,4 @@
-// script.js - Shared functions for Atsy Seller Dashboard
+// script.js - Shared functions for Artsy Seller Dashboard
 
 // API Configuration
 const API_BASE = 'https://xoqyywycygofgbgazrpu.supabase.co/rest/v1';
