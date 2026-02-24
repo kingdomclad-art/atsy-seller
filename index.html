@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Atsy - Discover African Artisan Treasures</title>
+    <title>Artsy - Discover African Artisan Treasures</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://kingdomclad-art.github.io/atsy-seller/styles.css">
     <style>
         /* Reset */
         * {
@@ -147,6 +146,18 @@
             font-size: 16px;
         }
         
+        .map-placeholder {
+            background: #f5f5f5;
+            height: 400px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #2C2C2B;
+            font-size: 18px;
+            border: 2px dashed #e5e7eb;
+        }
+        
         /* Why Choose Section */
         .section-title {
             font-family: 'Poppins', sans-serif;
@@ -161,6 +172,320 @@
             color: #2C2C2B;
             margin-bottom: 40px;
             font-size: 18px;
+        }
+        
+        /* Features Grid */
+        .features-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 30px 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+        }
+        
+        .feature-icon {
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+        
+        .feature-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #06070A;
+        }
+        
+        .feature-description {
+            color: #2C2C2B;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        /* Popular Artisans Grid */
+        .artisan-grid {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        
+        .artisan-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+        
+        .artisan-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+        }
+        
+        .artisan-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+        
+        .artisan-info {
+            padding: 20px;
+        }
+        
+        .artisan-name {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #06070A;
+        }
+        
+        .artisan-title {
+            color: #FF6B35;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+        
+        .artisan-location {
+            color: #2C2C2B;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+        
+        .artisan-specialty {
+            font-size: 13px;
+            color: #2C2C2B;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+        
+        .view-profile-btn {
+            width: 100%;
+            padding: 12px;
+            background: transparent;
+            border: 2px solid #FF6B35;
+            color: #FF6B35;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .view-profile-btn:hover {
+            background: #FF6B35;
+            color: white;
+        }
+        
+        /* Reviews Grid */
+        .reviews-grid {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        
+        .review-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        
+        .review-rating {
+            color: #FFB800;
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .review-text {
+            font-style: italic;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            color: #06070A;
+        }
+        
+        .reviewer {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .reviewer-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #FF6B35;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 18px;
+        }
+        
+        .reviewer-info h4 {
+            font-weight: 600;
+            margin-bottom: 2px;
+            color: #06070A;
+        }
+        
+        .reviewer-info p {
+            color: #2C2C2B;
+            font-size: 12px;
+        }
+        
+        /* Stats Bar */
+        .stats-bar {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 40px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 36px;
+            font-weight: 700;
+            color: #FF6B35;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            color: #2C2C2B;
+            font-size: 14px;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 60px;
+            background: linear-gradient(135deg, #FF6B35, #FF8C5A);
+            border-radius: 12px;
+            text-align: center;
+            color: white;
+        }
+        
+        .cta-section h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .cta-section p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        .cta-section .btn {
+            background: white;
+            color: #FF6B35;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+        
+        .cta-section .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        
+        /* Footer */
+        .footer {
+            background: #06070A;
+            color: white;
+            padding: 60px 0 30px;
+            margin-top: 60px;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-logo {
+            font-family: 'Poppins', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: #FF6B35;
+            margin-bottom: 20px;
+        }
+        
+        .footer-description {
+            color: #999;
+            line-height: 1.6;
+        }
+        
+        .footer-heading {
+            font-weight: 600;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: #999;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        .footer-links a:hover {
+            color: #FF6B35;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #333;
+            color: #666;
+            font-size: 14px;
         }
         
         /* Mobile Menu */
@@ -180,6 +505,15 @@
         
         @media (max-width: 768px) {
             .hero {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .features-grid,
+            .artisan-grid,
+            .reviews-grid,
+            .stats-bar,
+            .footer-grid {
                 grid-template-columns: 1fr;
             }
             
@@ -201,15 +535,15 @@
     <!-- Top Navigation Bar -->
     <div class="top-nav">
         <div class="nav-container">
-            <a href="index.html" class="logo">Atsy</a>
+            <a href="index.html" class="logo">Artsy</a>
             
-            <div class="nav-center" id="navCenter">
+            <div class="nav-center">
                 <a href="shop.html">Collections</a>
                 <a href="artisans.html">Artisans</a>
                 <a href="about.html">About</a>
             </div>
             
-            <div class="nav-right" id="navRight">
+            <div class="nav-right">
                 <a href="login.html" class="btn-outline">Sign In</a>
                 <a href="signup-role.html" class="btn-primary">Get Started</a>
             </div>
@@ -228,64 +562,45 @@
             <h1>Discover African Artisan Treasures</h1>
             <p>Connect directly with master craftspeople creating authentic, handmade pieces that carry the soul of Africa's rich artistic heritage.</p>
             <div class="hero-actions">
-                <a href="shop.html" class="btn-primary" style="padding: 12px 30px;">Explore Collections</a>
-                <a href="signup-role.html?role=artisan" class="btn-outline" style="padding: 12px 30px;">Join as Artisan</a>
+                <a href="shop.html" class="btn-primary">Explore Collections</a>
+                <a href="signup-role.html?role=artisan" class="btn-outline">Join as Artisan</a>
             </div>
         </div>
-        <div class="map-container" style="position: relative; height: 400px; background: #f8f8f8; border-radius: 12px; overflow: hidden;">
-            <!-- Africa Map SVG -->
-            <svg viewBox="0 0 400 400" style="width: 100%; height: 100%; opacity: 0.8;">
-                <path d="M200,50 L300,150 L280,250 L200,350 L120,250 L100,150 L200,50" 
-                      fill="#FFE0D4" stroke="#FF6B35" stroke-width="2"/>
-                <!-- Artisan Pins -->
-                <circle cx="200" cy="150" r="8" fill="#FF6B35" stroke="white" stroke-width="2" 
-                        style="cursor: pointer;" 
-                        onmouseover="this.setAttribute('r', '12')" 
-                        onmouseout="this.setAttribute('r', '8')"/>
-                <text x="200" y="130" text-anchor="middle" font-size="10" fill="white">W</text>
-                
-                <circle cx="280" cy="200" r="8" fill="#FF6B35" stroke="white" stroke-width="2"
-                        style="cursor: pointer;"
-                        onmouseover="this.setAttribute('r', '12')" 
-                        onmouseout="this.setAttribute('r', '8')"/>
-                <text x="280" y="180" text-anchor="middle" font-size="10" fill="white">E</text>
-                
-                <circle cx="150" cy="280" r="8" fill="#FF6B35" stroke="white" stroke-width="2"
-                        style="cursor: pointer;"
-                        onmouseover="this.setAttribute('r', '12')" 
-                        onmouseout="this.setAttribute('r', '8')"/>
-                <text x="150" y="260" text-anchor="middle" font-size="10" fill="white">S</text>
-            </svg>
+        
+        <!-- Simple Map Placeholder -->
+        <div class="map-placeholder">
+            🌍 Africa Map with Artisan Pins
         </div>
+    </div>
 
     <!-- Why Choose Artsy Section -->
     <h2 class="section-title">Why Choose Artsy</h2>
     <p class="section-subtitle">A marketplace built on authenticity, trust, and cultural celebration</p>
 
+    <!-- Features Grid -->
     <div class="features-grid">
         <div class="feature-card">
             <div class="feature-icon">✓</div>
             <h3 class="feature-title">Authentic</h3>
-            <p class="feature-description">Verified Artisans</p>
-            <p style="color: var(--neutral); font-size: 13px; margin-top: 5px;">Direct connection with verified creators ensures authenticity</p>
+            <p class="feature-description">Verified Artisans. Direct connection with verified creators ensures authenticity.</p>
         </div>
         
         <div class="feature-card">
             <div class="feature-icon">🌍</div>
             <h3 class="feature-title">Global Reach</h3>
-            <p class="feature-description">Supporting artisans across Africa with worldwide shipping</p>
+            <p class="feature-description">Supporting artisans across Africa with worldwide shipping.</p>
         </div>
         
         <div class="feature-card">
             <div class="feature-icon">🎨</div>
             <h3 class="feature-title">Curated Collections</h3>
-            <p class="feature-description">Gallery-quality pieces selected for their uniqueness and beauty</p>
+            <p class="feature-description">Gallery-quality pieces selected for their uniqueness and beauty.</p>
         </div>
         
         <div class="feature-card">
             <div class="feature-icon">📖</div>
             <h3 class="feature-title">Craftsmanship</h3>
-            <p class="feature-description">Every piece tells a story of heritage, skill, and cultural authenticity</p>
+            <p class="feature-description">Every piece tells a story of heritage, skill, and cultural authenticity.</p>
         </div>
     </div>
 
@@ -293,6 +608,7 @@
     <h2 class="section-title">Popular Artisans</h2>
     <p class="section-subtitle">Meet the talented craftspeople creating extraordinary handmade pieces</p>
 
+    <!-- Artisans Grid -->
     <div class="artisan-grid">
         <!-- Amara Okonkwo -->
         <div class="artisan-card" onclick="location.href='artisan-profile.html?id=amara'">
@@ -335,8 +651,43 @@
     <h2 class="section-title">What Our Customers Say</h2>
     <p class="section-subtitle">Join thousands of happy collectors celebrating African artistry</p>
 
+    <!-- Reviews Grid -->
     <div class="reviews-grid" id="reviewsGrid">
-        <!-- Reviews loaded by JavaScript -->
+        <div class="review-card">
+            <div class="review-rating">★★★★★</div>
+            <p class="review-text">"I purchased a beautiful handwoven basket from Amara and the craftsmanship is outstanding. The story behind each piece makes it even more special. This platform truly connects you with the heart of Africa."</p>
+            <div class="reviewer">
+                <div class="reviewer-avatar">SK</div>
+                <div class="reviewer-info">
+                    <h4>Sarah Kofi</h4>
+                    <p>New York, USA</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="review-card">
+            <div class="review-rating">★★★★★</div>
+            <p class="review-text">"The jewelry I received from Fatima exceeded all expectations. Authentic Moroccan silver work with incredible detail. Fast shipping and amazing customer service. I'll definitely be ordering more!"</p>
+            <div class="reviewer">
+                <div class="reviewer-avatar">JM</div>
+                <div class="reviewer-info">
+                    <h4>James Mitchell</h4>
+                    <p>London, UK</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="review-card">
+            <div class="review-rating">★★★★★</div>
+            <p class="review-text">"As someone who values cultural authenticity, this marketplace is a treasure. The AI translations in my native Swahili helped my grandmother choose a gift. Supporting artisans directly feels meaningful."</p>
+            <div class="reviewer">
+                <div class="reviewer-avatar">AM</div>
+                <div class="reviewer-info">
+                    <h4>Amina Mwangi</h4>
+                    <p>Nairobi, Kenya</p>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Stats Bar -->
@@ -371,7 +722,7 @@
         <div class="footer-container">
             <div class="footer-grid">
                 <div>
-                    <div class="footer-logo">Atsy</div>
+                    <div class="footer-logo">Artsy</div>
                     <p class="footer-description">Connecting African artisans with the world</p>
                 </div>
                 
@@ -404,89 +755,18 @@
             </div>
             
             <div class="footer-bottom">
-                <p>&copy; 2026 Atsy. All rights reserved.</p>
+                <p>&copy; 2026 Artsy. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
-    <script src="script.js"></script>
     <script>
-        const API_BASE = 'https://xoqyywycygofgbgazrpu.supabase.co/rest/v1';
-        const API_KEY = 'sb_publishable_O-6kGt2-CDzg7uR8hQoK_w_ZD5M1aUo';
-
-        // Load reviews from database
-        async function loadReviews() {
-            try {
-                const response = await fetch(
-                    `${API_BASE}/reviews?select=*,buyer_id(*)&limit=6`,
-                    { headers: { 'apikey': API_KEY } }
-                );
-                const reviews = await response.json();
-                
-                if (reviews.length > 0) {
-                    displayReviews(reviews);
-                } else {
-                    loadDemoReviews();
-                }
-            } catch (error) {
-                console.error('Error loading reviews:', error);
-                loadDemoReviews();
-            }
-        }
-
-        function loadDemoReviews() {
-            const demoReviews = [
-                {
-                    rating: 5,
-                    comment: "I purchased a beautiful handwoven basket from Amara and the craftsmanship is outstanding. The story behind each piece makes it even more special. This platform truly connects you with the heart of Africa.",
-                    buyer: { full_name: "Sarah Kofi", location_city: "New York", location_country: "USA" }
-                },
-                {
-                    rating: 5,
-                    comment: "The jewelry I received from Fatima exceeded all expectations. Authentic Moroccan silver work with incredible detail. Fast shipping and amazing customer service. I'll definitely be ordering more!",
-                    buyer: { full_name: "James Mitchell", location_city: "London", location_country: "UK" }
-                },
-                {
-                    rating: 5,
-                    comment: "As someone who values cultural authenticity, this marketplace is a treasure. The AI translations in my native Swahili helped my grandmother choose a gift. Supporting artisans directly feels meaningful.",
-                    buyer: { full_name: "Amina Mwangi", location_city: "Nairobi", location_country: "Kenya" }
-                }
-            ];
-            displayReviews(demoReviews);
-        }
-
-        function displayReviews(reviews) {
-            const grid = document.getElementById('reviewsGrid');
-            
-            grid.innerHTML = reviews.map(review => {
-                const initials = review.buyer?.full_name?.split(' ').map(n => n[0]).join('') || 'GU';
-                const location = review.buyer?.location_city && review.buyer?.location_country 
-                    ? `${review.buyer.location_city}, ${review.buyer.location_country}`
-                    : 'Happy Customer';
-                
-                return `
-                    <div class="review-card">
-                        <div class="review-rating">${'★'.repeat(review.rating || 5)}</div>
-                        <p class="review-text">"${review.comment}"</p>
-                        <div class="reviewer">
-                            <div class="reviewer-avatar">${initials}</div>
-                            <div class="reviewer-info">
-                                <h4>${review.buyer?.full_name || 'Customer'}</h4>
-                                <p>${location}</p>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-        }
-
         function toggleMenu() {
-            document.getElementById('navCenter').classList.toggle('active');
-            document.getElementById('navRight').classList.toggle('active');
+            const navCenter = document.querySelector('.nav-center');
+            const navRight = document.querySelector('.nav-right');
+            navCenter.classList.toggle('active');
+            navRight.classList.toggle('active');
         }
-
-        // Load reviews on page load
-        loadReviews();
     </script>
 </body>
 </html>
