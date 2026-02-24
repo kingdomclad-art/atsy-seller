@@ -50,6 +50,11 @@
             color: #06070A;
             text-decoration: none;
             font-weight: 500;
+            transition: color 0.2s;
+        }
+        
+        .nav-center a:hover {
+            color: #FF6B35;
         }
         
         .role-container {
@@ -176,6 +181,10 @@
                 <a href="artisans.html">Artisans</a>
                 <a href="about.html">About</a>
             </div>
+            <div class="nav-right" style="display: flex; gap: 15px;">
+                <a href="login.html" class="btn-outline" style="padding: 8px 20px; border: 2px solid #FF6B35; border-radius: 8px; color: #FF6B35; text-decoration: none;">Sign In</a>
+                <a href="signup-role.html" class="btn-primary" style="padding: 8px 20px; background: #FF6B35; border-radius: 8px; color: white; text-decoration: none;">Get Started</a>
+            </div>
         </div>
     </div>
 
@@ -186,6 +195,7 @@
         </div>
 
         <div class="role-grid">
+            <!-- Buyer Card -->
             <div class="role-card">
                 <div class="role-icon">🛍️</div>
                 <h2>I'm a Buyer</h2>
@@ -194,17 +204,20 @@
                     <li>Browse curated collections</li>
                     <li>Connect with verified artisans</li>
                     <li>Secure global shipping</li>
+                    <li>Authentic craftsmanship guarantee</li>
                 </ul>
                 <button class="role-btn" onclick="location.href='shop.html'">Continue as Buyer →</button>
             </div>
 
+            <!-- Artisan Card -->
             <div class="role-card">
                 <div class="role-icon">🎨</div>
                 <h2>I'm an Artisan</h2>
-                <p class="role-description">Showcase your craft and reach global customers</p>
+                <p class="role-description">Showcase your craft and reach global customers with our premium platform</p>
                 <ul class="feature-list">
                     <li>Create your artisan profile</li>
                     <li>Manage products & orders</li>
+                    <li>AI-powered insights</li>
                     <li>Connect with buyers worldwide</li>
                 </ul>
                 <button class="role-btn" onclick="location.href='artisan-dashboard.html'">Continue as Artisan →</button>
