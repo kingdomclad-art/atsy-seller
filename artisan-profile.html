@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atsy - Artisan Profile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* Copy navigation styles from previous pages */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: white;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .top-nav {
+            background: white;
+            padding: 20px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: #FF6B35;
+            text-decoration: none;
+        }
+        
+        .nav-center {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+        }
+        
+        .nav-center a {
+            color: #06070A;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .nav-center a:hover {
+            color: #FF6B35;
+        }
+        
+        .profile-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #FF6B35;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        
+        .profile-header {
+            display: flex;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .profile-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: #FF6B35;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 80px;
+            font-weight: 600;
+        }
+        
+        .profile-info h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 36px;
+            margin-bottom: 10px;
+            color: #06070A;
+        }
+        
+        .profile-info .title {
+            color: #FF6B35;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .profile-info .location {
+            color: #2C2C2B;
+            margin-bottom: 20px;
+        }
+        
+        .profile-stats {
+            display: flex;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 24px;
+            font-weight: 700;
+            color: #FF6B35;
+        }
+        
+        .stat-label {
+            color: #2C2C2B;
+            font-size: 14px;
+        }
+        
+        .story-section {
+            background: #f9f9f9;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 40px;
+        }
+        
+        .story-section h2 {
+            font-family: 'Poppins', sans-serif;
+            margin-bottom: 20px;
+            color: #06070A;
+        }
+        
+        .story-section p {
+            line-height: 1.8;
+            color: #2C2C2B;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 200px;
+            background: #f5f5f5;
+        }
+        
+        .product-info {
+            padding: 15px;
+        }
+        
+        .product-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #06070A;
+        }
+        
+        .product-price {
+            color: #FF6B35;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-nav">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Atsy</a>
+            <div class="nav-center">
+                <a href="shop.html">Collections</a>
+                <a href="artisans.html">Artisans</a>
+                <a href="about.html">About</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="profile-container">
+        <a href="artisans.html" class="back-link">← Back to Artisans</a>
+        
+        <div class="profile-header">
+            <div class="profile-image">A</div>
+            <div class="profile-info">
+                <h1>Amara Okonkwo</h1>
+                <div class="title">Textile Artist</div>
+                <div class="location">Lagos, Nigeria • West Africa</div>
+                <div class="profile-stats">
+                    <div class="stat">
+                        <div class="stat-number">127</div>
+                        <div class="stat-label">Products</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">4.9</div>
+                        <div class="stat-label">Rating</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">3yr</div>
+                        <div class="stat-label">On Artsy</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="story-section">
+            <h2>My Story</h2>
+            <p>I am a third-generation textile artist from Lagos, Nigeria. I learned this craft from my grandmother, who taught me that every pattern tells a story of our people, our traditions, and our resilience. Each piece I create is woven with natural fibers sourced from local communities, supporting sustainable practices and preserving traditional techniques passed down through generations.</p>
+        </div>
+
+        <h2>My Collection</h2>
+        <div class="products-grid">
+            <div class="product-card">
+                <div class="product-image"></div>
+                <div class="product-info">
+                    <div class="product-title">Handwoven Basket</div>
+                    <div class="product-price">$145</div>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image"></div>
+                <div class="product-info">
+                    <div class="product-title">Kente Cloth</div>
+                    <div class="product-price">$425</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
