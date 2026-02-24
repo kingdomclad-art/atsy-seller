@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atsy - Notifications</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: #f5f5f5;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .top-nav {
+            background: white;
+            padding: 20px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: #FF6B35;
+            text-decoration: none;
+        }
+        
+        .nav-center {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+        }
+        
+        .nav-center a {
+            color: #06070A;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+            font-size: 24px;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #FF6B35;
+            color: white;
+            font-size: 12px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .profile-icon {
+            width: 40px;
+            height: 40px;
+            background: #FF6B35;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 30px;
+        }
+        
+        .dashboard-sidebar {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            height: fit-content;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        
+        .sidebar-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #06070A;
+        }
+        
+        .sidebar-menu {
+            list-style: none;
+        }
+        
+        .sidebar-menu li {
+            margin-bottom: 10px;
+        }
+        
+        .sidebar-menu a {
+            display: block;
+            padding: 12px 15px;
+            color: #2C2C2B;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+        
+        .sidebar-menu a:hover,
+        .sidebar-menu a.active {
+            background: #FF6B35;
+            color: white;
+        }
+        
+        .dashboard-main {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        
+        .page-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #06070A;
+        }
+        
+        .page-subtitle {
+            color: #2C2C2B;
+            margin-bottom: 30px;
+        }
+        
+        .notification-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 20px;
+            border-bottom: 1px solid #e5e7eb;
+            transition: background 0.2s;
+        }
+        
+        .notification-item:hover {
+            background: #f9f9f9;
+        }
+        
+        .notification-icon {
+            width: 40px;
+            height: 40px;
+            background: #FF6B35;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+        
+        .notification-content {
+            flex: 1;
+        }
+        
+        .notification-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #06070A;
+        }
+        
+        .notification-message {
+            color: #2C2C2B;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+        
+        .notification-time {
+            color: #999;
+            font-size: 12px;
+        }
+        
+        .unread {
+            background: #fff5f0;
+        }
+        
+        .mark-read {
+            color: #FF6B35;
+            cursor: pointer;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-nav">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Atsy</a>
+            <div class="nav-center">
+                <a href="shop.html">Collections</a>
+                <a href="artisans.html">Artisans</a>
+                <a href="about.html">About</a>
+            </div>
+            <div class="nav-right">
+                <div class="cart-icon" onclick="location.href='cart.html'">
+                    🛒
+                    <span class="cart-count">2</span>
+                </div>
+                <div class="profile-icon" onclick="location.href='buyer-dashboard.html'">SJ</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div class="dashboard-sidebar">
+            <h3 class="sidebar-title">My Dashboard</h3>
+            <ul class="sidebar-menu">
+                <li><a href="buyer-dashboard.html">📊 Overview</a></li>
+                <li><a href="buyer-orders.html">📦 Orders</a></li>
+                <li><a href="saved-items.html">❤️ Saved Items</a></li>
+                <li><a href="buyer-messages.html">💬 Messages</a></li>
+                <li><a href="notifications.html" class="active">🔔 Notifications</a></li>
+                <li><a href="buyer-profile.html">👤 My Profile</a></li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="dashboard-main">
+            <h1 class="page-title">Notifications</h1>
+            <p class="page-subtitle">Stay updated on your orders and messages</p>
+
+            <!-- Notification 1 - Unread -->
+            <div class="notification-item unread">
+                <div class="notification-icon">📦</div>
+                <div class="notification-content">
+                    <div class="notification-title">Order Shipped</div>
+                    <div class="notification-message">Your order #ORD-2024-002 has been shipped and is on its way!</div>
+                    <div class="notification-time">2 hours ago</div>
+                </div>
+                <span class="mark-read">Mark as read</span>
+            </div>
+
+            <!-- Notification 2 - Unread -->
+            <div class="notification-item unread">
+                <div class="notification-icon">💬</div>
+                <div class="notification-content">
+                    <div class="notification-title">New Message</div>
+                    <div class="notification-message">Amara Okonkwo replied to your question about the basket</div>
+                    <div class="notification-time">5 hours ago</div>
+                </div>
+                <span class="mark-read">Mark as read</span>
+            </div>
+
+            <!-- Notification 3 - Read -->
+            <div class="notification-item">
+                <div class="notification-icon">✅</div>
+                <div class="notification-content">
+                    <div class="notification-title">Order Delivered</div>
+                    <div class="notification-message">Your order #ORD-2024-001 has been delivered. Enjoy!</div>
+                    <div class="notification-time">2 days ago</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add functionality to mark as read
+        document.querySelectorAll('.mark-read').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const notification = this.closest('.notification-item');
+                notification.classList.remove('unread');
+                this.remove();
+            });
+        });
+    </script>
+</body>
+</html>
