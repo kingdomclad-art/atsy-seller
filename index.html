@@ -7,28 +7,35 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://kingdomclad-art.github.io/atsy-seller/styles.css">
     <style>
-        /* Homepage-specific styles */
-        body {
-            background: white;
+        /* Reset any sidebar styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
         
-        /* Navigation - Horizontal bar */
-        .nav {
+        body {
             background: white;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        /* Top Navigation Bar */
+        .top-nav {
+            background: white;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--gray-200);
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            padding: 15px 0;
         }
         
         .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         
         .logo {
@@ -39,39 +46,73 @@
             text-decoration: none;
         }
         
-        .nav-links {
+        .nav-center {
             display: flex;
+            gap: 40px;
             align-items: center;
-            gap: 30px;
         }
         
-        .nav-links a {
+        .nav-center a {
             color: var(--secondary);
             text-decoration: none;
             font-weight: 500;
             transition: color 0.2s;
         }
         
-        .nav-links a:hover {
+        .nav-center a:hover {
             color: var(--primary);
         }
         
-        .nav-buttons {
+        .nav-right {
             display: flex;
             gap: 15px;
+            align-items: center;
         }
         
+        .btn-outline {
+            padding: 8px 20px;
+            border: 2px solid var(--primary);
+            border-radius: 8px;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary {
+            padding: 8px 20px;
+            background: var(--primary);
+            border-radius: 8px;
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        
+        .btn-primary:hover {
+            background: #e55a2b;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+        }
+        
+        /* Hero Section */
         .hero {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 40px;
             align-items: center;
-            padding: 60px 20px;
-            max-width: 1200px;
-            margin: 0 auto;
         }
         
         .hero-content h1 {
+            font-family: 'Poppins', sans-serif;
             font-size: 48px;
             line-height: 1.2;
             margin-bottom: 20px;
@@ -90,17 +131,29 @@
             gap: 15px;
         }
         
-        .map-container {
-            position: relative;
-            height: 400px;
-            background: url('https://svgshare.com/i/16T.svg') no-repeat center;
-            background-size: contain;
+        .hero-actions .btn {
+            padding: 12px 30px;
+            font-size: 16px;
         }
         
+        .map-placeholder {
+            background: var(--gray-100);
+            height: 400px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--neutral);
+            font-size: 18px;
+        }
+        
+        /* Section Titles */
         .section-title {
-            text-align: center;
+            font-family: 'Poppins', sans-serif;
             font-size: 36px;
-            margin-bottom: 10px;
+            text-align: center;
+            margin: 60px 0 10px;
+            color: var(--secondary);
         }
         
         .section-subtitle {
@@ -110,27 +163,28 @@
             font-size: 18px;
         }
         
-        /* Why Choose Artsy - Card Grid */
+        /* Features Grid */
         .features-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 30px;
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 0 20px;
         }
         
         .feature-card {
             background: white;
             padding: 30px 20px;
             border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
             text-align: center;
             transition: transform 0.3s;
         }
         
         .feature-card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
         }
         
         .feature-icon {
@@ -142,6 +196,7 @@
             font-size: 20px;
             font-weight: 600;
             margin-bottom: 10px;
+            color: var(--secondary);
         }
         
         .feature-description {
@@ -150,28 +205,28 @@
             line-height: 1.6;
         }
         
-        /* Popular Artisans Grid */
+        /* Artisans Grid */
         .artisan-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 30px;
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 0 20px;
         }
         
         .artisan-card {
             background: white;
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
             transition: transform 0.3s;
             cursor: pointer;
         }
         
         .artisan-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
         }
         
         .artisan-image {
@@ -188,6 +243,7 @@
             font-size: 20px;
             font-weight: 600;
             margin-bottom: 5px;
+            color: var(--secondary);
         }
         
         .artisan-title {
@@ -211,7 +267,7 @@
         
         .view-profile-btn {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             background: transparent;
             border: 2px solid var(--primary);
             color: var(--primary);
@@ -228,19 +284,19 @@
         
         /* Reviews Grid */
         .reviews-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 30px;
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 0 20px;
         }
         
         .review-card {
             background: white;
             padding: 25px;
             border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
         }
         
         .review-rating {
@@ -278,6 +334,7 @@
         .reviewer-info h4 {
             font-weight: 600;
             margin-bottom: 2px;
+            color: var(--secondary);
         }
         
         .reviewer-info p {
@@ -287,15 +344,15 @@
         
         /* Stats Bar */
         .stats-bar {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
             max-width: 1200px;
             margin: 60px auto;
             padding: 40px;
             background: white;
             border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
         }
         
         .stat-item {
@@ -316,18 +373,19 @@
         
         /* CTA Section */
         .cta-section {
-            background: linear-gradient(135deg, var(--primary), #FF8C5A);
-            color: white;
-            padding: 60px;
-            border-radius: 12px;
-            text-align: center;
             max-width: 1200px;
             margin: 60px auto;
+            padding: 60px;
+            background: linear-gradient(135deg, var(--primary), #FF8C5A);
+            border-radius: 12px;
+            text-align: center;
+            color: white;
         }
         
         .cta-section h2 {
             font-size: 36px;
             margin-bottom: 20px;
+            font-family: 'Poppins', sans-serif;
         }
         
         .cta-section p {
@@ -344,7 +402,7 @@
             border-radius: 8px;
             text-decoration: none;
             font-weight: 600;
-            transition: transform 0.3s;
+            transition: all 0.3s;
             display: inline-block;
         }
         
@@ -374,6 +432,7 @@
         }
         
         .footer-logo {
+            font-family: 'Poppins', sans-serif;
             font-size: 28px;
             font-weight: 700;
             color: var(--primary);
@@ -417,6 +476,21 @@
             font-size: 14px;
         }
         
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+        }
+        
+        .mobile-menu-btn span {
+            width: 30px;
+            height: 3px;
+            background: var(--secondary);
+            border-radius: 3px;
+        }
+        
         @media (max-width: 768px) {
             .hero {
                 grid-template-columns: 1fr;
@@ -430,39 +504,68 @@
                 grid-template-columns: 1fr;
             }
             
-            .nav-container {
+            .nav-center {
+                display: none;
+                position: absolute;
+                top: 80px;
+                left: 0;
+                right: 0;
+                background: white;
                 flex-direction: column;
-                gap: 15px;
+                padding: 20px;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.1);
             }
             
-            .nav-links {
+            .nav-center.active {
+                display: flex;
+            }
+            
+            .nav-right {
+                display: none;
+            }
+            
+            .nav-right.active {
+                display: flex;
                 flex-direction: column;
-                gap: 15px;
+                position: absolute;
+                top: 280px;
+                left: 0;
+                right: 0;
+                background: white;
+                padding: 20px;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            }
+            
+            .mobile-menu-btn {
+                display: flex;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation - Horizontal Bar -->
-    <nav class="nav">
+    <!-- Top Navigation Bar -->
+    <div class="top-nav">
         <div class="nav-container">
             <a href="index.html" class="logo">Atsy</a>
-            <div class="nav-links">
+            
+            <div class="nav-center" id="navCenter">
                 <a href="shop.html">Collections</a>
                 <a href="artisans.html">Artisans</a>
                 <a href="about.html">About</a>
-                <div class="nav-buttons">
-                    <a href="login.html" class="btn-outline" style="padding: 8px 16px;">Sign In</a>
-                    <a href="signup-role.html" class="btn-primary" style="padding: 8px 16px;">Get Started</a>
-                </div>
             </div>
+            
+            <div class="nav-right" id="navRight">
+                <a href="login.html" class="btn-outline">Sign In</a>
+                <a href="signup-role.html" class="btn-primary">Get Started</a>
+            </div>
+            
             <div class="mobile-menu-btn" onclick="toggleMenu()">
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
         </div>
-    </nav>
+    </div>
 
     <!-- Hero Section -->
     <div class="hero">
@@ -470,20 +573,19 @@
             <h1>Discover African Artisan Treasures</h1>
             <p>Connect directly with master craftspeople creating authentic, handmade pieces that carry the soul of Africa's rich artistic heritage.</p>
             <div class="hero-actions">
-                <a href="shop.html" class="btn btn-primary">Explore Collections</a>
-                <a href="signup-role.html?role=artisan" class="btn btn-outline">Join as Artisan</a>
+                <a href="shop.html" class="btn-primary" style="padding: 12px 30px;">Explore Collections</a>
+                <a href="signup-role.html?role=artisan" class="btn-outline" style="padding: 12px 30px;">Join as Artisan</a>
             </div>
         </div>
-        <div class="map-container">
-            <!-- Map pins as per design -->
+        <div class="map-placeholder">
+            [Interactive Africa Map with Artisan Pins]
+            <!-- Add your map implementation here -->
         </div>
     </div>
 
     <!-- Why Choose Artsy Section -->
-    <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
-        <h2 class="section-title">Why Choose Artsy</h2>
-        <p class="section-subtitle">A marketplace built on authenticity, trust, and cultural celebration</p>
-    </div>
+    <h2 class="section-title">Why Choose Artsy</h2>
+    <p class="section-subtitle">A marketplace built on authenticity, trust, and cultural celebration</p>
 
     <div class="features-grid">
         <div class="feature-card">
@@ -513,10 +615,8 @@
     </div>
 
     <!-- Popular Artisans Section -->
-    <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
-        <h2 class="section-title">Popular Artisans</h2>
-        <p class="section-subtitle">Meet the talented craftspeople creating extraordinary handmade pieces</p>
-    </div>
+    <h2 class="section-title">Popular Artisans</h2>
+    <p class="section-subtitle">Meet the talented craftspeople creating extraordinary handmade pieces</p>
 
     <div class="artisan-grid">
         <!-- Amara Okonkwo -->
@@ -557,10 +657,8 @@
     </div>
 
     <!-- Customer Reviews Section -->
-    <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
-        <h2 class="section-title">What Our Customers Say</h2>
-        <p class="section-subtitle">Join thousands of happy collectors celebrating African artistry</p>
-    </div>
+    <h2 class="section-title">What Our Customers Say</h2>
+    <p class="section-subtitle">Join thousands of happy collectors celebrating African artistry</p>
 
     <div class="reviews-grid" id="reviewsGrid">
         <!-- Reviews loaded by JavaScript -->
@@ -708,7 +806,8 @@
         }
 
         function toggleMenu() {
-            document.getElementById('navLinks').classList.toggle('active');
+            document.getElementById('navCenter').classList.toggle('active');
+            document.getElementById('navRight').classList.toggle('active');
         }
 
         // Load reviews on page load
