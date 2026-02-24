@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artsy - My Profile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: #f5f5f5;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .top-nav {
+            background: white;
+            padding: 20px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: #FF6B35;
+            text-decoration: none;
+        }
+        
+        .nav-center {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+        }
+        
+        .nav-center a {
+            color: #06070A;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .profile-icon {
+            width: 40px;
+            height: 40px;
+            background: #FF6B35;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        .profile-container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #FF6B35;
+            text-decoration: none;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        
+        .profile-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        
+        .profile-header {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            background: #FF6B35;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 40px;
+            font-weight: 600;
+        }
+        
+        .profile-info h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 32px;
+            margin-bottom: 5px;
+            color: #06070A;
+        }
+        
+        .profile-info .member-since {
+            color: #2C2C2B;
+            margin-bottom: 15px;
+        }
+        
+        .profile-stats {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .profile-stats div {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #FF6B35;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            color: #2C2C2B;
+        }
+        
+        .contact-info {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        
+        .contact-info p {
+            margin-bottom: 10px;
+            color: #2C2C2B;
+        }
+        
+        .contact-info a {
+            color: #FF6B35;
+            text-decoration: none;
+        }
+        
+        .orders-section h2 {
+            font-family: 'Poppins', sans-serif;
+            margin-bottom: 20px;
+            color: #06070A;
+        }
+        
+        .order-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .order-info h3 {
+            font-size: 16px;
+            margin-bottom: 5px;
+            color: #06070A;
+        }
+        
+        .order-info p {
+            color: #2C2C2B;
+            font-size: 14px;
+        }
+        
+        .order-amount {
+            font-size: 18px;
+            font-weight: 600;
+            color: #FF6B35;
+            margin-bottom: 5px;
+        }
+        
+        .order-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .order-btn {
+            padding: 6px 12px;
+            border: 1px solid #FF6B35;
+            border-radius: 4px;
+            color: #FF6B35;
+            text-decoration: none;
+            font-size: 12px;
+        }
+        
+        .order-btn:hover {
+            background: #FF6B35;
+            color: white;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-right: 10px;
+        }
+        
+        .status-delivered {
+            background: #10B981;
+            color: white;
+        }
+        
+        .status-transit {
+            background: #F59E0B;
+            color: white;
+        }
+        
+        .status-processing {
+            background: #6B7280;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-nav">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Artsy</a>
+            <div class="nav-center">
+                <a href="shop.html">Collections</a>
+                <a href="artisans.html">Artisans</a>
+                <a href="about.html">About</a>
+            </div>
+            <div class="nav-right">
+                <div class="profile-icon" onclick="location.href='buyer-dashboard.html'">SJ</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="profile-container">
+        <a href="shop.html" class="back-link">← Back to Shop</a>
+
+        <!-- Profile Card -->
+        <div class="profile-card">
+            <div class="profile-header">
+                <div class="profile-avatar">SJ</div>
+                <div class="profile-info">
+                    <h1>Sarah Johnson</h1>
+                    <div class="member-since">Member since January 2025</div>
+                    <div class="profile-stats">
+                        <div>
+                            <div class="stat-value">12</div>
+                            <div class="stat-label">Total Orders</div>
+                        </div>
+                        <div>
+                            <div class="stat-value">2</div>
+                            <div class="stat-label">Favorites</div>
+                        </div>
+                        <div>
+                            <div class="stat-value">$2,340</div>
+                            <div class="stat-label">Total Spent</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-info">
+                <p>📍 New York, USA</p>
+                <p>📧 <a href="mailto:sarah.johnson@email.com">sarah.johnson@email.com</a></p>
+                <p>📞 +1 (555) 123-4567</p>
+            </div>
+        </div>
+
+        <!-- Order History -->
+        <div class="orders-section">
+            <h2>Order History</h2>
+
+            <!-- Order 1 -->
+            <div class="order-card">
+                <div>
+                    <span class="status-badge status-delivered">Delivered</span>
+                    <h3>#ORD-2024-001</h3>
+                    <p>Feb 15, 2026 • 2 Items</p>
+                </div>
+                <div style="text-align: right;">
+                    <div class="order-amount">$234</div>
+                    <div class="order-actions">
+                        <a href="#" class="order-btn">Track Order</a>
+                        <a href="#" class="order-btn">View Details</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Order 2 -->
+            <div class="order-card">
+                <div>
+                    <span class="status-badge status-transit">In Transit</span>
+                    <h3>#ORD-2024-002</h3>
+                    <p>Feb 10, 2026 • 1 Item</p>
+                </div>
+                <div style="text-align: right;">
+                    <div class="order-amount">$145</div>
+                    <div class="order-actions">
+                        <a href="#" class="order-btn">Track Order</a>
+                        <a href="#" class="order-btn">View Details</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Order 3 -->
+            <div class="order-card">
+                <div>
+                    <span class="status-badge status-processing">Processing</span>
+                    <h3>#ORD-2024-003</h3>
+                    <p>Feb 5, 2026 • 3 Items</p>
+                </div>
+                <div style="text-align: right;">
+                    <div class="order-amount">$567</div>
+                    <div class="order-actions">
+                        <a href="#" class="order-btn">Track Order</a>
+                        <a href="#" class="order-btn">View Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
