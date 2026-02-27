@@ -548,6 +548,22 @@ document.getElementById('productProcessing').textContent = product.processing;
             }
         }
 
+        // Update cart count in navigation
+function updateCartCount() {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const cartCountElements = document.querySelectorAll('.cart-count');
+    const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+    
+    cartCountElements.forEach(el => {
+        el.textContent = totalItems;
+    });
+}
+
+// Call on page load
+document.addEventListener('DOMContentLoaded', function() {
+    updateCartCount();
+});
+
         function addToCart() {
     const qty = parseInt(document.getElementById('quantity').textContent);
     
@@ -578,18 +594,87 @@ document.getElementById('productProcessing').textContent = product.processing;
     // Save back to localStorage
     localStorage.setItem('cart', JSON.stringify(cart));
     
-    // Update cart count in navigation
-    updateCartCount();
-    
-    // Show success message
-    alert(`✅ Added ${qty} ${product.title} to cart!`);
-    
-    // Optional: Redirect to cart page
-    const goToCart = confirm('Item added! Go to cart now?');
-    if (goToCart) {
-        window.location.href = 'cart.html';
+    <script>
+    // Update cart count function
+    function updateCartCount() {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const cartCountElements = document.querySelectorAll('.cart-count');
+        const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+        
+        cartCountElements.forEach(el => {
+            el.textContent = totalItems;
+        });
     }
-}
-    </script>
+
+    // Get product ID from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const productId = urlParams.get('id');
+    
+    // Product data (your existing products object)
+    const products = {
+        // ... your product data
+    };
+    
+    // Load product data
+    const product = products[productId] || products[1];
+    
+    // Set image
+    document.getElementById('productImage').src = product.image || 'https://i.imgur.com/Dy2il7s.png';
+    document.getElementById('productImage').alt = product.title;
+    
+    // Update other elements
+    document.getElementById('productTitle').textContent = product.title;
+    document.getElementById('artisanName').textContent = product.artisan;
+    document.getElementById('artisanName').href = `artisan-profile.html?id=${product.artisanId}`;
+    document.getElementById('productPrice').textContent = `$${product.price}`;
+    document.getElementById('productDescription').textContent = product.description;
+    document.getElementById('productRegion').textContent = product.region;
+    document.getElementById('productMaterial').textContent = product.material;
+    document.getElementById('productProcessing').textContent = product.processing;
+    
+    // Call updateCartCount on page load
+    document.addEventListener('DOMContentLoaded', updateCartCount);
+    
+    function addToCart() {
+        const qty = parseInt(document.getElementById('quantity').textContent);
+        
+        const cartItem = {
+            id: product.id,
+            title: product.title,
+            price: product.price,
+            quantity: qty,
+            image: product.image,
+            artisan: product.artisan
+        };
+        
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        
+        const existingItemIndex = cart.findIndex(item => item.id === product.id);
+        
+        if (existingItemIndex !== -1) {
+            cart[existingItemIndex].quantity += qty;
+        } else {
+            cart.push(cartItem);
+        }
+        
+        localStorage.setItem('cart', JSON.stringify(cart));
+        updateCartCount();
+        
+        alert(`✅ Added ${qty} ${product.title} to cart!`);
+        
+        const goToCart = confirm('Item added! Go to cart now?');
+        if (goToCart) {
+            window.location.href = 'cart.html';
+        }
+    }
+    
+    function saveItem() {
+        alert(`❤️ ${product.title} saved to your collection!`);
+    }
+    
+    function translateProduct(language) {
+        alert(`🌍 AI Translation to ${language} coming soon!`);
+    }
+</script>
 </body>
 </html>
