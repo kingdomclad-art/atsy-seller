@@ -549,20 +549,47 @@ document.getElementById('productProcessing').textContent = product.processing;
         }
 
         function addToCart() {
-            const qty = document.getElementById('quantity').textContent;
-            alert(`Added ${qty} ${product.title} to cart! 🛒`);
-            // In real app, this would update the cart in database
-        }
-
-        function saveItem() {
-            alert(`❤️ ${product.title} saved to your collection!`);
-            // In real app, this would add to saved items in database
-        }
-
-        function translateProduct(language) {
-            alert(`🌍 AI Translation to ${language} coming soon!`);
-            // In real app, this would call a translation API
-        }
+    const qty = parseInt(document.getElementById('quantity').textContent);
+    
+    // Create cart item object
+    const cartItem = {
+        id: product.id,
+        title: product.title,
+        price: product.price,
+        quantity: qty,
+        image: product.image,
+        artisan: product.artisan
+    };
+    
+    // Get existing cart from localStorage
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    
+    // Check if item already exists in cart
+    const existingItemIndex = cart.findIndex(item => item.id === product.id);
+    
+    if (existingItemIndex !== -1) {
+        // Update quantity if item exists
+        cart[existingItemIndex].quantity += qty;
+    } else {
+        // Add new item if it doesn't exist
+        cart.push(cartItem);
+    }
+    
+    // Save back to localStorage
+    localStorage.setItem('cart', JSON.stringify(cart));
+    
+    // Update cart count in navigation
+    updateCartCount();
+    
+    // Show success message
+    alert(`✅ Added ${qty} ${product.title} to cart!`);
+    
+    // Optional: Redirect to cart page
+    const goToCart = confirm('Item added! Go to cart now?');
+    if (goToCart) {
+        window.location.href = 'cart.html';
+    }
+}
     </script>
 </body>
 </html>
