@@ -100,6 +100,15 @@
             cursor: pointer;
         }
         
+        .profile-image {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #FF6B35;
+            cursor: pointer;
+        }
+        
         .product-container {
             max-width: 1200px;
             margin: 40px auto;
@@ -124,19 +133,19 @@
         }
         
         .product-image-container {
-    width: 100%;
-    height: 400px;
-    border-radius: 12px;
-    overflow: hidden;
-    background: #f5f5f5;
-}
-
-.product-detail-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-}
+            width: 100%;
+            height: 400px;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #f5f5f5;
+        }
+        
+        .product-detail-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
         
         .product-title {
             font-family: 'Poppins', sans-serif;
@@ -330,9 +339,11 @@
             <div class="nav-right">
                 <div class="cart-icon" onclick="location.href='cart.html'">
                     🛒
-                    <span class="cart-count">2</span>
+                    <span class="cart-count" id="cartCount">0</span>
                 </div>
-                <div class="profile-icon" onclick="location.href='buyer-dashboard.html'">SJ</div>
+                <div class="profile-icon" onclick="location.href='buyer-dashboard.html'">
+                    <img src="https://i.imgur.com/q5dusrP.jpeg" alt="Profile" class="profile-image">
+                </div>
             </div>
         </div>
     </div>
@@ -341,11 +352,11 @@
         <a href="shop.html" class="back-link">← Back to Collections</a>
 
         <!-- Product Details -->
-<div class="product-grid">
-    <!-- Product Image -->
-    <div class="product-image-container">
-        <img id="productImage" src="" alt="Product Image" class="product-detail-image">
-    </div>
+        <div class="product-grid">
+            <!-- Product Image -->
+            <div class="product-image-container">
+                <img id="productImage" src="" alt="Product Image" class="product-detail-image">
+            </div>
 
             <!-- Product Info -->
             <div>
@@ -353,8 +364,8 @@
                 
                 <div class="product-artisan">
                     <span>by</span>
-                    <a href="artisan-profile.html?id=amara" class="artisan-link" id="artisanName">Amara Okonkwo</a>
-                    <span>• Lagos, Nigeria</span>
+                    <a href="#" id="artisanName" class="artisan-link">Amara Okonkwo</a>
+                    <span id="productCountry">• Nigeria</span>
                 </div>
 
                 <div class="product-rating" id="productRating">
@@ -378,7 +389,7 @@
                         <div class="meta-value" id="productMaterial">Natural Palm Fiber</div>
                     </div>
                     <div class="meta-item">
-                        <div class="meta-label">Processing Time</div>
+                        <div class="meta-label">Processing</div>
                         <div class="meta-value" id="productProcessing">3-5 days</div>
                     </div>
                 </div>
@@ -428,117 +439,129 @@
     </div>
 
     <script>
+        // Update cart count function
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const cartCountElements = document.querySelectorAll('.cart-count');
+            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            
+            cartCountElements.forEach(el => {
+                el.textContent = totalItems;
+            });
+        }
+
         // Get product ID from URL
-        // Get product ID from URL
-const urlParams = new URLSearchParams(window.location.search);
-const productId = urlParams.get('id');
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = urlParams.get('id');
 
-// Product data with images
-const products = {
-    1: {
-        title: 'Handwoven Storage Basket',
-        artisan: 'Amara Okonkwo',
-        artisanId: 'amara',
-        region: 'West Africa',
-        country: 'Nigeria',
-        rating: 4.9,
-        reviews: 127,
-        price: 145,
-        image: 'https://i.imgur.com/VIVSD1Z.png', 
-        description: 'This beautiful handwoven storage basket...',
-        material: 'Natural Palm Fiber',
-        processing: '3-5 days'
-    },
-    2: {
-        title: 'Beaded Statement Necklace',
-        artisan: 'Fatima Hassan',
-        artisanId: 'fatima',
-        region: 'North Africa',
-        country: 'Morocco',
-        rating: 4.8,
-        reviews: 203,
-        price: 89,
-        image: 'https://i.imgur.com/OTkFVih.png', 
-        description: 'Handcrafted by master artisans...',
-        material: 'Silver, Glass Beads',
-        processing: '2-3 days'
-    },
-    3: {
-        title: 'Zulu Beadwork Bracelet',
-        artisan: 'Thabo Ndlovu',
-        artisanId: 'thabo',
-        region: 'Southern Africa',
-        country: 'South Africa',
-        rating: 4.9,
-        reviews: 234,
-        price: 65,
-        image: 'https://i.imgur.com/Dy2il7s.png',
-        description: 'Traditional Zulu beadwork bracelet...',
-        material: 'Glass Beads, Leather',
-        processing: '1-2 days'
-    },
-    4: {
-    title: 'Traditional Kente Cloth',
-    artisan: 'Esi Adade',
-    artisanId: 'esi',
-    region: 'West Africa',
-    country: 'Ghana',
-    rating: 5.0,
-    reviews: 92,
-    price: 425,
-    image: 'https://i.imgur.com/XcQE7fb.png', 
-    description: 'Handwoven Kente cloth from Ghana, featuring vibrant traditional patterns that tell stories of heritage and royalty. Each piece takes weeks to complete by master weavers.',
-    material: 'Cotton, Silk',
-    processing: '2-3 weeks'
-},
-5: {
-    title: 'Hand-Carved Wooden Mask',
-    artisan: 'Kofi Asamoah',
-    artisanId: 'kofi',
-    region: 'West Africa',
-    country: 'Ghana',
-    rating: 4.9,
-    reviews: 156,
-    price: 275,
-    image: 'https://i.imgur.com/nkSZHUz.png', 
-    description: 'Traditional wooden mask hand-carved from sustainable sese wood. Each mask represents spirits and ancestors, used in ceremonies and now cherished as art.',
-    material: 'Sese Wood, Natural Dyes',
-    processing: '1-2 weeks'
-},
-6: {
-    title: 'Maasai Beaded Necklace',
-    artisan: 'Nashega Kilel',
-    artisanId: 'nashega',
-    region: 'East Africa',
-    country: 'Kenya',
-    rating: 4.8,
-    reviews: 199,
-    price: 120,
-    image: 'https://i.imgur.com/iayXBSD.png', 
-    description: 'Traditional Maasai beadwork necklace handcrafted by artisans in Kenya. The colorful patterns represent age, status, and cultural values of the Maasai people.',
-    material: 'Glass Beads, Leather',
-    processing: '3-5 days'
-}
+        // Product data with images
+        const products = {
+            1: {
+                title: 'Handwoven Storage Basket',
+                artisan: 'Amara Okonkwo',
+                artisanId: 'amara',
+                region: 'West Africa',
+                country: 'Nigeria',
+                rating: 4.9,
+                reviews: 127,
+                price: 145,
+                image: 'https://i.imgur.com/q5dusrP.jpeg',
+                description: 'This beautiful handwoven storage basket is crafted from natural palm fibers using traditional techniques passed down through generations. Each basket takes approximately 3-4 days to complete and features intricate patterns that tell stories of West African heritage.',
+                material: 'Natural Palm Fiber',
+                processing: '3-5 days'
+            },
+            2: {
+                title: 'Beaded Statement Necklace',
+                artisan: 'Fatima Hassan',
+                artisanId: 'fatima',
+                region: 'North Africa',
+                country: 'Morocco',
+                rating: 4.8,
+                reviews: 203,
+                price: 89,
+                image: 'https://i.imgur.com/YOUR-NECKLACE-IMAGE.jpg',
+                description: 'Handcrafted by master artisans in Marrakech, this stunning necklace combines traditional Berber silverwork with colorful glass beads. Each piece tells a story of North African craftsmanship.',
+                material: 'Silver, Glass Beads',
+                processing: '2-3 days'
+            },
+            3: {
+                title: 'Zulu Beadwork Bracelet',
+                artisan: 'Thabo Ndlovu',
+                artisanId: 'thabo',
+                region: 'Southern Africa',
+                country: 'South Africa',
+                rating: 4.9,
+                reviews: 234,
+                price: 65,
+                image: 'https://i.imgur.com/Dy2il7s.png',
+                description: 'Traditional Zulu beadwork bracelet crafted with glass beads and leather. Each color pattern carries specific meanings - love, prosperity, and cultural identity.',
+                material: 'Glass Beads, Leather',
+                processing: '1-2 days'
+            },
+            4: {
+                title: 'Traditional Kente Cloth',
+                artisan: 'Esi Adade',
+                artisanId: 'esi',
+                region: 'West Africa',
+                country: 'Ghana',
+                rating: 5.0,
+                reviews: 92,
+                price: 425,
+                image: 'https://i.imgur.com/YOUR-KENTE-IMAGE.jpg',
+                description: 'Handwoven Kente cloth from Ghana, featuring vibrant traditional patterns that tell stories of heritage and royalty. Each piece takes weeks to complete by master weavers.',
+                material: 'Cotton, Silk',
+                processing: '2-3 weeks'
+            },
+            5: {
+                title: 'Hand-Carved Wooden Mask',
+                artisan: 'Kofi Asamoah',
+                artisanId: 'kofi',
+                region: 'West Africa',
+                country: 'Ghana',
+                rating: 4.9,
+                reviews: 156,
+                price: 275,
+                image: 'https://i.imgur.com/YOUR-MASK-IMAGE.jpg',
+                description: 'Traditional wooden mask hand-carved from sustainable sese wood. Each mask represents spirits and ancestors, used in ceremonies and now cherished as art.',
+                material: 'Sese Wood, Natural Dyes',
+                processing: '1-2 weeks'
+            },
+            6: {
+                title: 'Maasai Beaded Necklace',
+                artisan: 'Nashega Kilel',
+                artisanId: 'nashega',
+                region: 'East Africa',
+                country: 'Kenya',
+                rating: 4.8,
+                reviews: 199,
+                price: 120,
+                image: 'https://i.imgur.com/YOUR-MAASAI-IMAGE.jpg',
+                description: 'Traditional Maasai beadwork necklace handcrafted by artisans in Kenya. The colorful patterns represent age, status, and cultural values of the Maasai people.',
+                material: 'Glass Beads, Leather',
+                processing: '3-5 days'
+            }
+        };
 
-};
+        // Load product data
+        const product = products[productId] || products[1];
 
-// Load product data
-const product = products[productId] || products[1];
+        // Set image
+        document.getElementById('productImage').src = product.image || 'https://i.imgur.com/Dy2il7s.png';
+        document.getElementById('productImage').alt = product.title;
 
-// Set the image
-document.getElementById('productImage').src = product.image || 'https://i.imgur.com/Dy2il7s.png';
-document.getElementById('productImage').alt = product.title;
+        // Update other elements
+        document.getElementById('productTitle').textContent = product.title;
+        document.getElementById('artisanName').textContent = product.artisan;
+        document.getElementById('artisanName').href = `artisan-profile.html?id=${product.artisanId}`;
+        document.getElementById('productCountry').textContent = `• ${product.country}`;
+        document.getElementById('productRating').innerHTML = `<span>★★★★½</span> <span>(${product.reviews} reviews)</span>`;
+        document.getElementById('productPrice').textContent = `$${product.price}`;
+        document.getElementById('productDescription').textContent = product.description;
+        document.getElementById('productRegion').textContent = product.region;
+        document.getElementById('productMaterial').textContent = product.material;
+        document.getElementById('productProcessing').textContent = product.processing;
 
-// Update other elements
-document.getElementById('productTitle').textContent = product.title;
-document.getElementById('artisanName').textContent = product.artisan;
-document.getElementById('artisanName').href = `artisan-profile.html?id=${product.artisanId}`;
-document.getElementById('productPrice').textContent = `$${product.price}`;
-document.getElementById('productDescription').textContent = product.description;
-document.getElementById('productRegion').textContent = product.region;
-document.getElementById('productMaterial').textContent = product.material;
-document.getElementById('productProcessing').textContent = product.processing;
-
+        // Quantity selector
         function updateQuantity(change) {
             const qtyElement = document.getElementById('quantity');
             let currentQty = parseInt(qtyElement.textContent);
@@ -548,133 +571,52 @@ document.getElementById('productProcessing').textContent = product.processing;
             }
         }
 
-        // Update cart count in navigation
-function updateCartCount() {
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    const cartCountElements = document.querySelectorAll('.cart-count');
-    const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
-    
-    cartCountElements.forEach(el => {
-        el.textContent = totalItems;
-    });
-}
-
-// Call on page load
-document.addEventListener('DOMContentLoaded', function() {
-    updateCartCount();
-});
-
+        // Add to cart function
         function addToCart() {
-    const qty = parseInt(document.getElementById('quantity').textContent);
-    
-    // Create cart item object
-    const cartItem = {
-        id: product.id,
-        title: product.title,
-        price: product.price,
-        quantity: qty,
-        image: product.image,
-        artisan: product.artisan
-    };
-    
-    // Get existing cart from localStorage
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
-    
-    // Check if item already exists in cart
-    const existingItemIndex = cart.findIndex(item => item.id === product.id);
-    
-    if (existingItemIndex !== -1) {
-        // Update quantity if item exists
-        cart[existingItemIndex].quantity += qty;
-    } else {
-        // Add new item if it doesn't exist
-        cart.push(cartItem);
-    }
-    
-    // Save back to localStorage
-    localStorage.setItem('cart', JSON.stringify(cart));
-    
-    <script>
-    // Update cart count function
-    function updateCartCount() {
-        const cart = JSON.parse(localStorage.getItem('cart')) || [];
-        const cartCountElements = document.querySelectorAll('.cart-count');
-        const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
-        
-        cartCountElements.forEach(el => {
-            el.textContent = totalItems;
-        });
-    }
+            const qty = parseInt(document.getElementById('quantity').textContent);
+            
+            const cartItem = {
+                id: product.id,
+                title: product.title,
+                price: product.price,
+                quantity: qty,
+                image: product.image,
+                artisan: product.artisan
+            };
+            
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            
+            const existingItemIndex = cart.findIndex(item => item.id === product.id);
+            
+            if (existingItemIndex !== -1) {
+                cart[existingItemIndex].quantity += qty;
+            } else {
+                cart.push(cartItem);
+            }
+            
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+            
+            alert(`✅ Added ${qty} ${product.title} to cart!`);
+            
+            const goToCart = confirm('Item added! Go to cart now?');
+            if (goToCart) {
+                window.location.href = 'cart.html';
+            }
+        }
 
-    // Get product ID from URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const productId = urlParams.get('id');
-    
-    // Product data (your existing products object)
-    const products = {
-        // ... your product data
-    };
-    
-    // Load product data
-    const product = products[productId] || products[1];
-    
-    // Set image
-    document.getElementById('productImage').src = product.image || 'https://i.imgur.com/Dy2il7s.png';
-    document.getElementById('productImage').alt = product.title;
-    
-    // Update other elements
-    document.getElementById('productTitle').textContent = product.title;
-    document.getElementById('artisanName').textContent = product.artisan;
-    document.getElementById('artisanName').href = `artisan-profile.html?id=${product.artisanId}`;
-    document.getElementById('productPrice').textContent = `$${product.price}`;
-    document.getElementById('productDescription').textContent = product.description;
-    document.getElementById('productRegion').textContent = product.region;
-    document.getElementById('productMaterial').textContent = product.material;
-    document.getElementById('productProcessing').textContent = product.processing;
-    
-    // Call updateCartCount on page load
-    document.addEventListener('DOMContentLoaded', updateCartCount);
-    
-    function addToCart() {
-        const qty = parseInt(document.getElementById('quantity').textContent);
-        
-        const cartItem = {
-            id: product.id,
-            title: product.title,
-            price: product.price,
-            quantity: qty,
-            image: product.image,
-            artisan: product.artisan
-        };
-        
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-        
-        const existingItemIndex = cart.findIndex(item => item.id === product.id);
-        
-        if (existingItemIndex !== -1) {
-            cart[existingItemIndex].quantity += qty;
-        } else {
-            cart.push(cartItem);
+        function saveItem() {
+            alert(`❤️ ${product.title} saved to your collection!`);
         }
-        
-        localStorage.setItem('cart', JSON.stringify(cart));
-        updateCartCount();
-        
-        alert(`✅ Added ${qty} ${product.title} to cart!`);
-        
-        const goToCart = confirm('Item added! Go to cart now?');
-        if (goToCart) {
-            window.location.href = 'cart.html';
+
+        function translateProduct(language) {
+            alert(`🌍 AI Translation to ${language} coming soon!`);
         }
-    }
-    
-    function saveItem() {
-        alert(`❤️ ${product.title} saved to your collection!`);
-    }
-    
-    function translateProduct(language) {
-        alert(`🌍 AI Translation to ${language} coming soon!`);
-    }
-</script>
+
+        // Call updateCartCount on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCartCount();
+        });
+    </script>
 </body>
 </html>
