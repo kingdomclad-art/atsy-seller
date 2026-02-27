@@ -358,12 +358,12 @@
     <script>
         // Product data
         const products = [
-            { id: 1, title: 'Handwoven Storage Basket', artisan: 'Amara Okonkwo', region: 'west', country: 'Nigeria', category: 'Baskets', rating: 4.9, reviews: 127, price: 145 },
-            { id: 2, title: 'Beaded Statement Necklace', artisan: 'Fatima Hassan', region: 'north', country: 'Morocco', category: 'Jewelry', rating: 4.8, reviews: 203, price: 89 },
+            { id: 1, title: 'Handwoven Storage Basket', artisan: 'Amara Okonkwo', region: 'west', country: 'Nigeria', category: 'Baskets', rating: 4.9, reviews: 127, price: 145, image: 'https://i.imgur.com/VIVSD1Z.png' },
+            { id: 2, title: 'Beaded Statement Necklace', artisan: 'Fatima Hassan', region: 'north', country: 'Morocco', category: 'Jewelry', rating: 4.8, reviews: 203, price: 89, image: 'https://i.imgur.com/OTkFVih.png' },
             { id: 3, title: 'Zulu Beadwork Bracelet', artisan: 'Thabo Ndlovu', region: 'southern', country: 'South Africa', category: 'Beadwork', rating: 4.9, reviews: 234, price: 65, image: 'https://i.imgur.com/Dy2il7s.png'},
-            { id: 4, title: 'Traditional Kente Cloth', artisan: 'Esi Adade', region: 'west', country: 'Ghana', category: 'Textiles', rating: 5.0, reviews: 92, price: 425 },
-            { id: 5, title: 'Hand-Carved Wooden Mask', artisan: 'Kofi Asamoah', region: 'west', country: 'Ghana', category: 'Woodcarving', rating: 4.9, reviews: 156, price: 275 },
-            { id: 6, title: 'Maasai Beaded Necklace', artisan: 'Nashega Kilel', region: 'east', country: 'Kenya', category: 'Beadwork', rating: 4.8, reviews: 199, price: 120 }
+            { id: 4, title: 'Traditional Kente Cloth', artisan: 'Esi Adade', region: 'west', country: 'Ghana', category: 'Textiles', rating: 5.0, reviews: 92, price: 425, image: 'https://i.imgur.com/XcQE7fb.png' },
+            { id: 5, title: 'Hand-Carved Wooden Mask', artisan: 'Kofi Asamoah', region: 'west', country: 'Ghana', category: 'Woodcarving', rating: 4.9, reviews: 156, price: 275, image: 'https://i.imgur.com/nkSZHUz.png' },
+            { id: 6, title: 'Maasai Beaded Necklace', artisan: 'Nashega Kilel', region: 'east', country: 'Kenya', category: 'Beadwork', rating: 4.8, reviews: 199, price: 120, image: 'https://i.imgur.com/iayXBSD.png' }
         ];
 
         let currentCategory = 'all';
@@ -371,33 +371,38 @@
         let currentSort = 'featured';
 
         function displayProducts() {
-            let filtered = products.filter(p => {
-                const categoryMatch = currentCategory === 'all' || p.category === currentCategory;
-                const regionMatch = currentRegion === 'all' || p.region === currentRegion;
-                return categoryMatch && regionMatch;
-            });
+    let filtered = products.filter(p => {
+        const categoryMatch = currentCategory === 'all' || p.category === currentCategory;
+        const regionMatch = currentRegion === 'all' || p.region === currentRegion;
+        return categoryMatch && regionMatch;
+    });
 
-            // Sort
-            if (currentSort === 'price-low') {
-                filtered.sort((a, b) => a.price - b.price);
-            } else if (currentSort === 'price-high') {
-                filtered.sort((a, b) => b.price - a.price);
-            }
+    // Sort products
+    if (currentSort === 'price-low') {
+        filtered.sort((a, b) => a.price - b.price);
+    } else if (currentSort === 'price-high') {
+        filtered.sort((a, b) => b.price - a.price);
+    } else if (currentSort === 'rating') {
+        filtered.sort((a, b) => b.rating - a.rating);
+    }
 
-            document.getElementById('productCount').textContent = `${filtered.length} products`;
-            
-            document.getElementById('productsGrid').innerHTML = filtered.map(p => `
-                <div class="product-card" onclick="location.href='product.html?id=${p.id}'">
-                    <img src="https://ui-avatars.com/api/?name=${p.title.substring(0,3)}&size=200&background=FF6B35&color=fff" class="product-image">
-                    <div class="product-info">
-                        <h3 class="product-title">${p.title}</h3>
-                        <p class="product-artisan">by ${p.artisan} • ${p.country}</p>
-                        <div class="product-rating">★★★★½ (${p.reviews})</div>
-                        <div class="product-price">$${p.price}</div>
-                    </div>
-                </div>
-            `).join('');
-        }
+    document.getElementById('productCount').textContent = `${filtered.length} products`;
+    
+    document.getElementById('productsGrid').innerHTML = filtered.map(p => `
+        <div class="product-card" onclick="location.href='product.html?id=${p.id}'">
+            <img src="${p.image || 'https://i.imgur.com/Dy2il7s.png'}" 
+                 alt="${p.title}" 
+                 class="product-image"
+                 onerror="this.src='https://i.imgur.com/Dy2il7s.png'">
+            <div class="product-info">
+                <h3 class="product-title">${p.title}</h3>
+                <p class="product-artisan">by ${p.artisan} • ${p.country}</p>
+                <div class="product-rating">${'★'.repeat(Math.floor(p.rating))}${p.rating % 1 ? '½' : ''} (${p.reviews})</div>
+                <div class="product-price">$${p.price}</div>
+            </div>
+        </div>
+    `).join('');
+}
 
         function filterByCategory(category) {
             currentCategory = category;
