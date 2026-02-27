@@ -268,6 +268,17 @@ function showToast(message, type = 'success') {
   }, 3000);
 }
 
+// Update cart count in navigation
+function updateCartCount() {
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+  const cartCountElements = document.querySelectorAll('.cart-count');
+  const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+  
+  cartCountElements.forEach(el => {
+      el.textContent = totalItems;
+  });
+}
+
 // Initialize page
 document.addEventListener('DOMContentLoaded', function () {
   // Close mobile menu when clicking outside
@@ -282,3 +293,4 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 });
+
