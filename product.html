@@ -429,40 +429,41 @@
 
     <script>
         // Get product ID from URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const productId = urlParams.get('id');
-        
-        // Product data (in real app, this would come from database)
-        const products = {
-            1: {
-                title: 'Handwoven Storage Basket',
-                artisan: 'Amara Okonkwo',
-                artisanId: 'amara',
-                region: 'West Africa',
-                country: 'Nigeria',
-                rating: 4.9,
-                reviews: 127,
-                price: 145,
-                image: 'https://i.imgur.com/VIVSD1Z.png',
-                material: 'Natural Palm Fiber',
-                processing: '3-5 days',
-                description: 'This beautiful handwoven storage basket is crafted from natural palm fibers using traditional techniques passed down through generations. Each basket takes approximately 3-4 days to complete and features intricate patterns that tell stories of West African heritage.'
-            },
-            2: {
-                title: 'Beaded Statement Necklace',
-                artisan: 'Fatima Hassan',
-                artisanId: 'fatima',
-                region: 'North Africa',
-                country: 'Morocco',
-                rating: 4.8,
-                reviews: 203,
-                price: 89,
-                image: 'https://i.imgur.com/OTkFVih.png',
-                material: 'Silver, Glass Beads',
-                processing: '2-3 days',
-                description: 'Handcrafted by master artisans in Marrakech, this stunning necklace combines traditional Berber silverwork with colorful glass beads. Each piece tells a story of North African craftsmanship.'
-            },
-            3: {
+        // Get product ID from URL
+const urlParams = new URLSearchParams(window.location.search);
+const productId = urlParams.get('id');
+
+// Product data with images
+const products = {
+    1: {
+        title: 'Handwoven Storage Basket',
+        artisan: 'Amara Okonkwo',
+        artisanId: 'amara',
+        region: 'West Africa',
+        country: 'Nigeria',
+        rating: 4.9,
+        reviews: 127,
+        price: 145,
+        image: 'https://i.imgur.com/YOUR-BASKET-IMAGE.jpg', // Replace with your actual link
+        description: 'This beautiful handwoven storage basket...',
+        material: 'Natural Palm Fiber',
+        processing: '3-5 days'
+    },
+    2: {
+        title: 'Beaded Statement Necklace',
+        artisan: 'Fatima Hassan',
+        artisanId: 'fatima',
+        region: 'North Africa',
+        country: 'Morocco',
+        rating: 4.8,
+        reviews: 203,
+        price: 89,
+        image: 'https://i.imgur.com/YOUR-NECKLACE-IMAGE.jpg', // Replace with your actual link
+        description: 'Handcrafted by master artisans...',
+        material: 'Silver, Glass Beads',
+        processing: '2-3 days'
+    },
+    3: {
         title: 'Zulu Beadwork Bracelet',
         artisan: 'Thabo Ndlovu',
         artisanId: 'thabo',
@@ -472,25 +473,29 @@
         reviews: 234,
         price: 65,
         image: 'https://i.imgur.com/Dy2il7s.png',
+        description: 'Traditional Zulu beadwork bracelet...',
         material: 'Glass Beads, Leather',
-        processing: '1-2 days',
-        description: 'Traditional Zulu beadwork bracelet...'
-    },
-        };
+        processing: '1-2 days'
+    }
+    // Add products 4, 5, 6 with their images
+};
 
-        // Load product data
-        const product = products[productId] || products[1];
-        
-        document.getElementById('productTitle').textContent = product.title;
-        document.getElementById('artisanName').textContent = product.artisan;
-        document.getElementById('artisanName').href = `artisan-profile.html?id=${product.artisanId}`;
-        document.getElementById('productRating').innerHTML = `<span>★★★★½</span> <span>(${product.reviews} reviews)</span>`;
-        document.getElementById('productPrice').textContent = `$${product.price}`;
-        document.getElementById('productDescription').textContent = product.description;
-        document.getElementById('productRegion').textContent = product.region;
-        document.getElementById('productMaterial').textContent = product.material;
-        document.getElementById('productProcessing').textContent = product.processing;
-        document.getElementById('productImage').textContent = product.icon;
+// Load product data
+const product = products[productId] || products[1];
+
+// Set the image
+document.getElementById('productImage').src = product.image || 'https://i.imgur.com/Dy2il7s.png';
+document.getElementById('productImage').alt = product.title;
+
+// Update other elements
+document.getElementById('productTitle').textContent = product.title;
+document.getElementById('artisanName').textContent = product.artisan;
+document.getElementById('artisanName').href = `artisan-profile.html?id=${product.artisanId}`;
+document.getElementById('productPrice').textContent = `$${product.price}`;
+document.getElementById('productDescription').textContent = product.description;
+document.getElementById('productRegion').textContent = product.region;
+document.getElementById('productMaterial').textContent = product.material;
+document.getElementById('productProcessing').textContent = product.processing;
 
         function updateQuantity(change) {
             const qtyElement = document.getElementById('quantity');
